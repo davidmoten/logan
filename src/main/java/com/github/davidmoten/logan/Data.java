@@ -83,7 +83,7 @@ public class Data {
 
 	}
 
-	public Iterable<Bucket> find(final BucketQuery query) {
+	public Buckets find(final BucketQuery query) {
 
 		Iterable<LogEntry> entries = find(query.getStartTime().getTime(),
 				query.getFinishTime(), query.getName());
@@ -95,6 +95,17 @@ public class Data {
 								query.getName());
 					}
 				});
-		return null;
+		Buckets buckets = new Buckets(query);
+		for (LogEntry entry : filtered) {
+			String s = entry.getProperties().get(query.getName());
+			try {
+				double d = Double.parseDouble(s);
+				buckets.add(entry.getTime(), d);
+			} catch (NumberFormatException e) {
+				// ignored value because non-numeric
+			}
+		}
+
+		return buckets;
 	}
 }

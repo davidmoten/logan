@@ -38,7 +38,7 @@ public class Buckets {
 	 * @param value
 	 */
 	public void add(long timestamp, double value) {
-		if (collate()) {
+		if (query.performAggregation()) {
 			int bucketIndex = (int) ((timestamp - query.getStartTime()
 					.getTime()) / query.getIntervalSizeMs());
 			if (bucketIndex < buckets.size()) {
@@ -52,10 +52,6 @@ public class Buckets {
 			buckets.add(bucket);
 			allBucket.add(timestamp, value);
 		}
-	}
-
-	private boolean collate() {
-		return query.getNumIntervals() > 0;
 	}
 
 	public List<Bucket> getBuckets() {

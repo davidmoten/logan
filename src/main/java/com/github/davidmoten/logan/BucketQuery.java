@@ -49,6 +49,10 @@ public class BucketQuery {
 		return numIntervals;
 	}
 
+	public boolean performAggregation() {
+		return numIntervals > 0;
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
