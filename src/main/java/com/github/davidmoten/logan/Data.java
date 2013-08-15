@@ -56,13 +56,13 @@ public class Data {
 	}
 
 	public synchronized Iterable<LogEntry> find(final long startTime,
-			final long finishTime, final String name) {
+			final long finishTime) {
 
 		return new Iterable<LogEntry>() {
 
 			@Override
 			public Iterator<LogEntry> iterator() {
-				return createIterator(startTime, finishTime, name);
+				return createIterator(startTime, finishTime);
 			}
 
 		};
@@ -70,7 +70,7 @@ public class Data {
 	}
 
 	private synchronized Iterator<LogEntry> createIterator(
-			final long startTime, final long finishTime, String name) {
+			final long startTime, final long finishTime) {
 
 		return new Iterator<LogEntry>() {
 
@@ -81,7 +81,7 @@ public class Data {
 			@Override
 			public boolean hasNext() {
 				if (it == null || !it.hasNext())
-					return t != null && t < last;
+					return t != null && t <= last;
 				else
 					return it.hasNext();
 			}
@@ -107,7 +107,7 @@ public class Data {
 	public synchronized Buckets find(final BucketQuery query) {
 
 		Iterable<LogEntry> entries = find(query.getStartTime().getTime(),
-				query.getFinishTime(), query.getName());
+				query.getFinishTime());
 		Iterable<LogEntry> filtered = Iterables.filter(entries,
 				new Predicate<LogEntry>() {
 					@Override
