@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.TreeMap;
+import java.util.TreeSet;
 
 import com.google.common.base.Predicate;
 import com.google.common.base.Supplier;
@@ -12,11 +13,21 @@ import com.google.common.collect.ListMultimap;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Multimaps;
+import com.google.common.collect.Sets;
 
 public class Data {
 
+	private static Data instance;
+
+	public static synchronized Data instance() {
+		if (instance == null)
+			instance = new Data();
+		return instance;
+	}
+
 	private TreeMap<Long, Collection<LogEntry>> map;
 	private ListMultimap<Long, LogEntry> facade;
+	private final TreeSet<String> keys = Sets.newTreeSet();
 
 	public Data() {
 		map = Maps.newTreeMap();
@@ -30,6 +41,7 @@ public class Data {
 
 	public synchronized Data add(LogEntry entry) {
 		facade.put(entry.getTime(), entry);
+		keys.addAll(entry.getProperties().keySet());
 		return this;
 	}
 
@@ -110,5 +122,9 @@ public class Data {
 
 	public synchronized long getNumEntries() {
 		return facade.size();
+	}
+
+	public TreeSet<String> getKeys() {
+		return keys;
 	}
 }

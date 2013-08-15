@@ -36,7 +36,7 @@
 		<jetty.plugin.version>8.1.8.v20121106</jetty.plugin.version>
 		<jetty.port>9292</jetty.port>
 		<jetty.stop.port>9998</jetty.stop.port>
-		<log.server.url>http://localhost:9191</log.server.url>
+		<log.server.url>http://localhost:8080</log.server.url>
 	</properties>
 
 	<licenses>
@@ -84,13 +84,13 @@
 			<artifactId>guava</artifactId>
 			<version>14.0.1</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
 			<version>2.4</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.eclipse.jetty</groupId>
 			<artifactId>jetty-servlets</artifactId>
@@ -98,11 +98,11 @@
 		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>
-			<artifactId>servlet-api</artifactId>
-			<version>2.5</version>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.0.1</version>
 			<scope>provided</scope>
 		</dependency>
-		
+
 		<!-- Test Dependencies -->
 		<dependency>
 			<groupId>junit</groupId>

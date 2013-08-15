@@ -1,4 +1,4 @@
-package org.moten.david.log.ui;
+package com.github.davidmoten.logan.ui;
 
 public class Configuration {
 
@@ -9,6 +9,10 @@ public class Configuration {
 
 	public static String getLogServerBaseUrl() {
 		return logServerBaseUrl;
+	}
+
+	public static boolean isRemote() {
+		return false;
 	}
 
 }

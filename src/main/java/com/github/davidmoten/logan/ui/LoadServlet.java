@@ -1,4 +1,4 @@
-package org.moten.david.log.ui;
+package com.github.davidmoten.logan.ui;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -7,12 +7,14 @@ import java.net.URISyntaxException;
 import java.net.URL;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.IOUtils;
 
+@WebServlet(urlPatterns = { "/load" })
 public class LoadServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 8469220097421061495L;
