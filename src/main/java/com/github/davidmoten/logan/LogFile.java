@@ -110,7 +110,8 @@ public class LogFile {
 
 			@Override
 			public synchronized void handle(String line) {
-				log.fine(source + ": " + line);
+				log.fine(new StringBuilder().append(source).append(":")
+						.append(line).toString());
 				try {
 					LogEntry entry = parser.parse(source, line);
 					if (entry != null) {
