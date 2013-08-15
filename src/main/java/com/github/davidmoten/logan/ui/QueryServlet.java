@@ -28,9 +28,9 @@ import com.github.davidmoten.logan.Metric;
 import com.github.davidmoten.logan.Util;
 
 @WebServlet(urlPatterns = { "/query" })
-public class DataServlet extends HttpServlet {
+public class QueryServlet extends HttpServlet {
 
-	private static Logger log = Logger.getLogger(DataServlet.class.getName());
+	private static Logger log = Logger.getLogger(QueryServlet.class.getName());
 
 	private static final long serialVersionUID = 1044384045444686984L;
 

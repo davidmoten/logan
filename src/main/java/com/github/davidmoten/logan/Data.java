@@ -20,8 +20,9 @@ public class Data {
 	private static Data instance;
 
 	public static synchronized Data instance() {
-		if (instance == null)
+		if (instance == null) {
 			instance = new Data();
+		}
 		return instance;
 	}
 
