@@ -5,9 +5,12 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Map;
 import java.util.regex.Pattern;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
 
 import org.junit.Test;
 
@@ -126,5 +129,27 @@ public class LogParserTest {
 					System.out.println(map);
 			}
 		}
+	}
+
+	@Test
+	public void testParseMultipleLines2() throws IOException {
+		LogParser p = new LogParser();
+		ZipFile zip = new ZipFile("src/test/resources/test2.zip");
+		ZipEntry zipEntry = zip.entries().nextElement();
+		InputStream is = zip.getInputStream(zipEntry);
+		LineReader reader = new LineReader(new InputStreamReader(is));
+		String line;
+		MessageSplitter splitter = new MessageSplitter();
+		while ((line = reader.readLine()) != null) {
+			System.out.println(line);
+			LogEntry entry = p.parse("test", line);
+			if (entry != null) {
+				Map<String, String> map = splitter.split(entry.getProperties()
+						.get(Field.MSG));
+				if (map.size() > 0)
+					System.out.println(map);
+			}
+		}
+		zip.close();
 	}
 }
