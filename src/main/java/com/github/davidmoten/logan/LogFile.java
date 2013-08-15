@@ -31,7 +31,6 @@ public class LogFile {
 	private Tailer tailer;
 	private final LogParser parser;
 	private final ExecutorService executor;
-
 	private final String source;
 
 	/**
