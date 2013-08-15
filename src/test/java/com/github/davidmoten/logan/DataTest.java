@@ -22,7 +22,7 @@ public class DataTest {
 	}
 
 	@Test
-	public void testData() {
+	public void testFindWithOneEntryBetweenRangeAndNoOtherEntries() {
 		Data d = new Data();
 		Map<String, String> map = Maps.newHashMap();
 		map.put("n", "123");
@@ -35,7 +35,7 @@ public class DataTest {
 	}
 
 	@Test
-	public void testData2() {
+	public void testFindWithThreeEntriesWhereOneEntryIsBetweenRange() {
 		Data d = new Data();
 		Map<String, String> map = Maps.newHashMap();
 		map.put("n", "123");
