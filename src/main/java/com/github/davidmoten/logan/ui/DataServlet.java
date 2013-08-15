@@ -27,10 +27,10 @@ import com.github.davidmoten.logan.Data;
 import com.github.davidmoten.logan.Metric;
 import com.github.davidmoten.logan.Util;
 
-@WebServlet(urlPatterns = { "/query" })
-public class QueryServlet extends HttpServlet {
+@WebServlet(urlPatterns = { "/data" })
+public class DataServlet extends HttpServlet {
 
-	private static Logger log = Logger.getLogger(QueryServlet.class.getName());
+	private static Logger log = Logger.getLogger(DataServlet.class.getName());
 
 	private static final long serialVersionUID = 1044384045444686984L;
 
@@ -41,8 +41,8 @@ public class QueryServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		if (Configuration.isRemote()) {
-			String url = Configuration.getLogServerBaseUrl() + "/query?name="
-					+ req.getParameter("name") + "&start="
+			String url = Configuration.getLogServerBaseUrl() + "/data?field="
+					+ req.getParameter("field") + "&start="
 					+ req.getParameter("start") + "&interval="
 					+ req.getParameter("interval") + "&buckets="
 					+ req.getParameter("buckets") + "&metric="
@@ -65,19 +65,19 @@ public class QueryServlet extends HttpServlet {
 			long startTime = getMandatoryLong(req, "start");
 			double interval = getMandatoryDouble(req, "interval");
 			long numBuckets = getMandatoryLong(req, "buckets");
-			String name = ServletUtil.getMandatoryParameter(req, "name");
+			String field = ServletUtil.getMandatoryParameter(req, "field");
 			Metric metric = Metric
 					.valueOf(getMandatoryParameter(req, "metric"));
 			resp.setContentType("application/json");
-			writeJson(data, name, startTime, interval, numBuckets, metric,
+			writeJson(data, field, startTime, interval, numBuckets, metric,
 					resp.getWriter());
 		}
 	}
 
-	private static void writeJson(Data data, String name, long startTime,
+	private static void writeJson(Data data, String field, long startTime,
 			double interval, long numBuckets, Metric metric, PrintWriter writer) {
 		BucketQuery q = new BucketQuery(new Date(startTime), interval,
-				numBuckets, name);
+				numBuckets, field);
 		Buckets buckets = data.find(q);
 		log.info("building json");
 		Util.writeJson(buckets, metric, writer);

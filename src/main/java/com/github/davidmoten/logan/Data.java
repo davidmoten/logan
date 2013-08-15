@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.TreeSet;
+import java.util.concurrent.TimeUnit;
 
 import com.google.common.base.Predicate;
 import com.google.common.base.Supplier;
@@ -32,7 +33,8 @@ public class Data {
 	private static LogEntry createLogEntry(int i) {
 		Map<String, String> map = Maps.newHashMap();
 		map.put("n", Math.random() * 100 + "");
-		return new LogEntry(i, map);
+		return new LogEntry(System.currentTimeMillis()
+				- TimeUnit.MINUTES.toMillis(i), map);
 	}
 
 	private TreeMap<Long, Collection<LogEntry>> map;
@@ -66,7 +68,6 @@ public class Data {
 			}
 
 		};
-
 	}
 
 	private synchronized Iterator<LogEntry> createIterator(
