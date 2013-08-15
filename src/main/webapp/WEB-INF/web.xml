@@ -26,6 +26,7 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 
+	<!-- 
 	<servlet>
 		<servlet-name>Data</servlet-name>
 		<servlet-class>org.moten.david.log.ui.DataServlet</servlet-class>
@@ -66,6 +67,7 @@
 		<url-pattern>/data</url-pattern>
 	</servlet-mapping>
 
+-->
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>
 		<welcome-file>index.html</welcome-file>
