@@ -40,5 +40,6 @@ public class LogServlet extends HttpServlet {
 		is.close();
 		resp.setContentType("text/plain");
 		resp.getWriter().print(reply);
+
 	}
 }
