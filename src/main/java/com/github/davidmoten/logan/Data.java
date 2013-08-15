@@ -108,7 +108,7 @@ public class Data {
 		return buckets;
 	}
 
-	public long getNumEntries() {
+	public synchronized long getNumEntries() {
 		return facade.size();
 	}
 }
