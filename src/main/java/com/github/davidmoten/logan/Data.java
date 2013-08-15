@@ -23,8 +23,7 @@ public class Data {
 		facade = Multimaps.newListMultimap(map, new Supplier<List<LogEntry>>() {
 			@Override
 			public List<LogEntry> get() {
-				return Lists.newArrayList(); // assuming you want to use
-												// ArrayList
+				return Lists.newArrayList();
 			}
 		});
 	}
@@ -107,5 +106,9 @@ public class Data {
 		}
 
 		return buckets;
+	}
+
+	public long getNumEntries() {
+		return facade.size();
 	}
 }
