@@ -1,0 +1,43 @@
+2012-11-29 04:39:02.941 INFO  au.gov.amsa.er.craft.tracking.actor.FixesPersisterActor - fixes queue size = 0
+2012-11-29 04:39:11.159 INFO  au.gov.amsa.er.craft.tracking.CraftpicRefresher - refreshing
+2012-11-29 04:39:11.161 INFO  au.gov.amsa.er.craft.tracking.CraftpicProviderDirect - started craftpic for Thu Nov 29 04:39:11 UTC 2012 extrapolate=false,interpolate=false
+2012-11-29 04:39:11.161 INFO  au.gov.amsa.er.craft.tracking.CraftpicProviderDirect - loading craft with latest fix time after Wed Nov 28 04:39:11 UTC 2012
+2012-11-29 04:39:19.846 INFO  au.gov.amsa.er.craft.tracking.CraftpicProviderDirect - number of craft = 7379
+2012-11-29 04:39:19.850 INFO  au.gov.amsa.er.craft.tracking.actions.CraftBehaviour - prefetching fixes
+2012-11-29 04:39:19.850 DEBUG au.gov.amsa.er.craft.tracking.actions.CraftBehaviour - sql=
+select /*+ opt_param('optimizer_index_cost_adj',1) */ fix.fix_id
+  from Fix fix 
+  left outer join 
+       (select   craft_id, max (f.time) maxTime
+            from fix f
+           where f.time >= :threshold and f.time < :startTime 
+        group by craft_id) firstBefore
+        on fix.craft_id = firstBefore.craft_id
+            and fix.time = firstBefore.maxTime
+  left join 
+       (select   craft_id, min (f.time) minTime
+            from fix f
+           where f.time > :endTime
+        group by craft_id) firstAfter
+        on fix.craft_id = firstAfter.craft_id
+        and fix.time = firstAfter.minTime
+ where
+
+(fix.time>=:threshold)
+and
+(
+ (fix.time >= :startTime and fix.time <= :endTime)
+  or (
+    firstBefore.craft_id is not null
+    and firstAfter.craft_id is null)
+ or (firstBefore.craft_id is not null 
+    and firstBefore.craft_id=firstAfter.craft_id)
+)
+
+ 
+2012-11-29 04:39:19.860 INFO  au.gov.amsa.er.craft.tracking.actions.CraftBehaviour - startTime=Thu Nov 29 04:39:11 UTC 2012, endTime=Thu Nov 29 04:39:11 UTC 2012, threshold=Wed Nov 28 04:39:11 UTC 2012
+2012-11-29 04:39:24.351 INFO  au.gov.amsa.er.craft.tracking.actor.PilotageActor - loading pilotages
+2012-11-29 04:39:24.465 INFO  au.gov.amsa.er.craft.tracking.actor.PilotageActor - loaded pilotages
+2012-11-29 04:39:26.426 INFO  au.gov.amsa.er.craft.tracking.actions.CraftBehaviour - fix list returned in 6.566s
+2012-11-29 04:39:26.430 INFO  au.gov.amsa.er.craft.tracking.actions.CraftBehaviour - getting fix information for 1000 ids
+2012-11-29 04:39:28.196 INFO  au.gov.amsa.er.craft.tracking.actions.CraftBehaviour - obtained fix information
