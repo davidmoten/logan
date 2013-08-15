@@ -3,6 +3,7 @@ package com.github.davidmoten.logan;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
@@ -22,8 +23,16 @@ public class Data {
 	public static synchronized Data instance() {
 		if (instance == null) {
 			instance = new Data();
+			for (int i = 0; i < 10000; i++)
+				instance.add(createLogEntry(i));
 		}
 		return instance;
+	}
+
+	private static LogEntry createLogEntry(int i) {
+		Map<String, String> map = Maps.newHashMap();
+		map.put("n", Math.random() * 100 + "");
+		return new LogEntry(i, map);
 	}
 
 	private TreeMap<Long, Collection<LogEntry>> map;
