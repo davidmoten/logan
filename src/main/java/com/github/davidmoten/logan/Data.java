@@ -28,13 +28,13 @@ public class Data {
 		});
 	}
 
-	public Data add(LogEntry entry) {
+	public synchronized Data add(LogEntry entry) {
 		facade.put(entry.getTime(), entry);
 		return this;
 	}
 
-	public Iterable<LogEntry> find(final long startTime, final long finishTime,
-			final String name) {
+	public synchronized Iterable<LogEntry> find(final long startTime,
+			final long finishTime, final String name) {
 
 		return new Iterable<LogEntry>() {
 
@@ -47,8 +47,8 @@ public class Data {
 
 	}
 
-	private Iterator<LogEntry> createIterator(final long startTime,
-			final long finishTime, String name) {
+	private synchronized Iterator<LogEntry> createIterator(
+			final long startTime, final long finishTime, String name) {
 
 		return new Iterator<LogEntry>() {
 
@@ -82,7 +82,7 @@ public class Data {
 
 	}
 
-	public Buckets find(final BucketQuery query) {
+	public synchronized Buckets find(final BucketQuery query) {
 
 		Iterable<LogEntry> entries = find(query.getStartTime().getTime(),
 				query.getFinishTime(), query.getName());
