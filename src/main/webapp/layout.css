@@ -1,0 +1,39 @@
+body {
+  font-family: sans-serif;
+  font-size: 16px;
+  margin: 50px;
+  max-width: 800px;
+}
+
+.refresh {
+	margin-left: 25px;
+	margin-bottom: 10px;
+	height: 16px;
+	width: 16px;
+}
+
+.sql {
+	font-size: 9px;
+	width: 50%;
+	margin: 0px 100px auto;
+	display: none;
+	float: left;
+}
+
+.graphTitle {
+	margin-top:50px;
+	margin-bottom:25px;
+	padding-left:10px;
+	padding-bottom:10px;
+	padding-top:10px;
+	background-color:#7EAF8E;
+	color:white;
+}
+
+.title {
+	font-size:16px;
+}
+
+.graphParent {
+	
+}

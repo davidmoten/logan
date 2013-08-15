@@ -1,0 +1,1004 @@
+{
+  "result": [{
+      "@type": "d", "@rid": "#-2:0", "@version": 0, 
+"t": 1355184006998, 
+"value": 2.84, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:1", "@version": 0, 
+"t": 1355184196138, 
+"value": 6.29, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:2", "@version": 0, 
+"t": 1355184196775, 
+"value": 12.99, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:3", "@version": 0, 
+"t": 1355184198893, 
+"value": 5.31, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:4", "@version": 0, 
+"t": 1355184252520, 
+"value": 7.78, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:5", "@version": 0, 
+"t": 1355184307258, 
+"value": 13.25, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:6", "@version": 0, 
+"t": 1355184453476, 
+"value": 7.71, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:7", "@version": 0, 
+"t": 1355184453565, 
+"value": 16.67, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:8", "@version": 0, 
+"t": 1355184534088, 
+"value": 10.61, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:9", "@version": 0, 
+"t": 1355184543662, 
+"value": 15.15, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:10", "@version": 0, 
+"t": 1355184830564, 
+"value": 5.04, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:11", "@version": 0, 
+"t": 1355184831220, 
+"value": 4.72, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:12", "@version": 0, 
+"t": 1355184831479, 
+"value": 4.02, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:13", "@version": 0, 
+"t": 1355184890222, 
+"value": 6.96, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:14", "@version": 0, 
+"t": 1355184902963, 
+"value": 5.62, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:15", "@version": 0, 
+"t": 1355184907311, 
+"value": 12.42, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:16", "@version": 0, 
+"t": 1355185116263, 
+"value": 6.28, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:17", "@version": 0, 
+"t": 1355185117942, 
+"value": 6.72, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:18", "@version": 0, 
+"t": 1355185118191, 
+"value": 13.33, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:19", "@version": 0, 
+"t": 1355185149937, 
+"value": 12.93, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:20", "@version": 0, 
+"t": 1355185208966, 
+"value": 13.07, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:21", "@version": 0, 
+"t": 1355185410213, 
+"value": 6.97, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:22", "@version": 0, 
+"t": 1355185410418, 
+"value": 22.73, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:23", "@version": 0, 
+"t": 1355185445017, 
+"value": 12.32, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:24", "@version": 0, 
+"t": 1355185445686, 
+"value": 7.67, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:25", "@version": 0, 
+"t": 1355185621222, 
+"value": 9.79, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:26", "@version": 0, 
+"t": 1355185621359, 
+"value": 17.24, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:27", "@version": 0, 
+"t": 1355185624042, 
+"value": 22.86, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:28", "@version": 0, 
+"t": 1355185722423, 
+"value": 12.88, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:29", "@version": 0, 
+"t": 1355185805708, 
+"value": 4.34, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:30", "@version": 0, 
+"t": 1355185807272, 
+"value": 10.93, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:31", "@version": 0, 
+"t": 1355185956470, 
+"value": 8.18, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:32", "@version": 0, 
+"t": 1355185957090, 
+"value": 15.47, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:33", "@version": 0, 
+"t": 1355185958481, 
+"value": 7.32, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:34", "@version": 0, 
+"t": 1355185983328, 
+"value": 24.59, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:35", "@version": 0, 
+"t": 1355186038716, 
+"value": 13.07, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:36", "@version": 0, 
+"t": 1355186106991, 
+"value": 2.42, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:37", "@version": 0, 
+"t": 1355186264332, 
+"value": 8.08, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:38", "@version": 0, 
+"t": 1355186264430, 
+"value": 23.81, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:39", "@version": 0, 
+"t": 1355186313316, 
+"value": 17.03, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:40", "@version": 0, 
+"t": 1355186344699, 
+"value": 21.28, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:41", "@version": 0, 
+"t": 1355186406385, 
+"value": 2.15, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:42", "@version": 0, 
+"t": 1355186577461, 
+"value": 8.32, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:43", "@version": 0, 
+"t": 1355186577599, 
+"value": 25.21, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:44", "@version": 0, 
+"t": 1355186621939, 
+"value": 13.49, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:45", "@version": 0, 
+"t": 1355186703404, 
+"value": 16.13, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:46", "@version": 0, 
+"t": 1355186851849, 
+"value": 8.2, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:47", "@version": 0, 
+"t": 1355186852173, 
+"value": 11.11, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:48", "@version": 0, 
+"t": 1355186854167, 
+"value": 8.21, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:49", "@version": 0, 
+"t": 1355186883643, 
+"value": 24.0, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:50", "@version": 0, 
+"t": 1355186924873, 
+"value": 12.45, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:51", "@version": 0, 
+"t": 1355187005090, 
+"value": 12.05, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:52", "@version": 0, 
+"t": 1355187141652, 
+"value": 8.36, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:53", "@version": 0, 
+"t": 1355187141767, 
+"value": 19.42, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:54", "@version": 0, 
+"t": 1355187226901, 
+"value": 12.21, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:55", "@version": 0, 
+"t": 1355187243422, 
+"value": 23.62, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:56", "@version": 0, 
+"t": 1355187414262, 
+"value": 10.37, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:57", "@version": 0, 
+"t": 1355187414324, 
+"value": 18.52, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:58", "@version": 0, 
+"t": 1355187422921, 
+"value": 25.86, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:59", "@version": 0, 
+"t": 1355187517936, 
+"value": 13.9, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:60", "@version": 0, 
+"t": 1355187604844, 
+"value": 15.27, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:61", "@version": 0, 
+"t": 1355187606455, 
+"value": 5.48, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:62", "@version": 0, 
+"t": 1355187746218, 
+"value": 7.93, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:63", "@version": 0, 
+"t": 1355187747330, 
+"value": 7.44, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:64", "@version": 0, 
+"t": 1355187749353, 
+"value": 5.03, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:65", "@version": 0, 
+"t": 1355187783333, 
+"value": 3.45, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:66", "@version": 0, 
+"t": 1355187783567, 
+"value": 13.95, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:67", "@version": 0, 
+"t": 1355187832747, 
+"value": 9.91, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:68", "@version": 0, 
+"t": 1355187920249, 
+"value": 4.49, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:69", "@version": 0, 
+"t": 1355187920777, 
+"value": 3.94, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:70", "@version": 0, 
+"t": 1355188066636, 
+"value": 7.63, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:71", "@version": 0, 
+"t": 1355188066840, 
+"value": 17.05, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:72", "@version": 0, 
+"t": 1355188135471, 
+"value": 9.62, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:73", "@version": 0, 
+"t": 1355188142706, 
+"value": 22.99, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:74", "@version": 0, 
+"t": 1355188205168, 
+"value": 9.15, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:75", "@version": 0, 
+"t": 1355188391167, 
+"value": 6.1, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:76", "@version": 0, 
+"t": 1355188391409, 
+"value": 16.53, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:77", "@version": 0, 
+"t": 1355188473408, 
+"value": 7.36, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:78", "@version": 0, 
+"t": 1355188503077, 
+"value": 6.78, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:79", "@version": 0, 
+"t": 1355188505608, 
+"value": 10.93, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:80", "@version": 0, 
+"t": 1355188736508, 
+"value": 6.76, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:81", "@version": 0, 
+"t": 1355188737845, 
+"value": 8.49, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:82", "@version": 0, 
+"t": 1355188737956, 
+"value": 20.0, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:83", "@version": 0, 
+"t": 1355188768247, 
+"value": 13.17, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:84", "@version": 0, 
+"t": 1355188813652, 
+"value": 4.16, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:85", "@version": 0, 
+"t": 1355188814289, 
+"value": 5.24, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:86", "@version": 0, 
+"t": 1355188990503, 
+"value": 8.47, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:87", "@version": 0, 
+"t": 1355188990641, 
+"value": 16.81, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:88", "@version": 0, 
+"t": 1355189016365, 
+"value": 15.67, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:89", "@version": 0, 
+"t": 1355189047848, 
+"value": 17.86, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:90", "@version": 0, 
+"t": 1355189107375, 
+"value": 1.59, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:91", "@version": 0, 
+"t": 1355189264579, 
+"value": 8.1, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:92", "@version": 0, 
+"t": 1355189265085, 
+"value": 6.25, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:93", "@version": 0, 
+"t": 1355189317823, 
+"value": 13.43, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:94", "@version": 0, 
+"t": 1355189405671, 
+"value": 3.19, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:95", "@version": 0, 
+"t": 1355189542994, 
+"value": 8.42, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:96", "@version": 0, 
+"t": 1355189543455, 
+"value": 13.79, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:97", "@version": 0, 
+"t": 1355189544736, 
+"value": 6.36, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:98", "@version": 0, 
+"t": 1355189583369, 
+"value": 20.0, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:99", "@version": 0, 
+"t": 1355189621301, 
+"value": 12.06, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:100", "@version": 0, 
+"t": 1355189738138, 
+"value": 5.31, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:101", "@version": 0, 
+"t": 1355189738267, 
+"value": 8.62, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:102", "@version": 0, 
+"t": 1355189905808, 
+"value": 8.93, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:103", "@version": 0, 
+"t": 1355189905875, 
+"value": 17.24, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:104", "@version": 0, 
+"t": 1355189940445, 
+"value": 11.0, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:105", "@version": 0, 
+"t": 1355190004294, 
+"value": 16.39, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:106", "@version": 0, 
+"t": 1355190260963, 
+"value": 8.28, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:107", "@version": 0, 
+"t": 1355190289639, 
+"value": 13.07, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:108", "@version": 0, 
+"t": 1355190543310, 
+"value": 8.93, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:109", "@version": 0, 
+"t": 1355190545172, 
+"value": 7.18, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:110", "@version": 0, 
+"t": 1355190576180, 
+"value": 12.47, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:111", "@version": 0, 
+"t": 1355190609126, 
+"value": 5.68, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:112", "@version": 0, 
+"t": 1355190609353, 
+"value": 4.61, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:113", "@version": 0, 
+"t": 1355190733639, 
+"value": 9.24, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:114", "@version": 0, 
+"t": 1355190825892, 
+"value": 10.6, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:115", "@version": 0, 
+"t": 1355191063735, 
+"value": 8.14, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:116", "@version": 0, 
+"t": 1355191159582, 
+"value": 8.02, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:117", "@version": 0, 
+"t": 1355191204255, 
+"value": 5.05, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:118", "@version": 0, 
+"t": 1355191205615, 
+"value": 5.24, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:119", "@version": 0, 
+"t": 1355191419117, 
+"value": 6.27, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:120", "@version": 0, 
+"t": 1355191419694, 
+"value": 16.79, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:121", "@version": 0, 
+"t": 1355191420458, 
+"value": 6.68, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:122", "@version": 0, 
+"t": 1355191457847, 
+"value": 10.26, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:123", "@version": 0, 
+"t": 1355191529752, 
+"value": 3.17, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:124", "@version": 0, 
+"t": 1355191529911, 
+"value": 8.55, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:125", "@version": 0, 
+"t": 1355191703420, 
+"value": 6.4, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:126", "@version": 0, 
+"t": 1355191729939, 
+"value": 14.3, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:127", "@version": 0, 
+"t": 1355191806643, 
+"value": 4.02, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:128", "@version": 0, 
+"t": 1355191977184, 
+"value": 6.65, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:129", "@version": 0, 
+"t": 1355191977281, 
+"value": 13.89, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:130", "@version": 0, 
+"t": 1355192010946, 
+"value": 12.84, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:131", "@version": 0, 
+"t": 1355192015540, 
+"value": 13.31, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:132", "@version": 0, 
+"t": 1355192102518, 
+"value": 22.73, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:133", "@version": 0, 
+"t": 1355192104374, 
+"value": 13.89, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:134", "@version": 0, 
+"t": 1355192197774, 
+"value": 12.14, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:135", "@version": 0, 
+"t": 1355192284247, 
+"value": 7.63, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:136", "@version": 0, 
+"t": 1355192319470, 
+"value": 12.93, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:137", "@version": 0, 
+"t": 1355192419011, 
+"value": 3.98, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:138", "@version": 0, 
+"t": 1355192419149, 
+"value": 17.54, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:139", "@version": 0, 
+"t": 1355192525090, 
+"value": 10.62, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:140", "@version": 0, 
+"t": 1355192525153, 
+"value": 28.57, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:141", "@version": 0, 
+"t": 1355192620766, 
+"value": 15.59, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:142", "@version": 0, 
+"t": 1355192642798, 
+"value": 12.5, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:143", "@version": 0, 
+"t": 1355192704246, 
+"value": 9.85, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:144", "@version": 0, 
+"t": 1355192831311, 
+"value": 8.85, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:145", "@version": 0, 
+"t": 1355192831375, 
+"value": 17.86, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:146", "@version": 0, 
+"t": 1355192909904, 
+"value": 17.29, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:147", "@version": 0, 
+"t": 1355192917294, 
+"value": 16.56, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:148", "@version": 0, 
+"t": 1355193003991, 
+"value": 14.71, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:149", "@version": 0, 
+"t": 1355193009968, 
+"value": 10.0, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:150", "@version": 0, 
+"t": 1355193142772, 
+"value": 8.83, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:151", "@version": 0, 
+"t": 1355193143360, 
+"value": 15.62, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:152", "@version": 0, 
+"t": 1355193144650, 
+"value": 7.1, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:153", "@version": 0, 
+"t": 1355193206700, 
+"value": 14.93, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:154", "@version": 0, 
+"t": 1355193217149, 
+"value": 16.32, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:155", "@version": 0, 
+"t": 1355193313137, 
+"value": 4.73, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:156", "@version": 0, 
+"t": 1355193313301, 
+"value": 13.7, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:157", "@version": 0, 
+"t": 1355193430222, 
+"value": 9.24, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:158", "@version": 0, 
+"t": 1355193525004, 
+"value": 13.06, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:159", "@version": 0, 
+"t": 1355193725701, 
+"value": 9.2, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:160", "@version": 0, 
+"t": 1355193725862, 
+"value": 14.93, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:161", "@version": 0, 
+"t": 1355193797029, 
+"value": 16.06, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:162", "@version": 0, 
+"t": 1355193810672, 
+"value": 13.83, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:163", "@version": 0, 
+"t": 1355193907796, 
+"value": 19.23, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:164", "@version": 0, 
+"t": 1355194223808, 
+"value": 6.46, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:165", "@version": 0, 
+"t": 1355194226174, 
+"value": 5.76, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:166", "@version": 0, 
+"t": 1355194264145, 
+"value": 6.5, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:167", "@version": 0, 
+"t": 1355194271332, 
+"value": 4.37, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:168", "@version": 0, 
+"t": 1355194271703, 
+"value": 5.57, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:169", "@version": 0, 
+"t": 1355194535191, 
+"value": 6.92, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:170", "@version": 0, 
+"t": 1355194571573, 
+"value": 7.13, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:171", "@version": 0, 
+"t": 1355194582258, 
+"value": 9.13, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:172", "@version": 0, 
+"t": 1355194582350, 
+"value": 12.05, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:173", "@version": 0, 
+"t": 1355194582516, 
+"value": 17.39, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:174", "@version": 0, 
+"t": 1355194732662, 
+"value": 7.42, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:175", "@version": 0, 
+"t": 1355194732820, 
+"value": 7.19, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:176", "@version": 0, 
+"t": 1355194738296, 
+"value": 9.68, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:177", "@version": 0, 
+"t": 1355194765845, 
+"value": 9.08, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:178", "@version": 0, 
+"t": 1355194765917, 
+"value": 22.22, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:179", "@version": 0, 
+"t": 1355194789041, 
+"value": 11.01, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:180", "@version": 0, 
+"t": 1355194789877, 
+"value": 16.41, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:181", "@version": 0, 
+"t": 1355194801980, 
+"value": 9.45, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:182", "@version": 0, 
+"t": 1355194803550, 
+"value": 11.76, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:183", "@version": 0, 
+"t": 1355194805789, 
+"value": 9.8, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:184", "@version": 0, 
+"t": 1355195013442, 
+"value": 6.24, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:185", "@version": 0, 
+"t": 1355195014033, 
+"value": 14.29, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:186", "@version": 0, 
+"t": 1355195015584, 
+"value": 7.28, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:187", "@version": 0, 
+"t": 1355195015647, 
+"value": 18.52, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:188", "@version": 0, 
+"t": 1355195034437, 
+"value": 11.34, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:189", "@version": 0, 
+"t": 1355195050659, 
+"value": 8.71, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:190", "@version": 0, 
+"t": 1355195115123, 
+"value": 5.19, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:191", "@version": 0, 
+"t": 1355195115333, 
+"value": 10.05, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:192", "@version": 0, 
+"t": 1355195228203, 
+"value": 9.27, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:193", "@version": 0, 
+"t": 1355195228246, 
+"value": 34.48, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:194", "@version": 0, 
+"t": 1355195308225, 
+"value": 16.75, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:195", "@version": 0, 
+"t": 1355195314255, 
+"value": 18.05, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:196", "@version": 0, 
+"t": 1355195344159, 
+"value": 16.39, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:197", "@version": 0, 
+"t": 1355195406917, 
+"value": 12.5, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:198", "@version": 0, 
+"t": 1355195544987, 
+"value": 8.03, 
+  "@fieldTypes": "t=l,value=d"
+    }, {
+      "@type": "d", "@rid": "#-2:199", "@version": 0, 
+"t": 1355195545034, 
+"value": 25.64, 
+  "@fieldTypes": "t=l,value=d"
+    }
+  ]
+}

@@ -11,7 +11,7 @@
 
 	<name>${project.artifactId}</name>
 	<description>Log analysis</description>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 
 	<url>http://github.com/davidmoten/logan</url>
 
@@ -33,6 +33,10 @@
 		<changelog.version>2.2</changelog.version>
 		<coverage.reports.dir>${project.build.directory}/target/coverage-reports</coverage.reports.dir>
 		<maven.compiler.target>1.6</maven.compiler.target>
+		<jetty.plugin.version>8.1.8.v20121106</jetty.plugin.version>
+		<jetty.port>9292</jetty.port>
+		<jetty.stop.port>9998</jetty.stop.port>
+		<log.server.url>http://localhost:9191</log.server.url>
 	</properties>
 
 	<licenses>
@@ -87,6 +91,18 @@
 			<version>2.4</version>
 		</dependency>
 		
+		<dependency>
+			<groupId>org.eclipse.jetty</groupId>
+			<artifactId>jetty-servlets</artifactId>
+			<version>${jetty.plugin.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>2.5</version>
+			<scope>provided</scope>
+		</dependency>
+		
 		<!-- Test Dependencies -->
 		<dependency>
 			<groupId>junit</groupId>
@@ -105,6 +121,25 @@
 				<configuration>
 					<source>${maven.compiler.target}</source>
 					<target>${maven.compiler.target}</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.mortbay.jetty</groupId>
+				<artifactId>jetty-maven-plugin</artifactId>
+				<version>${jetty.plugin.version}</version>
+				<configuration>
+					<scanIntervalSeconds>10</scanIntervalSeconds>
+					<stopKey>foo</stopKey>
+					<stopPort>9998</stopPort>
+					<webAppConfig>
+						<contextPath>/</contextPath>
+					</webAppConfig>
+					<systemProperties>
+						<systemProperty>
+							<name>log.server.url</name>
+							<value>${log.server.url}</value>
+						</systemProperty>
+					</systemProperties>
 				</configuration>
 			</plugin>
 			<plugin>
