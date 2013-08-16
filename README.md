@@ -14,7 +14,7 @@ Aggregated:
 Continuous integration with Jenkins for this project is [here](https://xuml-tools.ci.cloudbees.com/). <a href="https://xuml-tools.ci.cloudbees.com/"><img  src="http://web-static-cloudfront.s3.amazonaws.com/images/badges/BuiltOnDEV.png"/></a>
 
 Features
-==============
+---------------
 * pattern based log parsing
 * fast parsing and query
 * simplified datetime input (last day,last hour etc)
@@ -40,7 +40,7 @@ Features
   * LATEST
 
 Architecture
-==============
+---------------
 
 Comprises the following internal components:
 
@@ -50,7 +50,7 @@ Comprises the following internal components:
 * ui (jQuery-UI + flot web front end which communicates exclusively with JSON services)
 
 Demo
-=============
+---------------
 To test, run 
 
     cd <YOUR_WORKSPACE>
@@ -64,7 +64,7 @@ which will
 Go to http://localhost:9292
 
 Getting started
-==================
+---------------
 On host where logs are:
     
     git clone https://github.com/davidmoten/logan.git
@@ -72,7 +72,7 @@ On host where logs are:
 	mvn jetty:run -Djetty.port=9292 -Dlogan.config=<YOUR_CONFIG>
     
 File matching
-==================
+---------------
 The paths of log files to be persisted is specified in the &lt;log&gt; element of the persister configuration file as below:
 
     <log source="test">
@@ -98,13 +98,13 @@ The FILENAME_REGEX is
 which matches all filenames starting with *my* and ending in *.log*.
 
 Property substitution in configuration xml
-===========================================
+---------------
 System properties are substituted in the configuration.xml file. 
 
 For example if you have specified <code>-Dmybase=/var/logs</code> at the command line then all instances of <code>${mybase}</code> will be substituted with <code>/var/logs</code> at runtime.
 
 Pattern matching
-===================
+---------------
 The *log-persister* configuration file ([here](https://raw.github.com/davidmoten/logan/master/src/test/resources/persister-configuration-test.xml)) refers to two patterns. Here's a fragment concerning patterns:
 
     <pattern>^(\d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d\.\d\d\d) +(\S+) +(\S+)+(\S+)? ?- (.*)$</pattern>
@@ -115,8 +115,7 @@ The *log-persister* configuration file ([here](https://raw.github.com/davidmoten
 * line pattern (and its pattern groups)
 * message pone)attern
 
-Line pattern
-----------------
+###Line pattern
     <pattern>^(\d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d\.\d\d\d) +(\S+) +(\S+)+(\S+)? ?- (.*)$</pattern>
     <patternGroups>logTimestamp,logLevel,logLogger,threadName,logMsg</patternGroups>
     
@@ -133,8 +132,7 @@ Looking at the patternGroups the first matching group will be identified as the 
 
 The key-value parts of the logMsg are parsed by the *message pattern* described below.
 
-Multiline
----------------
+###Multiline
 The default java.util.logging pattern is a multiline (two line) pattern. Here's an example of a two line log:
 
     23/12/2012 6:58:04 AM org.moten.david.log.core.Database persistDummyRecords
@@ -149,8 +147,7 @@ Two line patterns are configured as below:
 
 Take special note of the *ZZZ* which delimits line 1 from line 2 in the pattern. The two lines are concatenated using ZZZ between them and then matched against the pattern. In the same way the pattern groups refer to the groups found in the concatenation of the two lines.
 
-Message pattern
-----------------
+###Message pattern
     <messagePattern>(\b[a-zA-Z](?:\w| )*)=([^;|,]*)(;|\||,|$)</messagePattern>
 
 Above is the default message pattern used by log-persister. A matching key-value pair in a log message satisfies these properties:
@@ -159,14 +156,13 @@ Above is the default message pattern used by log-persister. A matching key-value
 * key is separated from value by =
 * value part is delimited at its termination by semicolon (;), comma (,), vertical bar(|) or end of line
 
-Timestamp format
-------------------
+###Timestamp format
     <timestampFormat>dd/MM/yyyy hh:mm:ss a</timestampFormat>
 
 The format is as defined for the [SimpleDateFormat](http://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html) class. 
 
 Todo
-===========
+-------------------
 * complete javadoc
 * add more documentation to this site!
 * improve unit test coverage 
