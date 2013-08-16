@@ -37,6 +37,7 @@
 		<jetty.port>9292</jetty.port>
 		<jetty.stop.port>9998</jetty.stop.port>
 		<log.server.url>http://localhost:8080</log.server.url>
+		<logan.config>src/test/resources/sample-persister-configuration.xml</logan.config>
 	</properties>
 
 	<licenses>
@@ -151,6 +152,10 @@
 						<systemProperty>
 							<name>log.server.url</name>
 							<value>${log.server.url}</value>
+						</systemProperty>
+						<systemProperty>
+							<name>logan.config</name>
+							<value>${logan.config}</value>
 						</systemProperty>
 					</systemProperties>
 				</configuration>

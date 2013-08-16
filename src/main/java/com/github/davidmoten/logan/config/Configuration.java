@@ -60,14 +60,18 @@ public class Configuration {
 
 	private static final String DEFAULT_CONFIGURATION_LOCATION = "/persister-configuration.xml";
 
-	public static Configuration getConfiguration() throws FileNotFoundException {
+	public static Configuration getConfiguration() {
 		String configLocation = System.getProperty("logan.config",
 				DEFAULT_CONFIGURATION_LOCATION);
 		InputStream is = Main.class.getResourceAsStream(configLocation);
 		if (is == null) {
 			File file = new File(configLocation);
 			if (file.exists())
-				is = new FileInputStream(configLocation);
+				try {
+					is = new FileInputStream(configLocation);
+				} catch (FileNotFoundException e) {
+					throw new RuntimeException(e);
+				}
 			else
 				throw new RuntimeException(
 						"configuration xml not found. Set property logan.config to a file on classpath or filesystem.");
