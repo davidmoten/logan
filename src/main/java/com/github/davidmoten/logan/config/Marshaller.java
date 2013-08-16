@@ -1,6 +1,5 @@
 package com.github.davidmoten.logan.config;
 
-
 import java.io.InputStream;
 import java.io.OutputStream;
 
@@ -20,7 +19,7 @@ import javax.xml.transform.stream.StreamSource;
  */
 public class Marshaller {
 
-	public static final String NAMESPACE = "http://org.moten.david/log-analysis/persister/configuration";
+	public static final String NAMESPACE = "http://github.com/davidmoten/logan/configuration";
 
 	private final javax.xml.bind.Marshaller marshaller;
 

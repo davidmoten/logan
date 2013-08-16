@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <ns2:configuration
-	xmlns:ns2="http://org.moten.david/log-analysis/persister/configuration">
-	<connection>
-		<url>remote:localhost/logs</url>
-		<username>admin</username>
-		<password>admin</password>
-	</connection>
+	xmlns:ns2="http://github.com/davidmoten/logan/configuration">
 	<group>
 		<log source="tomcat">
 			<path>/home/dave/logs/app/tomcatlog4j.log\..*</path>
