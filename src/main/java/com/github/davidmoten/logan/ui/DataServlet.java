@@ -7,6 +7,7 @@ import static com.github.davidmoten.logan.ui.ServletUtil.getMandatoryParameter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -41,37 +42,47 @@ public class DataServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		if (Configuration.isRemote()) {
-			String url = Configuration.getLogServerBaseUrl() + "/data?field="
-					+ req.getParameter("field") + "&start="
-					+ req.getParameter("start") + "&interval="
-					+ req.getParameter("interval") + "&buckets="
-					+ req.getParameter("buckets") + "&metric="
-					+ req.getParameter("metric");
-
-			url = url.replace(" ", "%20");
-
-			URL u;
-			try {
-				u = new URI(url).toURL();
-			} catch (URISyntaxException e) {
-				throw new RuntimeException(e);
-			}
-			InputStream is = u.openStream();
-			String json = IOUtils.toString(is);
-			is.close();
-			resp.setContentType("application/json");
-			resp.getWriter().print(json);
+			doRemote(req, resp);
 		} else {
-			long startTime = getMandatoryLong(req, "start");
-			double interval = getMandatoryDouble(req, "interval");
-			long numBuckets = getMandatoryLong(req, "buckets");
-			String field = ServletUtil.getMandatoryParameter(req, "field");
-			Metric metric = Metric
-					.valueOf(getMandatoryParameter(req, "metric"));
-			resp.setContentType("application/json");
-			writeJson(data, field, startTime, interval, numBuckets, metric,
-					resp.getWriter());
+			doLocal(req, resp);
 		}
+	}
+
+	private void doLocal(HttpServletRequest req, HttpServletResponse resp)
+			throws IOException {
+		long startTime = getMandatoryLong(req, "start");
+		double interval = getMandatoryDouble(req, "interval");
+		long numBuckets = getMandatoryLong(req, "buckets");
+		String field = ServletUtil.getMandatoryParameter(req, "field");
+		Metric metric = Metric
+				.valueOf(getMandatoryParameter(req, "metric"));
+		resp.setContentType("application/json");
+		writeJson(data, field, startTime, interval, numBuckets, metric,
+				resp.getWriter());
+	}
+
+	private void doRemote(HttpServletRequest req, HttpServletResponse resp)
+			throws MalformedURLException, IOException {
+		String url = Configuration.getLogServerBaseUrl() + "/data?field="
+				+ req.getParameter("field") + "&start="
+				+ req.getParameter("start") + "&interval="
+				+ req.getParameter("interval") + "&buckets="
+				+ req.getParameter("buckets") + "&metric="
+				+ req.getParameter("metric");
+
+		url = url.replace(" ", "%20");
+
+		URL u;
+		try {
+			u = new URI(url).toURL();
+		} catch (URISyntaxException e) {
+			throw new RuntimeException(e);
+		}
+		InputStream is = u.openStream();
+		String json = IOUtils.toString(is);
+		is.close();
+		resp.setContentType("application/json");
+		resp.getWriter().print(json);
 	}
 
 	private static void writeJson(Data data, String field, long startTime,

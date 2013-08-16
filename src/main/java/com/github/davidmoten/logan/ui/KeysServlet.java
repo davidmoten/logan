@@ -2,6 +2,7 @@ package com.github.davidmoten.logan.ui;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -25,33 +26,42 @@ public class KeysServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		if (Configuration.isRemote()) {
-			String url = Configuration.getLogServerBaseUrl() + "/keys?table="
-					+ req.getParameter("table");
-
-			url = url.replace(" ", "%20");
-
-			URL u;
-			try {
-				u = new URI(url).toURL();
-			} catch (URISyntaxException e) {
-				throw new RuntimeException(e);
-			}
-			InputStream is = u.openStream();
-			String json = IOUtils.toString(is);
-			is.close();
-			resp.setContentType("application/json");
-			resp.getWriter().print(json);
+			doRemote(req, resp);
 		} else {
-			StringBuilder s = new StringBuilder();
-			for (String key : Data.instance().getKeys()) {
-				if (s.length() > 0)
-					s.append(",");
-				s.append("\"");
-				s.append(key);
-				s.append("\"");
-			}
-			resp.setContentType("application/json");
-			resp.getWriter().print("{ \"keys\": [" + s.toString() + "] }");
+			doLocal(resp);
 		}
+	}
+
+	private void doLocal(HttpServletResponse resp) throws IOException {
+		StringBuilder s = new StringBuilder();
+		for (String key : Data.instance().getKeys()) {
+			if (s.length() > 0)
+				s.append(",");
+			s.append("\"");
+			s.append(key);
+			s.append("\"");
+		}
+		resp.setContentType("application/json");
+		resp.getWriter().print("{ \"keys\": [" + s.toString() + "] }");
+	}
+
+	private void doRemote(HttpServletRequest req, HttpServletResponse resp)
+			throws MalformedURLException, IOException {
+		String url = Configuration.getLogServerBaseUrl() + "/keys?table="
+				+ req.getParameter("table");
+
+		url = url.replace(" ", "%20");
+
+		URL u;
+		try {
+			u = new URI(url).toURL();
+		} catch (URISyntaxException e) {
+			throw new RuntimeException(e);
+		}
+		InputStream is = u.openStream();
+		String json = IOUtils.toString(is);
+		is.close();
+		resp.setContentType("application/json");
+		resp.getWriter().print(json);
 	}
 }
