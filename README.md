@@ -99,7 +99,9 @@ which matches all filenames starting with *my* and ending in *.log*.
 
 Property substitution in configuration xml
 ===========================================
-System properties are substituted in the configuration.xml file. If you have specified -Dmybase=/var/logs at the command line then all instances of ${mybase} will be substituted with /var/logs at runtime.
+System properties are substituted in the configuration.xml file. 
+
+For example if you have specified <code>-Dmybase=/var/logs</code> at the command line then all instances of <code>${mybase}</code> will be substituted with <code>/var/logs</code> at runtime.
 
 Pattern matching
 ===================
