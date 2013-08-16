@@ -1,0 +1,189 @@
+2012-12-13 00:00:00.054 INFO  au.gov.amsa.util.quartz.GuiceJobFactory - instantiating job using injector
+2012-12-13 00:00:00.117 INFO  au.gov.amsa.cts.adapter.FixReporterJob - executing job - waiting for monitor
+2012-12-13 00:00:00.161 INFO  au.gov.amsa.cts.adapter.FixReporterJob - obtained monitor
+2012-12-13 00:00:00.117 INFO  au.gov.amsa.util.quartz.GuiceJobFactory - instantiating job using injector
+2012-12-13 00:00:00.190 INFO  au.gov.amsa.cts.adapter.ais.AisCheckerJob - last report time=2012-12-13 00:00:00.178
+2012-12-13 00:00:00.365 INFO  au.gov.amsa.util.identity.MmsiValidator - invalid mmsi value : 999999999
+2012-12-13 00:00:04.285 INFO  au.gov.amsa.util.identity.MmsiValidator - invalid mmsi value : 111111111
+2012-12-13 00:00:05.440 INFO  au.gov.amsa.util.identity.MmsiValidator - invalid mmsi value : 503000000
+2012-12-13 00:00:05.441 INFO  au.gov.amsa.util.identity.ImoValidator - invalid imo value : 8003838
+2012-12-13 00:00:05.442 INFO  au.gov.amsa.util.identity.VesselCallsignValidator - invalid vessel callsign value : VNW5689
+2012-12-13 00:00:06.168 INFO  au.gov.amsa.util.identity.MmsiValidator - invalid mmsi value : 503499100
+2012-12-13 00:00:06.201 INFO  au.gov.amsa.util.identity.ImoValidator - invalid imo value : 9456920
+2012-12-13 00:00:06.445 INFO  au.gov.amsa.cts.ais.AisReporter - fixes=1166, expired=10
+2012-12-13 00:00:06.446 INFO  au.gov.amsa.cts.ais.AisReporter - sources={rEV80=31, rEV02=192, None=943}
+2012-12-13 00:00:06.706 INFO  au.gov.amsa.cts.adapter.TrimmingFilter - trimmed information from 0 fixes out of 1165
+2012-12-13 00:00:06.888 INFO  au.gov.amsa.cts.adapter.ValidFixesOnlyFilter - 1165 of 1165 are valid fixes
+2012-12-13 00:00:06.988 INFO  au.gov.amsa.cts.adapter.LatestFixesOnlyFilter - received 1165 fixes, returning 1165
+2012-12-13 00:00:07.766 INFO  au.gov.amsa.cts.adapter.NewFixesOnlyFilter - received 1165 fixes, returning 1142
+2012-12-13 00:00:07.769 INFO  au.gov.amsa.cts.adapter.RepeatedIdentifiersFilter - number of fixes with multiple imo's 0
+2012-12-13 00:00:07.769 INFO  au.gov.amsa.cts.adapter.FixesReporter - reporting 1142 fixes
+2012-12-13 00:00:07.770 INFO  au.gov.amsa.cts.adapter.CtsReporterImpl - reporting 1142 fixes to CTS
+2012-12-13 00:00:07.771 INFO  au.gov.amsa.cts.adapter.CtsReporterImpl - getting cts port
+2012-12-13 00:00:13.930 INFO  au.gov.amsa.cts.adapter.CtsReporterImpl - reported fixes to cts
+2012-12-13 00:03:51.943 INFO  au.gov.amsa.cts.adapter.ais.AisAggregator - removed 16 expired ais reports, map size now=1323
+2012-12-13 00:05:00.016 INFO  au.gov.amsa.util.quartz.GuiceJobFactory - instantiating job using injector
+2012-12-13 00:05:00.018 INFO  au.gov.amsa.cts.adapter.FixReporterJob - executing job - waiting for monitor
+2012-12-13 00:05:00.019 INFO  au.gov.amsa.cts.adapter.FixReporterJob - obtained monitor
+2012-12-13 00:05:00.163 INFO  au.gov.amsa.util.identity.MmsiValidator - invalid mmsi value : 999999999
+2012-12-13 00:05:03.115 INFO  au.gov.amsa.util.identity.MmsiValidator - invalid mmsi value : 111111111
+2012-12-13 00:05:04.199 INFO  au.gov.amsa.util.identity.MmsiValidator - invalid mmsi value : 503000000
+2012-12-13 00:05:04.215 INFO  au.gov.amsa.util.identity.ImoValidator - invalid imo value : 8003838
+2012-12-13 00:05:04.216 INFO  au.gov.amsa.util.identity.VesselCallsignValidator - invalid vessel callsign value : VNW5689
+2012-12-13 00:05:04.872 INFO  au.gov.amsa.util.identity.MmsiValidator - invalid mmsi value : 503499100
+2012-12-13 00:05:04.920 INFO  au.gov.amsa.util.identity.ImoValidator - invalid imo value : 9456920
+2012-12-13 00:05:05.055 INFO  au.gov.amsa.cts.ais.AisReporter - fixes=1249, expired=1
+2012-12-13 00:05:05.056 INFO  au.gov.amsa.cts.ais.AisReporter - sources={rEV80=31, rEV02=275, None=943}
+2012-12-13 00:05:05.077 INFO  au.gov.amsa.cts.adapter.TrimmingFilter - trimmed information from 0 fixes out of 1248
+2012-12-13 00:05:05.217 INFO  au.gov.amsa.cts.adapter.ValidFixesOnlyFilter - 1248 of 1248 are valid fixes
+2012-12-13 00:05:05.250 INFO  au.gov.amsa.cts.adapter.LatestFixesOnlyFilter - received 1248 fixes, returning 1248
+2012-12-13 00:05:05.928 INFO  au.gov.amsa.cts.adapter.NewFixesOnlyFilter - received 1248 fixes, returning 1115
+2012-12-13 00:05:05.931 INFO  au.gov.amsa.cts.adapter.RepeatedIdentifiersFilter - number of fixes with multiple imo's 0
+2012-12-13 00:05:05.932 INFO  au.gov.amsa.cts.adapter.FixesReporter - reporting 1115 fixes
+2012-12-13 00:05:05.932 INFO  au.gov.amsa.cts.adapter.CtsReporterImpl - reporting 1115 fixes to CTS
+2012-12-13 00:05:05.933 INFO  au.gov.amsa.cts.adapter.CtsReporterImpl - getting cts port
+2012-12-13 00:05:10.885 INFO  au.gov.amsa.cts.adapter.CtsReporterImpl - reported fixes to cts
+2012-12-13 00:10:00.015 INFO  au.gov.amsa.util.quartz.GuiceJobFactory - instantiating job using injector
+2012-12-13 00:10:00.021 INFO  au.gov.amsa.cts.adapter.FixReporterJob - executing job - waiting for monitor
+2012-12-13 00:10:00.029 INFO  au.gov.amsa.cts.adapter.FixReporterJob - obtained monitor
+2012-12-13 00:10:00.197 INFO  au.gov.amsa.util.identity.MmsiValidator - invalid mmsi value : 999999999
+2012-12-13 00:10:04.597 INFO  au.gov.amsa.util.identity.MmsiValidator - invalid mmsi value : 111111111
+2012-12-13 00:10:05.421 INFO  au.gov.amsa.ais.NmeaStreamProcessor - count=7200000,buffer size=0
+2012-12-13 00:10:06.152 INFO  au.gov.amsa.util.identity.MmsiValidator - invalid mmsi value : 503000000
+2012-12-13 00:10:06.153 INFO  au.gov.amsa.util.identity.ImoValidator - invalid imo value : 8003838
+2012-12-13 00:10:06.153 INFO  au.gov.amsa.util.identity.VesselCallsignValidator - invalid vessel callsign value : VNW5689
+2012-12-13 00:10:07.216 INFO  au.gov.amsa.util.identity.MmsiValidator - invalid mmsi value : 503499100
+2012-12-13 00:10:07.273 INFO  au.gov.amsa.util.identity.ImoValidator - invalid imo value : 9456920
+2012-12-13 00:10:07.543 INFO  au.gov.amsa.cts.ais.AisReporter - fixes=1144, expired=160
+2012-12-13 00:10:07.544 INFO  au.gov.amsa.cts.ais.AisReporter - sources={rEV02=194, None=950}
+2012-12-13 00:10:07.605 INFO  au.gov.amsa.cts.adapter.TrimmingFilter - trimmed information from 0 fixes out of 1143
+2012-12-13 00:10:08.089 INFO  au.gov.amsa.cts.adapter.ValidFixesOnlyFilter - 1143 of 1143 are valid fixes
+2012-12-13 00:10:08.113 INFO  au.gov.amsa.cts.adapter.LatestFixesOnlyFilter - received 1143 fixes, returning 1143
+2012-12-13 00:10:08.993 INFO  au.gov.amsa.cts.adapter.NewFixesOnlyFilter - received 1143 fixes, returning 930
+2012-12-13 00:10:08.996 INFO  au.gov.amsa.cts.adapter.RepeatedIdentifiersFilter - number of fixes with multiple imo's 0
+2012-12-13 00:10:08.997 INFO  au.gov.amsa.cts.adapter.FixesReporter - reporting 930 fixes
+2012-12-13 00:10:08.997 INFO  au.gov.amsa.cts.adapter.CtsReporterImpl - reporting 930 fixes to CTS
+2012-12-13 00:10:08.998 INFO  au.gov.amsa.cts.adapter.CtsReporterImpl - getting cts port
+2012-12-13 00:10:14.151 INFO  au.gov.amsa.cts.adapter.CtsReporterImpl - reported fixes to cts
+2012-12-13 00:13:52.030 INFO  au.gov.amsa.cts.adapter.ais.AisAggregator - removed 257 expired ais reports, map size now=1120
+2012-12-13 00:15:00.010 INFO  au.gov.amsa.util.quartz.GuiceJobFactory - instantiating job using injector
+2012-12-13 00:15:00.067 INFO  au.gov.amsa.cts.adapter.FixReporterJob - executing job - waiting for monitor
+2012-12-13 00:15:00.076 INFO  au.gov.amsa.cts.adapter.FixReporterJob - obtained monitor
+2012-12-13 00:15:00.215 INFO  au.gov.amsa.util.identity.MmsiValidator - invalid mmsi value : 999999999
+2012-12-13 00:15:03.329 INFO  au.gov.amsa.util.identity.MmsiValidator - invalid mmsi value : 111111111
+2012-12-13 00:15:04.693 INFO  au.gov.amsa.util.identity.MmsiValidator - invalid mmsi value : 503000000
+2012-12-13 00:15:04.694 INFO  au.gov.amsa.util.identity.ImoValidator - invalid imo value : 8003838
+2012-12-13 00:15:04.694 INFO  au.gov.amsa.util.identity.VesselCallsignValidator - invalid vessel callsign value : VNW5689
+2012-12-13 00:15:05.254 INFO  au.gov.amsa.util.identity.MmsiValidator - invalid mmsi value : 503499100
+2012-12-13 00:15:05.279 INFO  au.gov.amsa.util.identity.ImoValidator - invalid imo value : 9456920
+2012-12-13 00:15:05.380 INFO  au.gov.amsa.cts.ais.AisReporter - fixes=1071, expired=38
+2012-12-13 00:15:05.381 INFO  au.gov.amsa.cts.ais.AisReporter - sources={rEV80=105, None=966}
+2012-12-13 00:15:05.399 INFO  au.gov.amsa.cts.adapter.TrimmingFilter - trimmed information from 0 fixes out of 1070
+2012-12-13 00:15:05.574 INFO  au.gov.amsa.cts.adapter.ValidFixesOnlyFilter - 1070 of 1070 are valid fixes
+2012-12-13 00:15:05.592 INFO  au.gov.amsa.cts.adapter.LatestFixesOnlyFilter - received 1070 fixes, returning 1070
+2012-12-13 00:15:05.945 INFO  au.gov.amsa.cts.adapter.NewFixesOnlyFilter - received 1070 fixes, returning 1053
+2012-12-13 00:15:05.948 INFO  au.gov.amsa.cts.adapter.RepeatedIdentifiersFilter - number of fixes with multiple imo's 0
+2012-12-13 00:15:05.949 INFO  au.gov.amsa.cts.adapter.FixesReporter - reporting 1053 fixes
+2012-12-13 00:15:05.950 INFO  au.gov.amsa.cts.adapter.CtsReporterImpl - reporting 1053 fixes to CTS
+2012-12-13 00:15:05.950 INFO  au.gov.amsa.cts.adapter.CtsReporterImpl - getting cts port
+2012-12-13 00:15:09.476 INFO  au.gov.amsa.cts.adapter.CtsReporterImpl - reported fixes to cts
+2012-12-13 00:20:00.018 INFO  au.gov.amsa.util.quartz.GuiceJobFactory - instantiating job using injector
+2012-12-13 00:20:00.056 INFO  au.gov.amsa.cts.adapter.FixReporterJob - executing job - waiting for monitor
+2012-12-13 00:20:00.058 INFO  au.gov.amsa.cts.adapter.FixReporterJob - obtained monitor
+2012-12-13 00:20:00.220 INFO  au.gov.amsa.util.identity.MmsiValidator - invalid mmsi value : 999999999
+2012-12-13 00:20:04.130 INFO  au.gov.amsa.util.identity.MmsiValidator - invalid mmsi value : 111111111
+2012-12-13 00:20:06.490 INFO  au.gov.amsa.util.identity.MmsiValidator - invalid mmsi value : 503000000
+2012-12-13 00:20:06.491 INFO  au.gov.amsa.util.identity.ImoValidator - invalid imo value : 8003838
+2012-12-13 00:20:06.491 INFO  au.gov.amsa.util.identity.VesselCallsignValidator - invalid vessel callsign value : VNW5689
+2012-12-13 00:20:07.053 INFO  au.gov.amsa.util.identity.MmsiValidator - invalid mmsi value : 503499100
+2012-12-13 00:20:07.119 INFO  au.gov.amsa.util.identity.ImoValidator - invalid imo value : 9456920
+2012-12-13 00:20:07.387 INFO  au.gov.amsa.cts.ais.AisReporter - fixes=1068, expired=45
+2012-12-13 00:20:07.425 INFO  au.gov.amsa.cts.ais.AisReporter - sources={rEV80=105, None=963}
+2012-12-13 00:20:07.442 INFO  au.gov.amsa.cts.adapter.TrimmingFilter - trimmed information from 0 fixes out of 1067
+2012-12-13 00:20:07.677 INFO  au.gov.amsa.cts.adapter.ValidFixesOnlyFilter - 1067 of 1067 are valid fixes
+2012-12-13 00:20:07.695 INFO  au.gov.amsa.cts.adapter.LatestFixesOnlyFilter - received 1067 fixes, returning 1067
+2012-12-13 00:20:08.583 INFO  au.gov.amsa.cts.adapter.NewFixesOnlyFilter - received 1067 fixes, returning 935
+2012-12-13 00:20:08.585 INFO  au.gov.amsa.cts.adapter.RepeatedIdentifiersFilter - number of fixes with multiple imo's 0
+2012-12-13 00:20:08.586 INFO  au.gov.amsa.cts.adapter.FixesReporter - reporting 935 fixes
+2012-12-13 00:20:08.586 INFO  au.gov.amsa.cts.adapter.CtsReporterImpl - reporting 935 fixes to CTS
+2012-12-13 00:20:08.587 INFO  au.gov.amsa.cts.adapter.CtsReporterImpl - getting cts port
+2012-12-13 00:20:12.826 INFO  au.gov.amsa.cts.adapter.CtsReporterImpl - reported fixes to cts
+2012-12-13 00:23:52.029 INFO  au.gov.amsa.cts.adapter.ais.AisAggregator - removed 157 expired ais reports, map size now=973
+2012-12-13 00:25:00.023 INFO  au.gov.amsa.util.quartz.GuiceJobFactory - instantiating job using injector
+2012-12-13 00:25:00.039 INFO  au.gov.amsa.cts.adapter.FixReporterJob - executing job - waiting for monitor
+2012-12-13 00:25:00.041 INFO  au.gov.amsa.cts.adapter.FixReporterJob - obtained monitor
+2012-12-13 00:25:00.096 INFO  au.gov.amsa.util.identity.MmsiValidator - invalid mmsi value : 999999999
+2012-12-13 00:25:02.223 INFO  au.gov.amsa.util.identity.MmsiValidator - invalid mmsi value : 111111111
+2012-12-13 00:25:02.841 INFO  au.gov.amsa.util.identity.MmsiValidator - invalid mmsi value : 503000000
+2012-12-13 00:25:02.842 INFO  au.gov.amsa.util.identity.ImoValidator - invalid imo value : 8003838
+2012-12-13 00:25:02.842 INFO  au.gov.amsa.util.identity.VesselCallsignValidator - invalid vessel callsign value : VNW5689
+2012-12-13 00:25:03.399 INFO  au.gov.amsa.util.identity.MmsiValidator - invalid mmsi value : 503499100
+2012-12-13 00:25:03.742 INFO  au.gov.amsa.cts.ais.AisReporter - fixes=961, expired=3
+2012-12-13 00:25:03.744 INFO  au.gov.amsa.cts.ais.AisReporter - sources={None=961}
+2012-12-13 00:25:03.766 INFO  au.gov.amsa.cts.adapter.TrimmingFilter - trimmed information from 0 fixes out of 960
+2012-12-13 00:25:03.860 INFO  au.gov.amsa.cts.adapter.ValidFixesOnlyFilter - 960 of 960 are valid fixes
+2012-12-13 00:25:03.868 INFO  au.gov.amsa.cts.adapter.LatestFixesOnlyFilter - received 960 fixes, returning 960
+2012-12-13 00:25:04.120 INFO  au.gov.amsa.cts.adapter.NewFixesOnlyFilter - received 960 fixes, returning 932
+2012-12-13 00:25:04.122 INFO  au.gov.amsa.cts.adapter.RepeatedIdentifiersFilter - number of fixes with multiple imo's 0
+2012-12-13 00:25:04.123 INFO  au.gov.amsa.cts.adapter.FixesReporter - reporting 932 fixes
+2012-12-13 00:25:04.123 INFO  au.gov.amsa.cts.adapter.CtsReporterImpl - reporting 932 fixes to CTS
+2012-12-13 00:25:04.124 INFO  au.gov.amsa.cts.adapter.CtsReporterImpl - getting cts port
+2012-12-13 00:25:07.304 INFO  au.gov.amsa.cts.adapter.CtsReporterImpl - reported fixes to cts
+2012-12-13 00:27:07.254 INFO  au.gov.amsa.ais.NmeaStreamProcessor - count=7300000,buffer size=0
+2012-12-13 00:30:00.013 INFO  au.gov.amsa.util.quartz.GuiceJobFactory - instantiating job using injector
+2012-12-13 00:30:00.028 INFO  au.gov.amsa.cts.adapter.FixReporterJob - executing job - waiting for monitor
+2012-12-13 00:30:00.117 INFO  au.gov.amsa.cts.adapter.FixReporterJob - obtained monitor
+2012-12-13 00:30:00.282 INFO  au.gov.amsa.util.identity.MmsiValidator - invalid mmsi value : 999999999
+2012-12-13 00:30:02.503 INFO  au.gov.amsa.util.identity.MmsiValidator - invalid mmsi value : 111111111
+2012-12-13 00:30:02.989 INFO  au.gov.amsa.util.identity.MmsiValidator - invalid mmsi value : 503000000
+2012-12-13 00:30:02.991 INFO  au.gov.amsa.util.identity.ImoValidator - invalid imo value : 8003838
+2012-12-13 00:30:02.991 INFO  au.gov.amsa.util.identity.VesselCallsignValidator - invalid vessel callsign value : VNW5689
+2012-12-13 00:30:03.314 INFO  au.gov.amsa.util.identity.MmsiValidator - invalid mmsi value : 503499100
+2012-12-13 00:30:03.416 INFO  au.gov.amsa.cts.ais.AisReporter - fixes=957, expired=20
+2012-12-13 00:30:03.417 INFO  au.gov.amsa.cts.ais.AisReporter - sources={None=957}
+2012-12-13 00:30:03.436 INFO  au.gov.amsa.cts.adapter.TrimmingFilter - trimmed information from 0 fixes out of 956
+2012-12-13 00:30:03.727 INFO  au.gov.amsa.cts.adapter.ValidFixesOnlyFilter - 956 of 956 are valid fixes
+2012-12-13 00:30:03.737 INFO  au.gov.amsa.cts.adapter.LatestFixesOnlyFilter - received 956 fixes, returning 956
+2012-12-13 00:30:04.317 INFO  au.gov.amsa.cts.adapter.NewFixesOnlyFilter - received 956 fixes, returning 937
+2012-12-13 00:30:04.319 INFO  au.gov.amsa.cts.adapter.RepeatedIdentifiersFilter - number of fixes with multiple imo's 0
+2012-12-13 00:30:04.320 INFO  au.gov.amsa.cts.adapter.FixesReporter - reporting 937 fixes
+2012-12-13 00:30:04.320 INFO  au.gov.amsa.cts.adapter.CtsReporterImpl - reporting 937 fixes to CTS
+2012-12-13 00:30:04.321 INFO  au.gov.amsa.cts.adapter.CtsReporterImpl - getting cts port
+2012-12-13 00:30:07.540 INFO  au.gov.amsa.cts.adapter.CtsReporterImpl - reported fixes to cts
+2012-12-13 00:32:35.599 INFO  au.gov.amsa.cts.adapter.ais.AisServer - interrupted: Read timed out
+2012-12-13 00:32:35.600 INFO  au.gov.amsa.cts.adapter.ais.AisServer - closing input stream
+2012-12-13 00:32:35.601 INFO  au.gov.amsa.cts.adapter.ais.AisServer - closing socket
+2012-12-13 00:32:35.601 INFO  au.gov.amsa.cts.adapter.ais.AisServer - blacklisting cbrais01.amsa.gov.au:7600 temporarily due to Read timed out
+2012-12-13 00:32:35.602 INFO  au.gov.amsa.cts.adapter.ais.AisServer - connecting to drfais01.amsa.gov.au:7600 with connectTimeoutMs=10000, readTimeoutMs=900000
+2012-12-13 00:32:35.608 WARN  au.gov.amsa.cts.adapter.ais.AisServer - java.net.ConnectException:Connection refused
+2012-12-13 00:32:35.609 INFO  au.gov.amsa.cts.adapter.ais.AisServer - blacklisting drfais01.amsa.gov.au:7600 temporarily
+2012-12-13 00:32:35.610 WARN  au.gov.amsa.cts.adapter.ais.AisServer - no server available
+2012-12-13 00:32:35.611 INFO  au.gov.amsa.cts.adapter.ais.AisServer - closing input stream
+2012-12-13 00:32:35.611 INFO  au.gov.amsa.cts.adapter.ais.AisServer - closing socket
+2012-12-13 00:32:35.612 INFO  au.gov.amsa.cts.adapter.ais.AisServer - Sleeping for 1000ms before retry
+2012-12-13 00:32:36.618 INFO  au.gov.amsa.cts.adapter.ais.AisServer - restoring server list to [cbrais01.amsa.gov.au:7600, drfais01.amsa.gov.au:7600]
+2012-12-13 00:32:36.619 INFO  au.gov.amsa.cts.adapter.ais.AisServer - connecting to cbrais01.amsa.gov.au:7600 with connectTimeoutMs=10000, readTimeoutMs=900000
+2012-12-13 00:32:36.624 INFO  au.gov.amsa.cts.adapter.ais.AisServer - connected to socket Socket[addr=cbrais01.amsa.gov.au/203.19.106.117,port=7600,localport=52968]
+2012-12-13 00:32:36.625 INFO  au.gov.amsa.cts.adapter.ais.AisServer - getting socket input stream
+2012-12-13 00:32:36.625 INFO  au.gov.amsa.cts.adapter.ais.AisServer - reading from input stream
+2012-12-13 00:33:52.110 INFO  au.gov.amsa.cts.adapter.ais.AisAggregator - removed 23 expired ais reports, map size now=968
+2012-12-13 00:35:00.013 INFO  au.gov.amsa.util.quartz.GuiceJobFactory - instantiating job using injector
+2012-12-13 00:35:00.018 INFO  au.gov.amsa.cts.adapter.FixReporterJob - executing job - waiting for monitor
+2012-12-13 00:35:00.018 INFO  au.gov.amsa.cts.adapter.FixReporterJob - obtained monitor
+2012-12-13 00:35:00.212 INFO  au.gov.amsa.util.identity.MmsiValidator - invalid mmsi value : 999999999
+2012-12-13 00:35:02.278 INFO  au.gov.amsa.util.identity.MmsiValidator - invalid mmsi value : 111111111
+2012-12-13 00:35:02.863 INFO  au.gov.amsa.util.identity.MmsiValidator - invalid mmsi value : 503000000
+2012-12-13 00:35:02.871 INFO  au.gov.amsa.util.identity.ImoValidator - invalid imo value : 8003838
+2012-12-13 00:35:02.872 INFO  au.gov.amsa.util.identity.VesselCallsignValidator - invalid vessel callsign value : VNW5689
+2012-12-13 00:35:03.536 INFO  au.gov.amsa.util.identity.MmsiValidator - invalid mmsi value : 503499100
+2012-12-13 00:35:03.726 INFO  au.gov.amsa.cts.ais.AisReporter - fixes=957, expired=2
+2012-12-13 00:35:03.727 INFO  au.gov.amsa.cts.ais.AisReporter - sources={None=957}
+2012-12-13 00:35:03.746 INFO  au.gov.amsa.cts.adapter.TrimmingFilter - trimmed information from 0 fixes out of 956
+2012-12-13 00:35:03.830 INFO  au.gov.amsa.cts.adapter.ValidFixesOnlyFilter - 956 of 956 are valid fixes
+2012-12-13 00:35:03.839 INFO  au.gov.amsa.cts.adapter.LatestFixesOnlyFilter - received 956 fixes, returning 956
+2012-12-13 00:35:04.070 INFO  au.gov.amsa.cts.adapter.NewFixesOnlyFilter - received 956 fixes, returning 938
+2012-12-13 00:35:04.073 INFO  au.gov.amsa.cts.adapter.RepeatedIdentifiersFilter - number of fixes with multiple imo's 0
+2012-12-13 00:35:04.074 INFO  au.gov.amsa.cts.adapter.FixesReporter - reporting 938 fixes
+2012-12-13 00:35:04.074 INFO  au.gov.amsa.cts.adapter.CtsReporterImpl - reporting 938 fixes to CTS
+2012-12-13 00:35:04.075 INFO  au.gov.amsa.cts.adapter.CtsReporterImpl - getting cts port
+2012-12-13 00:35:06.733 INFO  au.gov.amsa.cts.adapter.CtsReporterImpl - reported fixes to cts

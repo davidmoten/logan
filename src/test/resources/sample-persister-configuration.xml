@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:configuration
+	xmlns:ns2="http://org.moten.david/log-analysis/persister/configuration">
+	<connection>
+		<url>remote:jenkins.amsa.gov.au/logs</url>
+		<username>admin</username>
+		<password>admin</password>
+	</connection>
+	<parser>
+		<pattern>^(\d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d\.\d\d\d) +(\S+) +(\S+)(?: +(\S+)?) *- (.*)$</pattern>
+		<patternGroups>logTimestamp,logLevel,logLogger,threadName,logMsg
+		</patternGroups>
+		<messagePattern>(\b[a-zA-Z](?:\w| )*)=([^;|,]*)(;|\||,|$)</messagePattern>
+		<timestampFormat>yyyy-MM-dd HH:mm:ss.SSS</timestampFormat>
+		<timezone>UTC</timezone>
+		<multiline>false</multiline>
+	</parser>
+	<group>
+		<log source="cts">
+			<path>/ausdev/container/logs/cts/cts.log</path>
+		</log>
+		<log watch="false" source="cts">
+			<path>/ausdev/container/logs/cts/cts.log\..*</path>
+		</log>
+		<log source="cts-adapter-ais">
+			<path>/ausdev/container/logs/cts/cts-adapter-ais.log</path>
+		</log>
+		<log source="cts-adapter-ais" watch="false">
+			<path>/ausdev/container/logs/cts/cts-adapter-ais.log\..*</path>
+		</log>
+		<log source="cts-adapter-fis">
+			<path>/ausdev/container/logs/cts/cts-adapter-flight-info-service.log</path>
+		</log>
+		<log watch="false" source="cts-adapter-fis">
+			<path>/ausdev/container/logs/cts/cts-adapter-flight-info-service.log\..*</path>
+		</log>
+	</group>
+</ns2:configuration>

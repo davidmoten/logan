@@ -1,0 +1,442 @@
+2012-12-13 03:16:13.165 WARN  au.gov.amsa.er.craft.tracking.actions.FixBehaviour - fix rejected
+2012-12-13 03:16:13.166 INFO  au.gov.amsa.er.craft.tracking.CtsMethodsImpl - rolling back transaction to reject fix
+2012-12-13 03:16:13.169 INFO  au.gov.amsa.er.craft.tracking.CtsMethodsImpl - processed=116,from=FIS,newCraft=0,alreadyPresent=0,rateMsgPerSecond=6.06
+2012-12-13 03:16:13.171 INFO  au.gov.amsa.er.craft.tracking.actor.FixesPersisterActor - processed 127, moving 205 to end of queue
+2012-12-13 03:16:13.172 INFO  au.gov.amsa.er.craft.tracking.actor.FixesPersisterActor - fixes queue size = 10
+2012-12-13 03:16:13.172 INFO  au.gov.amsa.er.craft.tracking.actor.RootActor - received java.util.ArrayList$SubList
+2012-12-13 03:16:13.172 INFO  au.gov.amsa.er.craft.tracking.CtsMethodsImpl - writing fixes to filename= fixes.txt
+2012-12-13 03:16:13.173 INFO  au.gov.amsa.er.craft.tracking.actor.RootActor - fixes queue size = 11
+2012-12-13 03:16:22.962 INFO  au.gov.amsa.er.craft.tracking.CtsMethodsImpl - fixes written
+2012-12-13 03:16:22.963 INFO  au.gov.amsa.er.craft.tracking.CtsMethodsImpl - persisting fixes = 1752, from=AIS
+2012-12-13 03:16:41.248 INFO  au.gov.amsa.er.craft.tracking.CraftpicProviderDirect - finished craftpic for: time=Thu Dec 13 03:11:58 UTC 2012, found=7204,elapsedTimeSeconds=282.743
+2012-12-13 03:16:41.502 INFO  au.gov.amsa.er.craft.tracking.CraftpicProviderCached - cache updated
+2012-12-13 03:16:41.516 INFO  au.gov.amsa.er.craft.tracking.CraftpicRefresher - starting refresh in 270000ms
+2012-12-13 03:16:41.536 INFO  au.gov.amsa.er.craft.tracking.CraftpicRefresher - thread finished
+2012-12-13 03:16:50.517 INFO  au.gov.amsa.er.craft.tracking.CraftpicRefresher - refreshing
+2012-12-13 03:16:50.520 INFO  au.gov.amsa.er.craft.tracking.CraftpicProviderDirect - started craftpic for time=Thu Dec 13 03:16:50 UTC 2012,extrapolate=true,interpolate=true
+2012-12-13 03:16:50.522 INFO  au.gov.amsa.er.craft.tracking.CraftpicProviderDirect - loading craft with: latest fix time after =Wed Dec 12 03:16:50 UTC 2012
+2012-12-13 03:17:00.283 INFO  au.gov.amsa.er.craft.tracking.CtsMethodsImpl - craftpicOptions: interpolate=false;extrapolate=false
+2012-12-13 03:17:00.284 INFO  au.gov.amsa.er.craft.tracking.CraftpicProviderCached - refresh thread already running
+2012-12-13 03:17:00.284 INFO  au.gov.amsa.er.craft.tracking.CraftpicProviderCached - returning from cache
+2012-12-13 03:17:01.290 INFO  au.gov.amsa.er.craft.tracking.CtsMethodsImpl -  fixes arrived from IAATO=6
+2012-12-13 03:17:01.290 INFO  au.gov.amsa.er.craft.tracking.CtsMethodsImpl - sending fix list to actor
+2012-12-13 03:17:01.291 INFO  au.gov.amsa.er.craft.tracking.actor.RootActor - received java.util.ArrayList
+2012-12-13 03:17:01.292 INFO  au.gov.amsa.er.craft.tracking.actor.RootActor - fixes queue size = 12
+2012-12-13 03:17:04.924 INFO  au.gov.amsa.er.craft.tracking.CraftpicProviderDirect - number of craft = 8332
+2012-12-13 03:17:04.968 INFO  au.gov.amsa.er.craft.tracking.actions.CraftBehaviour - prefetching fixes
+2012-12-13 03:17:04.970 DEBUG au.gov.amsa.er.craft.tracking.actions.CraftBehaviour - sql=
+select /*+ opt_param('optimizer_index_cost_adj',1) */ fix.fix_id
+  from Fix fix 
+  left outer join 
+       (select   craft_id, max (f.time) maxTime
+            from fix f
+           where f.time >= :threshold and f.time < :startTime 
+        group by craft_id) firstBefore
+        on fix.craft_id = firstBefore.craft_id
+            and fix.time = firstBefore.maxTime
+  left join 
+       (select   craft_id, min (f.time) minTime
+            from fix f
+           where f.time > :endTime
+        group by craft_id) firstAfter
+        on fix.craft_id = firstAfter.craft_id
+        and fix.time = firstAfter.minTime
+ where
+
+(fix.time>=:threshold)
+and
+(
+ (fix.time >= :startTime and fix.time <= :endTime)
+  or (
+    firstBefore.craft_id is not null
+    and firstAfter.craft_id is null)
+ or (firstBefore.craft_id is not null 
+    and firstBefore.craft_id=firstAfter.craft_id)
+)
+
+ 
+2012-12-13 03:17:04.978 INFO  au.gov.amsa.er.craft.tracking.actions.CraftBehaviour - startTime=Thu Dec 13 03:16:50 UTC 2012, endTime=Thu Dec 13 03:16:50 UTC 2012, threshold=Wed Dec 12 03:16:50 UTC 2012
+2012-12-13 03:17:20.041 INFO  au.gov.amsa.er.craft.tracking.actions.CraftBehaviour - returnedFixListTimeSecs=15.062
+2012-12-13 03:17:20.050 INFO  au.gov.amsa.er.craft.tracking.actions.CraftBehaviour - getting fix information for: numFixIds= 1000
+2012-12-13 03:17:31.727 INFO  au.gov.amsa.er.craft.tracking.actions.CraftBehaviour - obtained fix information
+2012-12-13 03:17:31.730 INFO  au.gov.amsa.er.craft.tracking.actions.CraftBehaviour - getting fix information for: numFixIds= 1000
+2012-12-13 03:17:47.011 INFO  au.gov.amsa.er.craft.tracking.actions.CraftBehaviour - obtained fix information
+2012-12-13 03:17:47.012 INFO  au.gov.amsa.er.craft.tracking.actions.CraftBehaviour - getting fix information for: numFixIds= 1000
+2012-12-13 03:17:59.152 INFO  au.gov.amsa.er.craft.tracking.actions.CraftBehaviour - obtained fix information
+2012-12-13 03:17:59.154 INFO  au.gov.amsa.er.craft.tracking.actions.CraftBehaviour - getting fix information for: numFixIds= 1000
+2012-12-13 03:18:03.096 INFO  au.gov.amsa.er.craft.tracking.CtsMethodsImpl -  fixes arrived from COMNAP=18
+2012-12-13 03:18:03.099 INFO  au.gov.amsa.er.craft.tracking.CtsMethodsImpl - sending fix list to actor
+2012-12-13 03:18:03.100 INFO  au.gov.amsa.er.craft.tracking.actor.RootActor - received java.util.ArrayList
+2012-12-13 03:18:03.101 INFO  au.gov.amsa.er.craft.tracking.actor.RootActor - fixes queue size = 13
+2012-12-13 03:18:11.682 INFO  au.gov.amsa.er.craft.tracking.actions.CraftBehaviour - obtained fix information
+2012-12-13 03:18:11.685 INFO  au.gov.amsa.er.craft.tracking.actions.CraftBehaviour - getting fix information for: numFixIds= 1000
+2012-12-13 03:18:24.543 INFO  au.gov.amsa.er.craft.tracking.actions.CraftBehaviour - obtained fix information
+2012-12-13 03:18:24.545 INFO  au.gov.amsa.er.craft.tracking.actions.CraftBehaviour - getting fix information for: numFixIds= 1000
+2012-12-13 03:18:35.448 INFO  au.gov.amsa.er.craft.tracking.actions.CraftBehaviour - obtained fix information
+2012-12-13 03:18:35.466 INFO  au.gov.amsa.er.craft.tracking.actions.CraftBehaviour - getting fix information for: numFixIds= 1000
+2012-12-13 03:18:45.877 INFO  au.gov.amsa.er.craft.tracking.actions.CraftBehaviour - obtained fix information
+2012-12-13 03:18:45.879 INFO  au.gov.amsa.er.craft.tracking.actions.CraftBehaviour - getting fix information for: numFixIds= 1000
+2012-12-13 03:18:56.148 INFO  au.gov.amsa.er.craft.tracking.actions.CraftBehaviour - obtained fix information
+2012-12-13 03:18:56.150 INFO  au.gov.amsa.er.craft.tracking.actions.CraftBehaviour - getting fix information for: numFixIds= 883
+2012-12-13 03:19:06.642 INFO  au.gov.amsa.er.craft.tracking.CtsMethodsImpl - getting basic fixes for type=Vessel,Callsign=VRBO3,from=Thu Dec 13 03:11:07 UTC 2012
+2012-12-13 03:19:06.700 INFO  au.gov.amsa.er.craft.tracking.CtsMethodsImpl - returning basic fixes=0,timeToReturnBasicFixesMs= 58
+2012-12-13 03:19:06.730 INFO  au.gov.amsa.er.craft.tracking.CtsMethodsImpl - getting basic fixes for type=Vessel,IMO Number=9322449,from=Thu Dec 13 03:11:07 UTC 2012
+2012-12-13 03:19:06.734 INFO  au.gov.amsa.er.craft.tracking.CtsMethodsImpl - returning basic fixes=0,timeToReturnBasicFixesMs= 3
+2012-12-13 03:19:06.764 INFO  au.gov.amsa.er.craft.tracking.CtsMethodsImpl - getting basic fixes for type=Vessel,MMSI=477089300,from=Thu Dec 13 03:11:07 UTC 2012
+2012-12-13 03:19:06.768 INFO  au.gov.amsa.er.craft.tracking.CtsMethodsImpl - returning basic fixes=0,timeToReturnBasicFixesMs= 3
+2012-12-13 03:19:09.489 INFO  au.gov.amsa.er.craft.tracking.actions.CraftBehaviour - obtained fix information
+2012-12-13 03:19:10.006 INFO  au.gov.amsa.er.craft.tracking.actions.CraftBehaviour - fixPrefetchTimeSeconds = 125.036
+2012-12-13 03:19:13.970 INFO  au.gov.amsa.er.craft.tracking.actor.PositionActor - inserted 4000 fixes in position table
+2012-12-13 03:19:36.970 INFO  au.gov.amsa.er.craft.tracking.CraftpicProviderDirect - finished craftpic for: time=Thu Dec 13 03:16:50 UTC 2012, found=7771,elapsedTimeSeconds=166.45
+2012-12-13 03:19:37.207 INFO  au.gov.amsa.er.craft.tracking.CraftpicProviderCached - cache updated
+2012-12-13 03:19:37.225 INFO  au.gov.amsa.er.craft.tracking.CraftpicRefresher - starting refresh in 270000ms
+2012-12-13 03:19:37.262 INFO  au.gov.amsa.er.craft.tracking.CraftpicRefresher - thread finished
+2012-12-13 03:19:50.239 INFO  au.gov.amsa.er.craft.tracking.actions.FixBehaviour - moving id Callsign=YJVV9 from craftId=2718123162,Callsign=YJVV9,MMSI=564789000 to craftId=339920815,IMO Number=9294422
+2012-12-13 03:19:50.311 WARN  au.gov.amsa.er.craft.tracking.actions.FixBehaviour - distance moved=2476 nm,  effective speed too high=348 knots, agent=AIS, fix=[MMSI=564789000,Callsign=YJVV9,IMO Number=9294422], srcDetail=rEV01,lastFix=[MMSI=564789000,Callsign=YJVV9], srcDetail=rEV03,lastFixAgent=AIS, craftId=2718123162
+2012-12-13 03:19:50.312 INFO  au.gov.amsa.er.craft.tracking.actions.FixBehaviour - merge aborted due to effective speed between secondary craft and the fix
+2012-12-13 03:19:50.313 INFO  au.gov.amsa.er.craft.tracking.actions.FixBehaviour - fix = [MMSI=564789000,Callsign=YJVV9,IMO Number=9294422]
+2012-12-13 03:19:50.313 INFO  au.gov.amsa.er.craft.tracking.actions.FixBehaviour - primary match identifiers=[IMO Number=9294422,Callsign=YJVV9], craftId=339920815
+2012-12-13 03:19:50.314 INFO  au.gov.amsa.er.craft.tracking.actions.FixBehaviour - secondary match identifiers=[MMSI=564789000], craftId=2718123162
+2012-12-13 03:19:57.061 INFO  au.gov.amsa.er.craft.tracking.actions.FixBehaviour - updating craft 6019 MMSI: 555555555->503338000 PRIMARY
+2012-12-13 03:20:01.363 INFO  au.gov.amsa.er.craft.tracking.CtsMethodsImpl - craftpicOptions: interpolate=true;extrapolate=true
+2012-12-13 03:20:01.364 INFO  au.gov.amsa.er.craft.tracking.CraftpicProviderCached - returning from cache
+2012-12-13 03:20:01.956 INFO  au.gov.amsa.er.craft.tracking.CtsMethodsImpl -  fixes arrived from QFS=37
+2012-12-13 03:20:01.957 INFO  au.gov.amsa.er.craft.tracking.CtsMethodsImpl - sending fix list to actor
+2012-12-13 03:20:01.957 INFO  au.gov.amsa.er.craft.tracking.actor.RootActor - received java.util.ArrayList
+2012-12-13 03:20:01.959 INFO  au.gov.amsa.er.craft.tracking.actor.RootActor - fixes queue size = 14
+2012-12-13 03:20:02.266 INFO  au.gov.amsa.er.craft.tracking.CtsMethodsImpl -  fixes arrived from SLDMB=1
+2012-12-13 03:20:02.266 INFO  au.gov.amsa.er.craft.tracking.CtsMethodsImpl - sending fix list to actor
+2012-12-13 03:20:02.267 INFO  au.gov.amsa.er.craft.tracking.actor.RootActor - received java.util.ArrayList
+2012-12-13 03:20:02.268 INFO  au.gov.amsa.er.craft.tracking.actor.RootActor - fixes queue size = 15
+2012-12-13 03:20:17.661 INFO  au.gov.amsa.er.craft.tracking.actor.PilotageActor - loading pilotages
+2012-12-13 03:20:17.795 INFO  au.gov.amsa.er.craft.tracking.actor.PilotageActor - loaded pilotages
+2012-12-13 03:20:18.823 INFO  au.gov.amsa.er.craft.tracking.CtsMethodsImpl -  fixes arrived from FIS=341
+2012-12-13 03:20:18.824 INFO  au.gov.amsa.er.craft.tracking.CtsMethodsImpl - sending fix list to actor
+2012-12-13 03:20:18.825 INFO  au.gov.amsa.er.craft.tracking.actor.RootActor - received java.util.ArrayList
+2012-12-13 03:20:18.826 INFO  au.gov.amsa.er.craft.tracking.actor.RootActor - fixes queue size = 16
+2012-12-13 03:20:20.303 INFO  au.gov.amsa.er.craft.tracking.CtsMethodsImpl -  fixes arrived from AIS=976
+2012-12-13 03:20:20.304 INFO  au.gov.amsa.er.craft.tracking.CtsMethodsImpl - sending fix list to actor
+2012-12-13 03:20:20.305 INFO  au.gov.amsa.er.craft.tracking.actor.RootActor - received java.util.ArrayList
+2012-12-13 03:20:20.306 INFO  au.gov.amsa.er.craft.tracking.actor.RootActor - fixes queue size = 17
+2012-12-13 03:20:23.404 INFO  au.gov.amsa.er.craft.tracking.actions.FixBehaviour - updating craft 1179614 MMSI: 503526000->563304000 PRIMARY
+2012-12-13 03:21:11.525 INFO  au.gov.amsa.er.craft.tracking.CraftpicRefresher - refreshing
+2012-12-13 03:21:11.530 INFO  au.gov.amsa.er.craft.tracking.CraftpicProviderDirect - started craftpic for time=Thu Dec 13 03:21:11 UTC 2012,extrapolate=false,interpolate=false
+2012-12-13 03:21:11.531 INFO  au.gov.amsa.er.craft.tracking.CraftpicProviderDirect - loading craft with: latest fix time after =Wed Dec 12 03:21:11 UTC 2012
+2012-12-13 03:21:12.799 INFO  au.gov.amsa.er.craft.tracking.actions.FixBehaviour - added new craft identity Callsign=SPS2700 for craftId=-1746348052
+2012-12-13 03:21:19.518 INFO  au.gov.amsa.er.craft.tracking.CraftpicProviderDirect - number of craft = 8346
+2012-12-13 03:21:19.547 INFO  au.gov.amsa.er.craft.tracking.actions.CraftBehaviour - prefetching fixes
+2012-12-13 03:21:19.548 DEBUG au.gov.amsa.er.craft.tracking.actions.CraftBehaviour - sql=
+select /*+ opt_param('optimizer_index_cost_adj',1) */ fix.fix_id
+  from Fix fix 
+  left outer join 
+       (select   craft_id, max (f.time) maxTime
+            from fix f
+           where f.time >= :threshold and f.time < :startTime 
+        group by craft_id) firstBefore
+        on fix.craft_id = firstBefore.craft_id
+            and fix.time = firstBefore.maxTime
+  left join 
+       (select   craft_id, min (f.time) minTime
+            from fix f
+           where f.time > :endTime
+        group by craft_id) firstAfter
+        on fix.craft_id = firstAfter.craft_id
+        and fix.time = firstAfter.minTime
+ where
+
+(fix.time>=:threshold)
+and
+(
+ (fix.time >= :startTime and fix.time <= :endTime)
+  or (
+    firstBefore.craft_id is not null
+    and firstAfter.craft_id is null)
+ or (firstBefore.craft_id is not null 
+    and firstBefore.craft_id=firstAfter.craft_id)
+)
+
+ 
+2012-12-13 03:21:19.549 INFO  au.gov.amsa.er.craft.tracking.actions.CraftBehaviour - startTime=Thu Dec 13 03:21:11 UTC 2012, endTime=Thu Dec 13 03:21:11 UTC 2012, threshold=Wed Dec 12 03:21:11 UTC 2012
+2012-12-13 03:21:27.040 INFO  au.gov.amsa.er.craft.tracking.actions.FixBehaviour - moving id Callsign=ZKHX from craftId=-2013461461,Callsign=ZKHX,MMSI=997752129 to craftId=-2011794628,MMSI=997752144
+2012-12-13 03:21:27.099 INFO  au.gov.amsa.er.craft.tracking.CtsMethodsImpl - processed=1752,from=AIS,newCraft=0,alreadyPresent=0,rateMsgPerSecond=5.76
+2012-12-13 03:21:27.101 INFO  au.gov.amsa.er.craft.tracking.actor.FixesPersisterActor - fixes queue size = 16
+2012-12-13 03:21:27.102 INFO  au.gov.amsa.er.craft.tracking.CtsMethodsImpl - writing fixes to filename= fixes.txt
+2012-12-13 03:21:27.110 INFO  au.gov.amsa.er.craft.tracking.CtsMethodsImpl - fixes written
+2012-12-13 03:21:27.110 INFO  au.gov.amsa.er.craft.tracking.CtsMethodsImpl - persisting fixes = 2, from=SKY-CONNECT
+2012-12-13 03:21:27.233 INFO  au.gov.amsa.er.craft.tracking.CtsMethodsImpl - processed=2,from=SKY-CONNECT,newCraft=0,alreadyPresent=0,rateMsgPerSecond=16.26
+2012-12-13 03:21:27.235 INFO  au.gov.amsa.er.craft.tracking.actor.FixesPersisterActor - fixes queue size = 15
+2012-12-13 03:21:27.236 INFO  au.gov.amsa.er.craft.tracking.CtsMethodsImpl - writing fixes to filename= fixes.txt
+2012-12-13 03:21:27.243 INFO  au.gov.amsa.er.craft.tracking.CtsMethodsImpl - fixes written
+2012-12-13 03:21:27.245 INFO  au.gov.amsa.er.craft.tracking.CtsMethodsImpl - persisting fixes = 2, from=SKY-CONNECT
+2012-12-13 03:21:27.510 INFO  au.gov.amsa.er.craft.tracking.CtsMethodsImpl - processed=2,from=SKY-CONNECT,newCraft=0,alreadyPresent=0,rateMsgPerSecond=7.58
+2012-12-13 03:21:27.516 INFO  au.gov.amsa.er.craft.tracking.actor.FixesPersisterActor - fixes queue size = 14
+2012-12-13 03:21:27.519 INFO  au.gov.amsa.er.craft.tracking.CtsMethodsImpl - writing fixes to filename= fixes.txt
+2012-12-13 03:21:28.786 INFO  au.gov.amsa.er.craft.tracking.CtsMethodsImpl - fixes written
+2012-12-13 03:21:28.787 INFO  au.gov.amsa.er.craft.tracking.CtsMethodsImpl - persisting fixes = 353, from=FIS
+2012-12-13 03:21:29.614 INFO  au.gov.amsa.er.craft.tracking.actions.CraftBehaviour - returnedFixListTimeSecs=10.065
+2012-12-13 03:21:29.623 INFO  au.gov.amsa.er.craft.tracking.actions.CraftBehaviour - getting fix information for: numFixIds= 1000
+2012-12-13 03:21:31.264 WARN  au.gov.amsa.er.craft.tracking.actions.FixBehaviour - distance moved=257 nm,  effective speed too high=1480 knots, agent=FIS, fix=[Callsign=VH-VQM], srcDetail=null,lastFix=[Callsign=VH-VQM], srcDetail=null,lastFixAgent=FIS, craftId=1427182130
+2012-12-13 03:21:31.271 WARN  au.gov.amsa.er.craft.tracking.actions.FixBehaviour - fix rejected
+2012-12-13 03:21:31.273 INFO  au.gov.amsa.er.craft.tracking.CtsMethodsImpl - rolling back transaction to reject fix
+2012-12-13 03:21:31.469 WARN  au.gov.amsa.er.craft.tracking.actions.FixBehaviour - distance moved=454 nm,  effective speed too high=1350 knots, agent=FIS, fix=[Callsign=VH-NJY], srcDetail=null,lastFix=[Callsign=VH-NJY], srcDetail=null,lastFixAgent=FIS, craftId=1428658196
+2012-12-13 03:21:31.472 WARN  au.gov.amsa.er.craft.tracking.actions.FixBehaviour - fix rejected
+2012-12-13 03:21:31.472 INFO  au.gov.amsa.er.craft.tracking.CtsMethodsImpl - rolling back transaction to reject fix
+2012-12-13 03:21:31.670 WARN  au.gov.amsa.er.craft.tracking.actions.FixBehaviour - distance moved=131 nm,  effective speed too high=1562 knots, agent=FIS, fix=[Callsign=VH-PID], srcDetail=null,lastFix=[Callsign=VH-PID], srcDetail=null,lastFixAgent=FIS, craftId=1427169780
+2012-12-13 03:21:31.675 WARN  au.gov.amsa.er.craft.tracking.actions.FixBehaviour - fix rejected
+2012-12-13 03:21:31.677 INFO  au.gov.amsa.er.craft.tracking.CtsMethodsImpl - rolling back transaction to reject fix
+2012-12-13 03:21:31.947 WARN  au.gov.amsa.er.craft.tracking.actions.FixBehaviour - distance moved=252 nm,  effective speed too high=1456 knots, agent=FIS, fix=[Callsign=VH-VYI], srcDetail=null,lastFix=[Callsign=VH-VYI], srcDetail=null,lastFixAgent=FIS, craftId=1427170478
+2012-12-13 03:21:31.949 WARN  au.gov.amsa.er.craft.tracking.actions.FixBehaviour - fix rejected
+2012-12-13 03:21:31.950 INFO  au.gov.amsa.er.craft.tracking.CtsMethodsImpl - rolling back transaction to reject fix
+2012-12-13 03:21:32.096 WARN  au.gov.amsa.er.craft.tracking.actions.FixBehaviour - distance moved=1113 nm,  effective speed too high=1038 knots, agent=FIS, fix=[Callsign=VH-VUN], srcDetail=null,lastFix=[Callsign=VH-VUN], srcDetail=null,lastFixAgent=FIS, craftId=1427375029
+2012-12-13 03:21:32.098 WARN  au.gov.amsa.er.craft.tracking.actions.FixBehaviour - fix rejected
+2012-12-13 03:21:32.099 INFO  au.gov.amsa.er.craft.tracking.CtsMethodsImpl - rolling back transaction to reject fix
+2012-12-13 03:21:35.261 INFO  au.gov.amsa.er.craft.tracking.WeakPoolManager - mapped weak id 'Aircraft Id=DNGO47' to 'pool-1-79',  pref=100.00% of 7
+2012-12-13 03:21:36.964 INFO  au.gov.amsa.er.craft.tracking.actions.CraftBehaviour - obtained fix information
+2012-12-13 03:21:36.972 INFO  au.gov.amsa.er.craft.tracking.actions.CraftBehaviour - getting fix information for: numFixIds= 1000
+2012-12-13 03:21:37.938 INFO  au.gov.amsa.er.craft.tracking.WeakPoolManager - mapped weak id 'Aircraft Id=V72' to 'pool-1-49',  pref=100.00% of 7
+2012-12-13 03:21:40.356 WARN  au.gov.amsa.er.craft.tracking.actions.FixBehaviour - distance moved=243 nm,  effective speed too high=1398 knots, agent=FIS, fix=[Callsign=VH-VXU], srcDetail=null,lastFix=[Callsign=VH-VXU], srcDetail=null,lastFixAgent=FIS, craftId=1427186403
+2012-12-13 03:21:40.359 WARN  au.gov.amsa.er.craft.tracking.actions.FixBehaviour - fix rejected
+2012-12-13 03:21:40.360 INFO  au.gov.amsa.er.craft.tracking.CtsMethodsImpl - rolling back transaction to reject fix
+2012-12-13 03:21:40.830 INFO  au.gov.amsa.er.craft.tracking.WeakPoolManager - mapped weak id 'Aircraft Id=T830' to 'pool-1-192',  pref=100.00% of 7
+2012-12-13 03:21:40.985 WARN  au.gov.amsa.er.craft.tracking.actions.FixBehaviour - distance moved=866 nm,  effective speed too high=2148 knots, agent=FIS, fix=[Callsign=PK-GPD], srcDetail=null,lastFix=[Callsign=PK-GPD], srcDetail=null,lastFixAgent=FIS, craftId=1432364299
+2012-12-13 03:21:41.007 WARN  au.gov.amsa.er.craft.tracking.actions.FixBehaviour - fix rejected
+2012-12-13 03:21:41.008 INFO  au.gov.amsa.er.craft.tracking.CtsMethodsImpl - rolling back transaction to reject fix
+2012-12-13 03:21:42.926 WARN  au.gov.amsa.er.craft.tracking.actions.FixBehaviour - distance moved=885 nm,  effective speed too high=2286 knots, agent=FIS, fix=[Callsign=VH-YIE], srcDetail=null,lastFix=[Callsign=VH-YIE], srcDetail=null,lastFixAgent=FIS, craftId=1582831371
+2012-12-13 03:21:42.930 WARN  au.gov.amsa.er.craft.tracking.actions.FixBehaviour - fix rejected
+2012-12-13 03:21:42.931 INFO  au.gov.amsa.er.craft.tracking.CtsMethodsImpl - rolling back transaction to reject fix
+2012-12-13 03:21:44.343 WARN  au.gov.amsa.er.craft.tracking.actions.FixBehaviour - distance moved=199 nm,  effective speed too high=3988 knots, agent=FIS, fix=[Callsign=VH-VHD], srcDetail=null,lastFix=[Callsign=VH-VHD], srcDetail=null,lastFixAgent=DAESTRA, craftId=1538
+2012-12-13 03:21:44.356 WARN  au.gov.amsa.er.craft.tracking.actions.FixBehaviour - fix rejected
+2012-12-13 03:21:44.362 INFO  au.gov.amsa.er.craft.tracking.CtsMethodsImpl - rolling back transaction to reject fix
+2012-12-13 03:21:45.159 INFO  au.gov.amsa.er.craft.tracking.WeakPoolManager - mapped weak id 'Aircraft Id=DNGO50' to 'pool-1-193',  pref=100.00% of 7
+2012-12-13 03:21:45.541 INFO  au.gov.amsa.er.craft.tracking.actions.CraftBehaviour - obtained fix information
+2012-12-13 03:21:45.543 INFO  au.gov.amsa.er.craft.tracking.actions.CraftBehaviour - getting fix information for: numFixIds= 1000
+2012-12-13 03:21:46.083 INFO  au.gov.amsa.er.craft.tracking.WeakPoolManager - mapped weak id 'Aircraft Id=MDSA47' to 'pool-1-194',  pref=100.00% of 8
+2012-12-13 03:21:46.251 WARN  au.gov.amsa.er.craft.tracking.actions.FixBehaviour - distance moved=1250 nm,  effective speed too high=1115 knots, agent=FIS, fix=[Callsign=9V-SKK], srcDetail=null,lastFix=[Callsign=9V-SKK], srcDetail=null,lastFixAgent=FIS, craftId=1441799585
+2012-12-13 03:21:46.253 WARN  au.gov.amsa.er.craft.tracking.actions.FixBehaviour - fix rejected
+2012-12-13 03:21:46.254 INFO  au.gov.amsa.er.craft.tracking.CtsMethodsImpl - rolling back transaction to reject fix
+2012-12-13 03:21:46.447 INFO  au.gov.amsa.er.craft.tracking.WeakPoolManager - mapped weak id 'Aircraft Id=STKR36' to 'pool-1-10',  pref=100.00% of 9
+2012-12-13 03:21:47.598 WARN  au.gov.amsa.er.craft.tracking.actions.FixBehaviour - distance moved=234 nm,  effective speed too high=2785 knots, agent=FIS, fix=[Callsign=N8-88GX], srcDetail=null,lastFix=[Callsign=N8-88GX], srcDetail=null,lastFixAgent=FIS, craftId=1428413826
+2012-12-13 03:21:47.601 WARN  au.gov.amsa.er.craft.tracking.actions.FixBehaviour - fix rejected
+2012-12-13 03:21:47.602 INFO  au.gov.amsa.er.craft.tracking.CtsMethodsImpl - rolling back transaction to reject fix
+2012-12-13 03:21:47.604 INFO  au.gov.amsa.er.craft.tracking.CtsMethodsImpl - processed=151,from=FIS,newCraft=0,alreadyPresent=0,rateMsgPerSecond=8.03
+2012-12-13 03:21:47.605 INFO  au.gov.amsa.er.craft.tracking.actor.FixesPersisterActor - processed 162, moving 191 to end of queue
+2012-12-13 03:21:47.605 INFO  au.gov.amsa.er.craft.tracking.actor.RootActor - received java.util.ArrayList$SubList
+2012-12-13 03:21:47.606 INFO  au.gov.amsa.er.craft.tracking.actor.RootActor - fixes queue size = 15
+2012-12-13 03:21:47.607 INFO  au.gov.amsa.er.craft.tracking.actor.FixesPersisterActor - fixes queue size = 14
+2012-12-13 03:21:47.607 INFO  au.gov.amsa.er.craft.tracking.CtsMethodsImpl - writing fixes to filename= fixes.txt
+2012-12-13 03:21:52.978 INFO  au.gov.amsa.er.craft.tracking.actions.CraftBehaviour - obtained fix information
+2012-12-13 03:21:52.979 INFO  au.gov.amsa.er.craft.tracking.actions.CraftBehaviour - getting fix information for: numFixIds= 1000
+2012-12-13 03:21:57.589 INFO  au.gov.amsa.er.craft.tracking.CtsMethodsImpl - fixes written
+2012-12-13 03:21:57.590 INFO  au.gov.amsa.er.craft.tracking.CtsMethodsImpl - persisting fixes = 1965, from=AIS
+2012-12-13 03:22:01.573 INFO  au.gov.amsa.er.craft.tracking.actor.PositionActor - inserted 5000 fixes in position table
+2012-12-13 03:22:01.916 INFO  au.gov.amsa.er.craft.tracking.actions.CraftBehaviour - obtained fix information
+2012-12-13 03:22:01.918 INFO  au.gov.amsa.er.craft.tracking.actions.CraftBehaviour - getting fix information for: numFixIds= 1000
+2012-12-13 03:22:11.667 INFO  au.gov.amsa.er.craft.tracking.actions.CraftBehaviour - obtained fix information
+2012-12-13 03:22:11.668 INFO  au.gov.amsa.er.craft.tracking.actions.CraftBehaviour - getting fix information for: numFixIds= 1000
+2012-12-13 03:22:21.436 INFO  au.gov.amsa.er.craft.tracking.actions.CraftBehaviour - obtained fix information
+2012-12-13 03:22:21.440 INFO  au.gov.amsa.er.craft.tracking.actions.CraftBehaviour - getting fix information for: numFixIds= 1000
+2012-12-13 03:22:30.096 INFO  au.gov.amsa.er.craft.tracking.actions.CraftBehaviour - obtained fix information
+2012-12-13 03:22:30.098 INFO  au.gov.amsa.er.craft.tracking.actions.CraftBehaviour - getting fix information for: numFixIds= 1000
+2012-12-13 03:22:35.047 INFO  au.gov.amsa.er.craft.tracking.actions.FixBehaviour - created craft identity MMSI=9103324
+2012-12-13 03:22:35.048 INFO  au.gov.amsa.er.craft.tracking.actions.FixBehaviour - created craft craftId=2719957085
+2012-12-13 03:22:36.749 INFO  au.gov.amsa.er.craft.tracking.actions.CraftBehaviour - obtained fix information
+2012-12-13 03:22:36.750 INFO  au.gov.amsa.er.craft.tracking.actions.CraftBehaviour - getting fix information for: numFixIds= 898
+2012-12-13 03:22:46.082 INFO  au.gov.amsa.er.craft.tracking.actions.CraftBehaviour - obtained fix information
+2012-12-13 03:22:46.373 INFO  au.gov.amsa.er.craft.tracking.actions.CraftBehaviour - fixPrefetchTimeSeconds = 86.825
+2012-12-13 03:23:00.228 WARN  au.gov.amsa.er.craft.tracking.actions.FixBehaviour - distance moved=2476 nm,  effective speed too high=346 knots, agent=AIS, fix=[IMO Number=9294422,MMSI=564789000,Callsign=YJVV9], srcDetail=rEV01,lastFix=[MMSI=564789000,Callsign=YJVV9], srcDetail=rEV03,lastFixAgent=AIS, craftId=2718123162
+2012-12-13 03:23:00.230 INFO  au.gov.amsa.er.craft.tracking.actions.FixBehaviour - merge aborted due to effective speed between secondary craft and the fix
+2012-12-13 03:23:00.230 INFO  au.gov.amsa.er.craft.tracking.actions.FixBehaviour - fix = [IMO Number=9294422,MMSI=564789000,Callsign=YJVV9]
+2012-12-13 03:23:00.231 INFO  au.gov.amsa.er.craft.tracking.actions.FixBehaviour - primary match identifiers=[IMO Number=9294422,Callsign=YJVV9], craftId=339920815
+2012-12-13 03:23:00.232 INFO  au.gov.amsa.er.craft.tracking.actions.FixBehaviour - secondary match identifiers=[MMSI=564789000], craftId=2718123162
+2012-12-13 03:23:11.675 INFO  au.gov.amsa.er.craft.tracking.CraftpicProviderDirect - finished craftpic for: time=Thu Dec 13 03:21:11 UTC 2012, found=7200,elapsedTimeSeconds=120.145
+2012-12-13 03:23:11.867 INFO  au.gov.amsa.er.craft.tracking.CraftpicProviderCached - cache updated
+2012-12-13 03:23:11.877 INFO  au.gov.amsa.er.craft.tracking.CraftpicRefresher - starting refresh in 270000ms
+2012-12-13 03:23:11.894 INFO  au.gov.amsa.er.craft.tracking.CraftpicRefresher - thread finished
+2012-12-13 03:23:16.123 INFO  au.gov.amsa.er.craft.tracking.actions.FixBehaviour - moving id Callsign=0000000 from craftId=-1766619619,Callsign=0000000,MMSI=503685200 to craftId=2602453196,MMSI=900900260
+2012-12-13 03:23:30.364 INFO  au.gov.amsa.er.craft.tracking.CtsMethodsImpl - craftpicOptions: interpolate=false;extrapolate=false
+2012-12-13 03:23:30.365 INFO  au.gov.amsa.er.craft.tracking.CraftpicProviderCached - returning from cache
+2012-12-13 03:23:52.300 INFO  au.gov.amsa.er.craft.tracking.actor.PositionActor - inserted 6000 fixes in position table
+2012-12-13 03:24:07.228 INFO  au.gov.amsa.er.craft.tracking.CraftpicRefresher - refreshing
+2012-12-13 03:24:07.232 INFO  au.gov.amsa.er.craft.tracking.CraftpicProviderDirect - started craftpic for time=Thu Dec 13 03:24:07 UTC 2012,extrapolate=true,interpolate=true
+2012-12-13 03:24:07.233 INFO  au.gov.amsa.er.craft.tracking.CraftpicProviderDirect - loading craft with: latest fix time after =Wed Dec 12 03:24:07 UTC 2012
+2012-12-13 03:24:09.973 INFO  au.gov.amsa.er.craft.tracking.actions.FixBehaviour - created craft identity MMSI=995337004
+2012-12-13 03:24:09.975 INFO  au.gov.amsa.er.craft.tracking.actions.FixBehaviour - created craft craftId=2719969873
+2012-12-13 03:24:12.922 INFO  au.gov.amsa.er.craft.tracking.CraftpicProviderDirect - number of craft = 8374
+2012-12-13 03:24:12.941 INFO  au.gov.amsa.er.craft.tracking.actions.CraftBehaviour - prefetching fixes
+2012-12-13 03:24:12.942 DEBUG au.gov.amsa.er.craft.tracking.actions.CraftBehaviour - sql=
+select /*+ opt_param('optimizer_index_cost_adj',1) */ fix.fix_id
+  from Fix fix 
+  left outer join 
+       (select   craft_id, max (f.time) maxTime
+            from fix f
+           where f.time >= :threshold and f.time < :startTime 
+        group by craft_id) firstBefore
+        on fix.craft_id = firstBefore.craft_id
+            and fix.time = firstBefore.maxTime
+  left join 
+       (select   craft_id, min (f.time) minTime
+            from fix f
+           where f.time > :endTime
+        group by craft_id) firstAfter
+        on fix.craft_id = firstAfter.craft_id
+        and fix.time = firstAfter.minTime
+ where
+
+(fix.time>=:threshold)
+and
+(
+ (fix.time >= :startTime and fix.time <= :endTime)
+  or (
+    firstBefore.craft_id is not null
+    and firstAfter.craft_id is null)
+ or (firstBefore.craft_id is not null 
+    and firstBefore.craft_id=firstAfter.craft_id)
+)
+
+ 
+2012-12-13 03:24:12.943 INFO  au.gov.amsa.er.craft.tracking.actions.CraftBehaviour - startTime=Thu Dec 13 03:24:07 UTC 2012, endTime=Thu Dec 13 03:24:07 UTC 2012, threshold=Wed Dec 12 03:24:07 UTC 2012
+2012-12-13 03:24:22.463 INFO  au.gov.amsa.er.craft.tracking.actions.CraftBehaviour - returnedFixListTimeSecs=9.519
+2012-12-13 03:24:22.473 INFO  au.gov.amsa.er.craft.tracking.actions.CraftBehaviour - getting fix information for: numFixIds= 1000
+2012-12-13 03:24:27.476 INFO  au.gov.amsa.er.craft.tracking.actions.CraftBehaviour - obtained fix information
+2012-12-13 03:24:27.478 INFO  au.gov.amsa.er.craft.tracking.actions.CraftBehaviour - getting fix information for: numFixIds= 1000
+2012-12-13 03:24:32.463 INFO  au.gov.amsa.er.craft.tracking.actions.CraftBehaviour - obtained fix information
+2012-12-13 03:24:32.464 INFO  au.gov.amsa.er.craft.tracking.actions.CraftBehaviour - getting fix information for: numFixIds= 1000
+2012-12-13 03:24:35.441 WARN  au.gov.amsa.er.craft.tracking.actions.FixBehaviour - distance moved=1115 nm,  effective speed too high=152 knots, agent=AIS, fix=[Callsign=BCAC], srcDetail=rEV01,lastFix=[Callsign=BCAC], srcDetail=rEV03,lastFixAgent=AIS, craftId=1939607059
+2012-12-13 03:24:35.446 WARN  au.gov.amsa.er.craft.tracking.actions.FixBehaviour - fix rejected
+2012-12-13 03:24:35.447 INFO  au.gov.amsa.er.craft.tracking.CtsMethodsImpl - rolling back transaction to reject fix
+2012-12-13 03:24:38.449 INFO  au.gov.amsa.er.craft.tracking.actions.CraftBehaviour - obtained fix information
+2012-12-13 03:24:38.450 INFO  au.gov.amsa.er.craft.tracking.actions.CraftBehaviour - getting fix information for: numFixIds= 1000
+2012-12-13 03:24:43.139 INFO  au.gov.amsa.er.craft.tracking.actions.FixBehaviour - flushing before merge
+2012-12-13 03:24:43.236 INFO  au.gov.amsa.er.craft.tracking.actions.FixBehaviour - merging craftId=2718119496,Callsign=POGW to craftId=1573157118,IMO Number=9649598
+2012-12-13 03:24:43.393 INFO  au.gov.amsa.er.craft.tracking.actions.FixBehaviour - moved 1 fixes
+2012-12-13 03:24:44.538 INFO  au.gov.amsa.er.craft.tracking.actions.CraftBehaviour - obtained fix information
+2012-12-13 03:24:44.539 INFO  au.gov.amsa.er.craft.tracking.actions.CraftBehaviour - getting fix information for: numFixIds= 1000
+2012-12-13 03:24:48.503 INFO  au.gov.amsa.er.craft.tracking.actions.FixBehaviour - merge complete craftId=1573157118,Callsign=POGW,IMO Number=9649598->craftId=1573157118,Callsign=POGW,IMO Number=9649598
+2012-12-13 03:24:48.506 INFO  au.gov.amsa.er.craft.tracking.actions.FixBehaviour - flushing before merge
+2012-12-13 03:24:48.514 INFO  au.gov.amsa.er.craft.tracking.actions.FixBehaviour - merging craftId=2717630160,MMSI=273000000 to craftId=1573157118,Callsign=POGW,IMO Number=9649598
+2012-12-13 03:24:48.518 INFO  au.gov.amsa.er.craft.tracking.actions.FixBehaviour - moved 2 fixes
+2012-12-13 03:24:50.083 INFO  au.gov.amsa.er.craft.tracking.actions.CraftBehaviour - obtained fix information
+2012-12-13 03:24:50.085 INFO  au.gov.amsa.er.craft.tracking.actions.CraftBehaviour - getting fix information for: numFixIds= 1000
+2012-12-13 03:24:51.648 INFO  au.gov.amsa.er.craft.tracking.actions.FixBehaviour - merge complete craftId=1573157118,Callsign=POGW,IMO Number=9649598,MMSI=273000000->craftId=1573157118,Callsign=POGW,IMO Number=9649598,MMSI=273000000
+2012-12-13 03:24:51.661 INFO  au.gov.amsa.er.craft.tracking.actor.RootActor - received MessageMerge [fromCraftId=2717630160, toCraftId=1573157118]
+2012-12-13 03:24:51.663 INFO  au.gov.amsa.er.craft.tracking.actor.RootActor - merge from 2717630160 to 1573157118
+2012-12-13 03:24:51.801 INFO  au.gov.amsa.er.craft.tracking.actor.PositionActor - updated 2 rows changing craftId 2717630160 to 1573157118
+2012-12-13 03:24:56.371 INFO  au.gov.amsa.er.craft.tracking.actions.CraftBehaviour - obtained fix information
+2012-12-13 03:24:56.373 INFO  au.gov.amsa.er.craft.tracking.actions.CraftBehaviour - getting fix information for: numFixIds= 1000
+2012-12-13 03:25:01.573 INFO  au.gov.amsa.er.craft.tracking.actions.FixBehaviour - moving id Callsign=LAOI5 from craftId=9126,Callsign=LAOI5,IMO Number=9190298,MMSI=257557000 to craftId=1844673425,MMSI=992572632
+2012-12-13 03:25:06.498 INFO  au.gov.amsa.er.craft.tracking.actions.CraftBehaviour - obtained fix information
+2012-12-13 03:25:06.500 INFO  au.gov.amsa.er.craft.tracking.actions.CraftBehaviour - getting fix information for: numFixIds= 1000
+2012-12-13 03:25:07.055 INFO  au.gov.amsa.er.craft.tracking.CtsMethodsImpl -  fixes arrived from SPIDERTRACKS=1
+2012-12-13 03:25:07.056 INFO  au.gov.amsa.er.craft.tracking.CtsMethodsImpl - sending fix list to actor
+2012-12-13 03:25:07.057 INFO  au.gov.amsa.er.craft.tracking.actor.RootActor - received java.util.ArrayList
+2012-12-13 03:25:07.058 INFO  au.gov.amsa.er.craft.tracking.actor.RootActor - fixes queue size = 15
+2012-12-13 03:25:07.079 INFO  au.gov.amsa.er.craft.tracking.actions.FixBehaviour - moving id Callsign=C6YN4 from craftId=2719658225,Callsign=C6YN4,MMSI=311039100 to craftId=635888911,IMO Number=9531844
+2012-12-13 03:25:07.162 WARN  au.gov.amsa.er.craft.tracking.actions.FixBehaviour - distance moved=3137 nm,  effective speed too high=1748 knots, agent=AIS, fix=[MMSI=311039100,IMO Number=9531844,Callsign=C6YN4], srcDetail=rEV01,lastFix=[Callsign=C6YN4,MMSI=311039100], srcDetail=rEV02,lastFixAgent=AIS, craftId=2719658225
+2012-12-13 03:25:07.163 INFO  au.gov.amsa.er.craft.tracking.actions.FixBehaviour - merge aborted due to effective speed between secondary craft and the fix
+2012-12-13 03:25:07.163 INFO  au.gov.amsa.er.craft.tracking.actions.FixBehaviour - fix = [MMSI=311039100,IMO Number=9531844,Callsign=C6YN4]
+2012-12-13 03:25:07.164 INFO  au.gov.amsa.er.craft.tracking.actions.FixBehaviour - primary match identifiers=[IMO Number=9531844,Callsign=C6YN4], craftId=635888911
+2012-12-13 03:25:07.165 INFO  au.gov.amsa.er.craft.tracking.actions.FixBehaviour - secondary match identifiers=[MMSI=311039100], craftId=2719658225
+2012-12-13 03:25:09.611 INFO  au.gov.amsa.er.craft.tracking.CtsMethodsImpl -  fixes arrived from FIS=338
+2012-12-13 03:25:09.612 INFO  au.gov.amsa.er.craft.tracking.CtsMethodsImpl - sending fix list to actor
+2012-12-13 03:25:09.612 INFO  au.gov.amsa.er.craft.tracking.actor.RootActor - received java.util.ArrayList
+2012-12-13 03:25:09.613 INFO  au.gov.amsa.er.craft.tracking.actor.RootActor - fixes queue size = 16
+2012-12-13 03:25:16.687 INFO  au.gov.amsa.er.craft.tracking.CtsMethodsImpl -  fixes arrived from AIS=980
+2012-12-13 03:25:16.691 INFO  au.gov.amsa.er.craft.tracking.CtsMethodsImpl - sending fix list to actor
+2012-12-13 03:25:16.692 INFO  au.gov.amsa.er.craft.tracking.actor.RootActor - received java.util.ArrayList
+2012-12-13 03:25:16.693 INFO  au.gov.amsa.er.craft.tracking.actor.RootActor - fixes queue size = 17
+2012-12-13 03:25:17.847 INFO  au.gov.amsa.er.craft.tracking.actor.PilotageActor - loading pilotages
+2012-12-13 03:25:17.959 INFO  au.gov.amsa.er.craft.tracking.actions.FixBehaviour - moving id Callsign=ZKHX from craftId=-2011794628,Callsign=ZKHX,MMSI=997752144 to craftId=-2013461461,MMSI=997752129
+2012-12-13 03:25:18.003 INFO  au.gov.amsa.er.craft.tracking.actor.PilotageActor - loaded pilotages
+2012-12-13 03:25:18.184 INFO  au.gov.amsa.er.craft.tracking.actions.CraftBehaviour - obtained fix information
+2012-12-13 03:25:18.187 INFO  au.gov.amsa.er.craft.tracking.actions.CraftBehaviour - getting fix information for: numFixIds= 912
+2012-12-13 03:25:31.225 INFO  au.gov.amsa.er.craft.tracking.actions.CraftBehaviour - obtained fix information
+2012-12-13 03:25:31.833 INFO  au.gov.amsa.er.craft.tracking.actions.CraftBehaviour - fixPrefetchTimeSeconds = 78.890
+2012-12-13 03:26:02.075 INFO  au.gov.amsa.er.craft.tracking.actions.FixBehaviour - moving id Callsign=ZKHX from craftId=-2013461461,Callsign=ZKHX,MMSI=997752129 to craftId=-2011794628,MMSI=997752144
+2012-12-13 03:26:06.773 INFO  au.gov.amsa.er.craft.tracking.CtsMethodsImpl - processed=1964,from=AIS,newCraft=2,alreadyPresent=0,rateMsgPerSecond=7.88
+2012-12-13 03:26:06.775 INFO  au.gov.amsa.er.craft.tracking.actor.FixesPersisterActor - fixes queue size = 16
+2012-12-13 03:26:06.776 INFO  au.gov.amsa.er.craft.tracking.CtsMethodsImpl - writing fixes to filename= fixes.txt
+2012-12-13 03:26:06.784 INFO  au.gov.amsa.er.craft.tracking.CtsMethodsImpl - fixes written
+2012-12-13 03:26:06.785 INFO  au.gov.amsa.er.craft.tracking.CtsMethodsImpl - persisting fixes = 2, from=SKY-CONNECT
+2012-12-13 03:26:07.087 INFO  au.gov.amsa.er.craft.tracking.CtsMethodsImpl - processed=2,from=SKY-CONNECT,newCraft=0,alreadyPresent=0,rateMsgPerSecond=6.62
+2012-12-13 03:26:07.089 INFO  au.gov.amsa.er.craft.tracking.actor.FixesPersisterActor - fixes queue size = 15
+2012-12-13 03:26:07.090 INFO  au.gov.amsa.er.craft.tracking.CtsMethodsImpl - writing fixes to filename= fixes.txt
+2012-12-13 03:26:07.915 INFO  au.gov.amsa.er.craft.tracking.CtsMethodsImpl - fixes written
+2012-12-13 03:26:07.916 INFO  au.gov.amsa.er.craft.tracking.CtsMethodsImpl - persisting fixes = 192, from=FIS
+2012-12-13 03:26:08.332 INFO  au.gov.amsa.er.craft.tracking.CraftpicProviderDirect - finished craftpic for: time=Thu Dec 13 03:24:07 UTC 2012, found=7840,elapsedTimeSeconds=121.101
+2012-12-13 03:26:08.587 INFO  au.gov.amsa.er.craft.tracking.CraftpicProviderCached - cache updated
+2012-12-13 03:26:08.601 INFO  au.gov.amsa.er.craft.tracking.CraftpicRefresher - starting refresh in 270000ms
+2012-12-13 03:26:08.649 INFO  au.gov.amsa.er.craft.tracking.CraftpicRefresher - thread finished
+2012-12-13 03:26:10.996 INFO  au.gov.amsa.er.craft.tracking.WeakPoolManager - mapped weak id 'Aircraft Id=DNGO47' to 'pool-1-79',  pref=100.00% of 8
+2012-12-13 03:26:15.183 INFO  au.gov.amsa.er.craft.tracking.actor.PositionActor - inserted 7000 fixes in position table
+2012-12-13 03:26:17.512 INFO  au.gov.amsa.er.craft.tracking.WeakPoolManager - mapped weak id 'Aircraft Id=V06' to 'pool-1-191',  pref=100.00% of 9
+2012-12-13 03:26:18.440 INFO  au.gov.amsa.er.craft.tracking.WeakPoolManager - mapped weak id 'Aircraft Id=STKR36' to 'pool-1-10',  pref=100.00% of 8
+2012-12-13 03:26:18.556 INFO  au.gov.amsa.er.craft.tracking.WeakPoolManager - mapped weak id 'Aircraft Id=MDSA47' to 'pool-1-194',  pref=100.00% of 7
+2012-12-13 03:26:25.695 WARN  au.gov.amsa.er.craft.tracking.actions.FixBehaviour - distance moved=844 nm,  effective speed too high=1319 knots, agent=FIS, fix=[Callsign=B6-515], srcDetail=null,lastFix=[Callsign=B6-515], srcDetail=null,lastFixAgent=FIS, craftId=1454936218
+2012-12-13 03:26:25.698 WARN  au.gov.amsa.er.craft.tracking.actions.FixBehaviour - fix rejected
+2012-12-13 03:26:25.709 INFO  au.gov.amsa.er.craft.tracking.CtsMethodsImpl - rolling back transaction to reject fix
+2012-12-13 03:26:26.380 WARN  au.gov.amsa.er.craft.tracking.actions.FixBehaviour - distance moved=857 nm,  effective speed too high=3665 knots, agent=FIS, fix=[Callsign=VH-VXM], srcDetail=null,lastFix=[Callsign=VH-VXM], srcDetail=null,lastFixAgent=FIS, craftId=1427269973
+2012-12-13 03:26:26.384 WARN  au.gov.amsa.er.craft.tracking.actions.FixBehaviour - fix rejected
+2012-12-13 03:26:26.386 INFO  au.gov.amsa.er.craft.tracking.CtsMethodsImpl - rolling back transaction to reject fix
+2012-12-13 03:26:26.490 WARN  au.gov.amsa.er.craft.tracking.actions.FixBehaviour - distance moved=824 nm,  effective speed too high=1126 knots, agent=FIS, fix=[Callsign=BH-XB], srcDetail=null,lastFix=[Callsign=BH-XB], srcDetail=null,lastFixAgent=FIS, craftId=1456889422
+2012-12-13 03:26:26.495 WARN  au.gov.amsa.er.craft.tracking.actions.FixBehaviour - fix rejected
+2012-12-13 03:26:26.496 INFO  au.gov.amsa.er.craft.tracking.CtsMethodsImpl - rolling back transaction to reject fix
+2012-12-13 03:26:26.642 INFO  au.gov.amsa.er.craft.tracking.WeakPoolManager - mapped weak id 'Aircraft Id=TROJ53' to 'pool-1-86',  pref=100.00% of 8
+2012-12-13 03:26:27.137 INFO  au.gov.amsa.er.craft.tracking.CtsMethodsImpl - processed=189,from=FIS,newCraft=0,alreadyPresent=38,rateMsgPerSecond=9.83
+2012-12-13 03:26:27.139 INFO  au.gov.amsa.er.craft.tracking.actor.FixesPersisterActor - fixes queue size = 14
+2012-12-13 03:26:27.139 INFO  au.gov.amsa.er.craft.tracking.CtsMethodsImpl - writing fixes to filename= fixes.txt
+2012-12-13 03:26:27.145 INFO  au.gov.amsa.er.craft.tracking.CtsMethodsImpl - fixes written
+2012-12-13 03:26:27.146 INFO  au.gov.amsa.er.craft.tracking.CtsMethodsImpl - persisting fixes = 2, from=SKY-CONNECT
+2012-12-13 03:26:27.263 INFO  au.gov.amsa.er.craft.tracking.CtsMethodsImpl - processed=2,from=SKY-CONNECT,newCraft=0,alreadyPresent=0,rateMsgPerSecond=17.24
+2012-12-13 03:26:27.265 INFO  au.gov.amsa.er.craft.tracking.actor.FixesPersisterActor - fixes queue size = 13
+2012-12-13 03:26:27.266 INFO  au.gov.amsa.er.craft.tracking.CtsMethodsImpl - writing fixes to filename= fixes.txt
+2012-12-13 03:26:28.265 INFO  au.gov.amsa.er.craft.tracking.CtsMethodsImpl - fixes written
+2012-12-13 03:26:28.266 INFO  au.gov.amsa.er.craft.tracking.CtsMethodsImpl - persisting fixes = 355, from=FIS
+2012-12-13 03:26:29.217 INFO  au.gov.amsa.er.craft.tracking.WeakPoolManager - mapped weak id 'Aircraft Id=TROJ53' to 'pool-1-86',  pref=100.00% of 8
+2012-12-13 03:26:30.211 INFO  au.gov.amsa.er.craft.tracking.WeakPoolManager - mapped weak id 'Aircraft Id=V05' to 'pool-1-117',  pref=100.00% of 8
+2012-12-13 03:26:30.418 INFO  au.gov.amsa.er.craft.tracking.CtsMethodsImpl - craftpicOptions: interpolate=true;extrapolate=true
+2012-12-13 03:26:30.419 INFO  au.gov.amsa.er.craft.tracking.CraftpicProviderCached - returning from cache
+2012-12-13 03:26:32.710 WARN  au.gov.amsa.er.craft.tracking.actions.FixBehaviour - distance moved=269 nm,  effective speed too high=1601 knots, agent=FIS, fix=[Callsign=N8-88GX], srcDetail=null,lastFix=[Callsign=N8-88GX], srcDetail=null,lastFixAgent=FIS, craftId=1428413826
+2012-12-13 03:26:32.714 WARN  au.gov.amsa.er.craft.tracking.actions.FixBehaviour - fix rejected
+2012-12-13 03:26:32.715 INFO  au.gov.amsa.er.craft.tracking.CtsMethodsImpl - rolling back transaction to reject fix
+2012-12-13 03:26:33.810 WARN  au.gov.amsa.er.craft.tracking.actions.FixBehaviour - distance moved=274 nm,  effective speed too high=1068 knots, agent=FIS, fix=[Callsign=VH-VGD], srcDetail=null,lastFix=[Callsign=VH-VGD], srcDetail=null,lastFixAgent=FIS, craftId=1428838441
+2012-12-13 03:26:33.815 WARN  au.gov.amsa.er.craft.tracking.actions.FixBehaviour - fix rejected
+2012-12-13 03:26:33.816 INFO  au.gov.amsa.er.craft.tracking.CtsMethodsImpl - rolling back transaction to reject fix
+2012-12-13 03:26:33.997 WARN  au.gov.amsa.er.craft.tracking.actions.FixBehaviour - distance moved=1069 nm,  effective speed too high=1637 knots, agent=FIS, fix=[Callsign=VH-VNB], srcDetail=null,lastFix=[Callsign=VH-VNB], srcDetail=null,lastFixAgent=FIS, craftId=1435089733
+2012-12-13 03:26:34.001 WARN  au.gov.amsa.er.craft.tracking.actions.FixBehaviour - fix rejected
+2012-12-13 03:26:34.002 INFO  au.gov.amsa.er.craft.tracking.CtsMethodsImpl - rolling back transaction to reject fix
+2012-12-13 03:26:34.363 WARN  au.gov.amsa.er.craft.tracking.actions.FixBehaviour - distance moved=290 nm,  effective speed too high=1126 knots, agent=FIS, fix=[Callsign=VH-VQM], srcDetail=null,lastFix=[Callsign=VH-VQM], srcDetail=null,lastFixAgent=FIS, craftId=1427182130
+2012-12-13 03:26:34.367 WARN  au.gov.amsa.er.craft.tracking.actions.FixBehaviour - fix rejected
+2012-12-13 03:26:34.368 INFO  au.gov.amsa.er.craft.tracking.CtsMethodsImpl - rolling back transaction to reject fix
+2012-12-13 03:26:35.448 INFO  au.gov.amsa.er.craft.tracking.WeakPoolManager - mapped weak id 'Aircraft Id=V72' to 'pool-1-49',  pref=100.00% of 8
+2012-12-13 03:26:35.957 INFO  au.gov.amsa.er.craft.tracking.WeakPoolManager - mapped weak id 'Aircraft Id=T830' to 'pool-1-192',  pref=100.00% of 8
+2012-12-13 03:26:37.266 INFO  au.gov.amsa.er.craft.tracking.WeakPoolManager - mapped weak id 'Aircraft Id=MDSA47' to 'pool-1-194',  pref=100.00% of 8
+2012-12-13 03:26:37.445 WARN  au.gov.amsa.er.craft.tracking.actions.FixBehaviour - distance moved=798 nm,  effective speed too high=1253 knots, agent=FIS, fix=[Callsign=HL-7552], srcDetail=null,lastFix=[Callsign=HL-7552], srcDetail=null,lastFixAgent=FIS, craftId=1427538187
+2012-12-13 03:26:37.448 WARN  au.gov.amsa.er.craft.tracking.actions.FixBehaviour - fix rejected
+2012-12-13 03:26:37.448 INFO  au.gov.amsa.er.craft.tracking.CtsMethodsImpl - rolling back transaction to reject fix
+2012-12-13 03:26:37.575 WARN  au.gov.amsa.er.craft.tracking.actions.FixBehaviour - distance moved=888 nm,  effective speed too high=1958 knots, agent=FIS, fix=[Callsign=PK-GPD], srcDetail=null,lastFix=[Callsign=PK-GPD], srcDetail=null,lastFixAgent=FIS, craftId=1432364299
+2012-12-13 03:26:37.580 WARN  au.gov.amsa.er.craft.tracking.actions.FixBehaviour - fix rejected
+2012-12-13 03:26:37.581 INFO  au.gov.amsa.er.craft.tracking.CtsMethodsImpl - rolling back transaction to reject fix
+2012-12-13 03:26:38.175 WARN  au.gov.amsa.er.craft.tracking.actions.FixBehaviour - distance moved=940 nm,  effective speed too high=1113 knots, agent=FIS, fix=[Callsign=B6-515], srcDetail=null,lastFix=[Callsign=B6-515], srcDetail=null,lastFixAgent=FIS, craftId=1454936218
+2012-12-13 03:26:38.178 WARN  au.gov.amsa.er.craft.tracking.actions.FixBehaviour - fix rejected
+2012-12-13 03:26:38.178 INFO  au.gov.amsa.er.craft.tracking.CtsMethodsImpl - rolling back transaction to reject fix
+2012-12-13 03:26:38.307 WARN  au.gov.amsa.er.craft.tracking.actions.FixBehaviour - distance moved=1251 nm,  effective speed too high=1100 knots, agent=FIS, fix=[Callsign=VH-EBO], srcDetail=null,lastFix=[Callsign=VH-EBO], srcDetail=null,lastFixAgent=FIS, craftId=1427168110
+2012-12-13 03:26:38.309 WARN  au.gov.amsa.er.craft.tracking.actions.FixBehaviour - fix rejected
+2012-12-13 03:26:38.310 INFO  au.gov.amsa.er.craft.tracking.CtsMethodsImpl - rolling back transaction to reject fix
+2012-12-13 03:26:40.992 INFO  au.gov.amsa.er.craft.tracking.WeakPoolManager - mapped weak id 'Aircraft Id=DNGO47' to 'pool-1-79',  pref=100.00% of 8
+2012-12-13 03:26:42.853 WARN  au.gov.amsa.er.craft.tracking.actions.FixBehaviour - distance moved=1291 nm,  effective speed too high=1073 knots, agent=FIS, fix=[Callsign=9V-SKK], srcDetail=null,lastFix=[Callsign=9V-SKK], srcDetail=null,lastFixAgent=FIS, craftId=1441799585
+2012-12-13 03:26:42.856 WARN  au.gov.amsa.er.craft.tracking.actions.FixBehaviour - fix rejected
+2012-12-13 03:26:42.856 INFO  au.gov.amsa.er.craft.tracking.CtsMethodsImpl - rolling back transaction to reject fix
+2012-12-13 03:26:48.846 WARN  au.gov.amsa.er.craft.tracking.actions.FixBehaviour - distance moved=816 nm,  effective speed too high=9462 knots, agent=FIS, fix=[Callsign=VH-VXO], srcDetail=null,lastFix=[Callsign=VH-VXO], srcDetail=null,lastFixAgent=FIS, craftId=1427168750
+2012-12-13 03:26:48.850 WARN  au.gov.amsa.er.craft.tracking.actions.FixBehaviour - fix rejected
+2012-12-13 03:26:48.851 INFO  au.gov.amsa.er.craft.tracking.CtsMethodsImpl - rolling back transaction to reject fix
+2012-12-13 03:26:49.848 WARN  au.gov.amsa.er.craft.tracking.actions.FixBehaviour - distance moved=589 nm,  effective speed too high=7276 knots, agent=FIS, fix=[Callsign=VH-NHK], srcDetail=null,lastFix=[Callsign=VH-NHK], srcDetail=null,lastFixAgent=FIS, craftId=-2033471082
+2012-12-13 03:26:49.852 WARN  au.gov.amsa.er.craft.tracking.actions.FixBehaviour - fix rejected
+2012-12-13 03:26:49.853 INFO  au.gov.amsa.er.craft.tracking.CtsMethodsImpl - rolling back transaction to reject fix
+2012-12-13 03:26:49.855 INFO  au.gov.amsa.er.craft.tracking.CtsMethodsImpl - processed=142,from=FIS,newCraft=0,alreadyPresent=0,rateMsgPerSecond=6.58
+2012-12-13 03:26:49.856 INFO  au.gov.amsa.er.craft.tracking.actor.FixesPersisterActor - processed 153, moving 202 to end of queue
+2012-12-13 03:26:49.857 INFO  au.gov.amsa.er.craft.tracking.actor.FixesPersisterActor - fixes queue size = 12
+2012-12-13 03:26:49.857 INFO  au.gov.amsa.er.craft.tracking.CtsMethodsImpl - writing fixes to filename= fixes.txt
+2012-12-13 03:26:49.872 INFO  au.gov.amsa.er.craft.tracking.actor.RootActor - received java.util.ArrayList$SubList
+2012-12-13 03:26:49.873 INFO  au.gov.amsa.er.craft.tracking.actor.RootActor - fixes queue size = 13
+2012-12-13 03:26:54.839 INFO  au.gov.amsa.er.craft.tracking.CtsMethodsImpl - fixes written
+2012-12-13 03:26:54.840 INFO  au.gov.amsa.er.craft.tracking.CtsMethodsImpl - persisting fixes = 977, from=AIS

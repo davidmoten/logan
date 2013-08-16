@@ -1,0 +1,4 @@
+23/12/2012 6:58:04 AM org.moten.david.log.core.Database persistDummyRecords
+INFO: persisted random values=1000 from the last hour to table Dummy
+23/12/2012 6:59:14 AM org.moten.david.log.core.Database persistDummyRecords
+INFO: finished preparation
