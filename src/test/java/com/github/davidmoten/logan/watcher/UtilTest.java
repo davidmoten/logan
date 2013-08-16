@@ -42,6 +42,14 @@ public class UtilTest {
 
 		List<File> list = Util
 				.getDirectories("src/test/resources/matching-test/**");
+
+		boolean found = false;
+		for (File f : list) {
+			found |= f.getAbsolutePath().endsWith(
+					"src/test/resources/matching-test/test1");
+			assertTrue(f.exists());
+		}
+		assertTrue(found);
 		Set<String> set = toSet(list);
 		System.out.println(set);
 		assertTrue(set.contains("test1"));
@@ -54,6 +62,13 @@ public class UtilTest {
 
 		File file = new File("src/test/resources/matching-test/**");
 		List<File> list = Util.getDirectories(file.getAbsolutePath());
+		boolean found = false;
+		for (File f : list) {
+			found |= f.getAbsolutePath().endsWith(
+					"src/test/resources/matching-test/test1");
+			assertTrue(f.exists());
+		}
+		assertTrue(found);
 		Set<String> set = toSet(list);
 		System.out.println(set);
 		assertTrue(set.contains("test1"));
