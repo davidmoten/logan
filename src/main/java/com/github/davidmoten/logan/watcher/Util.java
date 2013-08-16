@@ -86,7 +86,7 @@ public class Util {
 			scanner.scan();
 			String[] paths = scanner.getIncludedDirectories();
 			for (String p : paths) {
-				File file = new File(p);
+				File file = new File(scanner.getBasedir(), p);
 				directories.add(file);
 			}
 			return Lists.newArrayList(directories);
