@@ -34,7 +34,6 @@ public class SamplePersisterConfigurationTest {
 		// matches without a threadname
 		LogEntry entry = parser.parse("test", LINE_1);
 		assertNotNull(entry);
-		System.out.println(entry.getProperties());
 		assertTrue(entry.getProperties().containsKey("fixes queue size"));
 		// matches with a threadname
 		entry = parser
