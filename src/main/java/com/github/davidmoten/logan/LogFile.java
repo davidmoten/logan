@@ -73,7 +73,7 @@ public class LogFile {
 		TailerListener listener = createListener(data);
 
 		// tail from the start of the file
-		tailer = new Tailer(file, listener, checkIntervalMs, false, 256 * 4096);
+		tailer = new Tailer(file, listener, checkIntervalMs, false, 64 * 4096);
 
 		// start in separate thread
 		log.info("starting tailer thread");
