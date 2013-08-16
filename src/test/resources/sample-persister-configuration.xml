@@ -8,8 +8,7 @@
 	</connection>
 	<parser>
 		<pattern>^(\d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d\.\d\d\d) +(\S+) +(\S+)(?: +(\S+)?) *- (.*)$</pattern>
-		<patternGroups>logTimestamp,logLevel,logLogger,threadName,logMsg
-		</patternGroups>
+		<patternGroups>logTimestamp,logLevel,logLogger,threadName,logMsg</patternGroups>
 		<messagePattern>(\b[a-zA-Z](?:\w| )*)=([^;|,]*)(;|\||,|$)</messagePattern>
 		<timestampFormat>yyyy-MM-dd HH:mm:ss.SSS</timestampFormat>
 		<timezone>UTC</timezone>

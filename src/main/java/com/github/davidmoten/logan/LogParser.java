@@ -83,6 +83,9 @@ public class LogParser {
 
 	private LogEntry createLogEntry(String source, Matcher matcher) {
 		BiMap<String, Integer> map = options.getPatternGroups();
+		for (int i = 1; i <= matcher.groupCount(); i++)
+			System.out.println(i + "->" + matcher.group(i));
+
 		String timestamp = getGroup(matcher, map.get(TIMESTAMP));
 		String level = getGroup(matcher, map.get(LEVEL));
 		String logger = getGroup(matcher, map.get(LOGGER));
@@ -94,8 +97,10 @@ public class LogParser {
 
 		Map<String, String> values = getValues(level, logger, threadName, msg,
 				method);
+		System.out.println("msg=" + msg);
 		// persist the split fields from the full message
 		Map<String, String> m = splitter.split(msg);
+		System.out.println("fields from msg=" + m);
 		values.putAll(m);
 		values.put(Field.SOURCE, source);
 		return new LogEntry(time, values);
