@@ -167,13 +167,7 @@ The format is as defined for the [SimpleDateFormat](http://docs.oracle.com/javas
 
 Todo
 ===========
-* orientdb not stable in terms of scaling connections and load so switch to h2.
 * complete javadoc
 * add more documentation to this site!
 * improve unit test coverage 
 * multiple field criteria support
-* add source field to Entry table (*done*)
-* switch to embedded map with index (*done*)
-* allow arbitrary pattern groups
-* add scripts for running on Windows
-
