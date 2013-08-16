@@ -16,22 +16,22 @@
 	</parser>
 	<group>
 		<log source="cts">
-			<path>${app.dir}/container/logs/cts/cts.log</path>
+			<path>${log.base}/container/logs/cts/cts.log</path>
 		</log>
 		<log watch="false" source="cts">
-			<path>${app.dir}/container/logs/cts/cts.log\..*</path>
+			<path>${log.base}/container/logs/cts/cts.log\..*</path>
 		</log>
 		<log source="cts-adapter-ais">
-			<path>${app.dir}/container/logs/cts/cts-adapter-ais.log</path>
+			<path>${log.base}/container/logs/cts/cts-adapter-ais.log</path>
 		</log>
 		<log source="cts-adapter-ais" watch="false">
-			<path>${app.dir}/container/logs/cts/cts-adapter-ais.log\..*</path>
+			<path>${log.base}/container/logs/cts/cts-adapter-ais.log\..*</path>
 		</log>
 		<log source="cts-adapter-fis">
-			<path>${app.dir}/container/logs/cts/cts-adapter-flight-info-service.log</path>
+			<path>${log.base}/container/logs/cts/cts-adapter-flight-info-service.log</path>
 		</log>
 		<log watch="false" source="cts-adapter-fis">
-			<path>${app.dir}/container/logs/cts/cts-adapter-flight-info-service.log\..*</path>
+			<path>${log.base}/container/logs/cts/cts-adapter-flight-info-service.log\..*</path>
 		</log>
 	</group>
 </ns2:configuration>
