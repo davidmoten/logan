@@ -55,6 +55,7 @@ public class Util {
 			File[] fileList = d.listFiles(new FileFilter() {
 				@Override
 				public boolean accept(File file) {
+					log.info("checking match against " + file);
 					return !file.isDirectory()
 							&& pattern.matcher(file.getName()).matches();
 				}
