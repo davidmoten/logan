@@ -105,7 +105,7 @@ For example if you have specified <code>-Dmybase=/var/logs</code> at the command
 
 Pattern matching
 ---------------
-The *log-persister* configuration file ([here](https://raw.github.com/davidmoten/logan/master/src/test/resources/persister-configuration-test.xml)) refers to two patterns. Here's a fragment concerning patterns:
+The *log-persister* configuration file ([here](https://raw.github.com/davidmoten/logan/master/src/test/resources/configuration-test.xml)) refers to two patterns. Here's a fragment concerning patterns:
 
     <pattern>^(\d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d\.\d\d\d) +(\S+) +(\S+)+(\S+)? ?- (.*)$</pattern>
     <patternGroups>logTimestamp,logLevel,logLogger,threadName,logMsg</patternGroups>
