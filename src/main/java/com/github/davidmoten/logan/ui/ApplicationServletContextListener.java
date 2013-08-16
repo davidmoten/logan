@@ -1,14 +1,12 @@
 package com.github.davidmoten.logan.ui;
 
-import java.util.logging.ConsoleHandler;
-import java.util.logging.Handler;
+import java.io.IOException;
+import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
-
-import com.github.davidmoten.logan.LogFormatter;
 
 @WebListener
 public class ApplicationServletContextListener implements
@@ -24,9 +22,19 @@ public class ApplicationServletContextListener implements
 
 	@Override
 	public void contextInitialized(ServletContextEvent arg0) {
-		Handler ch = new ConsoleHandler();
-		ch.setFormatter(new LogFormatter());
-		Logger.getGlobal().addHandler(ch);
+		setupLogging();
 		log.info("initialized");
+	}
+
+	private static void setupLogging() {
+		try {
+			LogManager.getLogManager().readConfiguration(
+					ApplicationServletContextListener.class
+							.getResourceAsStream("/my-logging.properties"));
+		} catch (SecurityException e) {
+			throw new RuntimeException(e);
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
 	}
 }
