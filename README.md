@@ -73,7 +73,7 @@ On host where logs are:
     
 File matching
 ---------------
-The paths of log files to be persisted is specified in the &lt;log&gt; element of the persister configuration file as below:
+The paths of log files to be analyzed is specified in the &lt;log&gt; element of the configuration file as below:
 
     <log source="test">
         <path>PATH/FILENAME_REGEX</path>
@@ -105,7 +105,7 @@ For example if you have specified <code>-Dmybase=/var/logs</code> at the command
 
 Pattern matching
 ---------------
-The *log-persister* configuration file ([here](https://raw.github.com/davidmoten/logan/master/src/test/resources/configuration-test.xml)) refers to two patterns. Here's a fragment concerning patterns:
+The configuration file ([here](https://raw.github.com/davidmoten/logan/master/src/test/resources/configuration-test.xml)) refers to two patterns. Here's a fragment concerning patterns:
 
     <pattern>^(\d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d\.\d\d\d) +(\S+) +(\S+)+(\S+)? ?- (.*)$</pattern>
     <patternGroups>logTimestamp,logLevel,logLogger,threadName,logMsg</patternGroups>
