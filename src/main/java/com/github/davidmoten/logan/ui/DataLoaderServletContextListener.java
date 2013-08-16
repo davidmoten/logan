@@ -24,6 +24,7 @@ public class DataLoaderServletContextListener implements ServletContextListener 
 	@Override
 	public void contextInitialized(ServletContextEvent event) {
 		Configuration configuration = Configuration.getConfiguration();
+		Data.instance().setMaxSize(configuration.maxSize);
 		Watcher w = new Watcher(Data.instance(), configuration);
 		log.info("starting watcher");
 		w.start();

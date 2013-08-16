@@ -21,6 +21,8 @@ import com.google.common.collect.Lists;
  */
 public class Configuration {
 
+	@XmlElement(required = false, defaultValue = "1000000")
+	public int maxSize;
 	@XmlElement(required = false)
 	public Parser parser;
 	@XmlElement(required = true)

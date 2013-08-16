@@ -22,8 +22,6 @@ public class Data {
 
 	private static Logger log = Logger.getLogger(Data.class.getName());
 
-	private static int MAX_SIZE = 1000000;
-
 	private static Data instance;
 
 	public static synchronized Data instance() {
@@ -46,6 +44,8 @@ public class Data {
 	private ListMultimap<Long, LogEntry> facade;
 	private final TreeSet<String> keys = Sets.newTreeSet();
 
+	private int maxSize;
+
 	public Data() {
 		map = Maps.newTreeMap();
 		facade = Multimaps.newListMultimap(map, new Supplier<List<LogEntry>>() {
@@ -61,7 +61,7 @@ public class Data {
 		keys.addAll(entry.getProperties().keySet());
 		if (facade.size() % 10000 == 0)
 			log.info("data size=" + facade.size());
-		if (facade.size() > MAX_SIZE)
+		if (facade.size() > maxSize)
 			map.remove(map.firstKey());
 		return this;
 	}
@@ -147,5 +147,9 @@ public class Data {
 
 	public TreeSet<String> getKeys() {
 		return keys;
+	}
+
+	public void setMaxSize(int maxSize) {
+		this.maxSize = maxSize;
 	}
 }
