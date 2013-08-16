@@ -13,7 +13,7 @@ public class ConfigurationLoadTest {
 	public void testLoadOfSampleConfiguration() {
 		Configuration configuration = new Marshaller()
 				.unmarshal(ConfigurationLoadTest.class
-						.getResourceAsStream("/sample-persister-configuration.xml"));
+						.getResourceAsStream("/sample-configuration.xml"));
 		assertEquals("UTC", configuration.parser.timezone);
 	}
 }

@@ -8,7 +8,7 @@ import com.github.davidmoten.logan.LogParserOptions;
 
 public class MarshallerTest {
 
-	private static final String PERSISTER_CONFIGURATION_TEST_XML = "/persister-configuration-test.xml";
+	private static final String PERSISTER_CONFIGURATION_TEST_XML = "/configuration-test.xml";
 
 	@Test
 	public void testMarshall() {

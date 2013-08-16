@@ -17,14 +17,14 @@ import com.github.davidmoten.logan.config.Configuration;
 import com.github.davidmoten.logan.config.Marshaller;
 import com.github.davidmoten.logan.config.Parser;
 
-public class SamplePersisterConfigurationTest {
+public class SampleConfigurationTest {
 
 	private static final String LINE_1 = "2013-02-05 00:00:03.421 INFO  au.gov.amsa.er.craft.tracking.actor.RootActor - fixes queue size = 33";
 
 	@Test
 	public void test() {
-		InputStream is = SamplePersisterConfigurationTest.class
-				.getResourceAsStream("/sample-persister-configuration.xml");
+		InputStream is = SampleConfigurationTest.class
+				.getResourceAsStream("/sample-configuration.xml");
 		Configuration configuration = new Marshaller().unmarshal(is);
 		Parser p = configuration.parser;
 		LogParserOptions options = LogParserOptions.load(p.pattern,
