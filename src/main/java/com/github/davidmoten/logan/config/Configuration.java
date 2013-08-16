@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.List;
+import java.util.logging.Logger;
 
 import javax.xml.bind.annotation.XmlElement;
 
@@ -58,9 +59,12 @@ public class Configuration {
 
 	private static final String DEFAULT_CONFIGURATION_LOCATION = "/persister-configuration.xml";
 
+	private static Logger log = Logger.getLogger(Configuration.class.getName());
+
 	public static Configuration getConfiguration() {
 		String configLocation = System.getProperty("logan.config",
 				DEFAULT_CONFIGURATION_LOCATION);
+		log.info("config=" + configLocation);
 		InputStream is = Main.class.getResourceAsStream(configLocation);
 		if (is == null) {
 			File file = new File(configLocation);
