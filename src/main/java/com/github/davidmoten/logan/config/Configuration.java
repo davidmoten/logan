@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.xml.bind.annotation.XmlElement;
 
+import com.github.davidmoten.logan.util.PropertyReplacer;
 import com.github.davidmoten.logan.watcher.Main;
 import com.google.common.collect.Lists;
 
@@ -76,7 +77,8 @@ public class Configuration {
 				throw new RuntimeException(
 						"configuration xml not found. Set property logan.config to a file on classpath or filesystem.");
 		}
-		Configuration configuration = new Marshaller().unmarshal(is);
+		InputStream is2 = PropertyReplacer.replaceSystemProperties(is);
+		Configuration configuration = new Marshaller().unmarshal(is2);
 		return configuration;
 	}
 
