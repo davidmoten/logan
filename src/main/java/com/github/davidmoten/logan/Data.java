@@ -44,7 +44,7 @@ public class Data {
 	private ListMultimap<Long, LogEntry> facade;
 	private final TreeSet<String> keys = Sets.newTreeSet();
 
-	private int maxSize;
+	private int maxSize = 1000000;
 
 	public Data() {
 		map = Maps.newTreeMap();
