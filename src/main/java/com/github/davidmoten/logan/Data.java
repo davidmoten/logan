@@ -22,6 +22,8 @@ public class Data {
 
 	private static Logger log = Logger.getLogger(Data.class.getName());
 
+	private static int MAX_SIZE = 1000000;
+
 	private static Data instance;
 
 	public static synchronized Data instance() {
@@ -59,6 +61,8 @@ public class Data {
 		keys.addAll(entry.getProperties().keySet());
 		if (facade.size() % 10000 == 0)
 			log.info("data size=" + facade.size());
+		if (facade.size() > MAX_SIZE)
+			map.remove(map.firstKey());
 		return this;
 	}
 
