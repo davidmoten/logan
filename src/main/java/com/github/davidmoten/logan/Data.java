@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Logger;
 
 import com.google.common.base.Predicate;
 import com.google.common.base.Supplier;
@@ -18,6 +19,8 @@ import com.google.common.collect.Multimaps;
 import com.google.common.collect.Sets;
 
 public class Data {
+
+	private static Logger log = Logger.getLogger(Data.class.getName());
 
 	private static Data instance;
 
@@ -54,6 +57,8 @@ public class Data {
 	public synchronized Data add(LogEntry entry) {
 		facade.put(entry.getTime(), entry);
 		keys.addAll(entry.getProperties().keySet());
+		if (facade.size() % 10000 == 0)
+			log.info("data size=" + facade.size());
 		return this;
 	}
 
