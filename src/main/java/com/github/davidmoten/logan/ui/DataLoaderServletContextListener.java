@@ -24,7 +24,7 @@ public class DataLoaderServletContextListener implements ServletContextListener 
 	@Override
 	public void contextInitialized(ServletContextEvent event) {
 		Configuration configuration = Configuration.getConfiguration();
-		Watcher w = new Watcher(new Data(), configuration);
+		Watcher w = new Watcher(Data.instance(), configuration);
 		log.info("starting watcher");
 		w.start();
 		log.info("started");
