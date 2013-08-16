@@ -7,6 +7,8 @@ import java.text.SimpleDateFormat;
 import java.util.Properties;
 import java.util.regex.Pattern;
 
+import com.github.davidmoten.logan.config.Group;
+import com.github.davidmoten.logan.config.Parser;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 
@@ -177,6 +179,24 @@ public class LogParserOptions {
 		for (int i = 0; i < items.length; i++)
 			map.put(items[i], i + 1);
 		return map;
+	}
+
+	/**
+	 * Returns {@link LogParser} options given default {@link Parser} and a
+	 * {@link Group}.
+	 * 
+	 * @param defaultParser
+	 * @param group
+	 * @return
+	 */
+	public static LogParserOptions load(Parser defaultParser, Group group) {
+		Parser parser = defaultParser;
+		if (group.parser != null)
+			parser = group.parser;
+
+		return load(parser.pattern, parser.patternGroups,
+				parser.messagePattern, parser.timestampFormat, parser.timezone,
+				parser.multiline);
 	}
 
 }

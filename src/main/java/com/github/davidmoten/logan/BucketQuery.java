@@ -67,7 +67,12 @@ public class BucketQuery {
 	}
 
 	public long getFinishTime() {
-		return Math.round(startTime.getTime() + numIntervals * intervalSizeMs);
+		long n;
+		if (numIntervals == 0)
+			n = 1;
+		else
+			n = numIntervals;
+		return Math.round(startTime.getTime() + n * intervalSizeMs);
 	}
 
 	public String getName() {

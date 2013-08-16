@@ -14,10 +14,12 @@ import com.github.davidmoten.logan.LogFormatter;
 public class ApplicationServletContextListener implements
 		ServletContextListener {
 
+	private static Logger log = Logger
+			.getLogger(ApplicationServletContextListener.class.getName());
+
 	@Override
 	public void contextDestroyed(ServletContextEvent arg0) {
-		// TODO Auto-generated method stub
-
+		log.info("context destroyed");
 	}
 
 	@Override
@@ -25,5 +27,6 @@ public class ApplicationServletContextListener implements
 		Handler ch = new ConsoleHandler();
 		ch.setFormatter(new LogFormatter());
 		Logger.getGlobal().addHandler(ch);
+		log.info("initialized");
 	}
 }

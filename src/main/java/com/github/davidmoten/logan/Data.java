@@ -32,7 +32,7 @@ public class Data {
 
 	private static LogEntry createLogEntry(int i) {
 		Map<String, String> map = Maps.newHashMap();
-		map.put("n", Math.random() * 100 + "");
+		map.put("specialNumber", Math.random() * 100 + "");
 		return new LogEntry(System.currentTimeMillis()
 				- TimeUnit.MINUTES.toMillis(i), map);
 	}
@@ -82,7 +82,7 @@ public class Data {
 			@Override
 			public boolean hasNext() {
 				if (it == null || !it.hasNext())
-					return t != null && t <= last;
+					return last != null && t != null && t <= last;
 				else
 					return it.hasNext();
 			}
@@ -105,7 +105,7 @@ public class Data {
 
 	}
 
-	public synchronized Buckets find(final BucketQuery query) {
+	public synchronized Buckets execute(final BucketQuery query) {
 
 		Iterable<LogEntry> entries = find(query.getStartTime().getTime(),
 				query.getFinishTime());
@@ -117,6 +117,7 @@ public class Data {
 								query.getName());
 					}
 				});
+
 		Buckets buckets = new Buckets(query);
 		for (LogEntry entry : filtered) {
 			String s = entry.getProperties().get(query.getName());

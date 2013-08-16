@@ -78,7 +78,7 @@ public class DataServlet extends HttpServlet {
 			double interval, long numBuckets, Metric metric, PrintWriter writer) {
 		BucketQuery q = new BucketQuery(new Date(startTime), interval,
 				numBuckets, field);
-		Buckets buckets = data.find(q);
+		Buckets buckets = data.execute(q);
 		log.info("building json");
 		Util.writeJson(buckets, metric, writer);
 		log.info("built json");
