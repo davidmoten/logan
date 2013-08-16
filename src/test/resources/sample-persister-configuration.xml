@@ -18,16 +18,10 @@
 			<path>${log.base}/container/logs/cts/cts.log\..*</path>
 		</log>
 		<log>
-			<path>${log.base}/container/logs/cts/cts-adapter-ais.log</path>
+			<path>${log.base}/container/logs/cts/cts-adapter-.*\.log</path>
 		</log>
 		<log watch="false">
-			<path>${log.base}/container/logs/cts/cts-adapter-ais.log\..*</path>
-		</log>
-		<log>
-			<path>${log.base}/container/logs/cts/cts-adapter-flight-info-service.log</path>
-		</log>
-		<log watch="false">
-			<path>${log.base}/container/logs/cts/cts-adapter-flight-info-service.log\..*</path>
+			<path>${log.base}/container/logs/cts/cts-adapter-.*.log\.2.*</path>
 		</log>
 	</group>
 </ns2:configuration>
