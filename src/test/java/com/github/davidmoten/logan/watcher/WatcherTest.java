@@ -1,5 +1,8 @@
 package com.github.davidmoten.logan.watcher;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.DateFormat;
@@ -7,6 +10,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.LogManager;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.junit.Test;
 
@@ -44,6 +49,14 @@ public class WatcherTest {
 		startWritingToFile(TEST_LOG);
 		Thread.sleep(3000);
 		w.stop();
+	}
+
+	@Test
+	public void testSourcePatternWorksOk() {
+		Pattern p = Pattern.compile("^[a-zA-Z][^\\.]*");
+		Matcher m = p.matcher("test.log");
+		assertTrue(m.find());
+		assertEquals("test", m.group());
 	}
 
 	private void setupLogging() throws IOException {

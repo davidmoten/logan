@@ -10,10 +10,11 @@ public class TestingUtil {
 		String patternGroups = "logTimestamp,logLevel,logLogger,threadName,logMsg";
 		String timestampFormat = "yyyy-MM-dd HH:mm:ss.SSS";
 		String timezone = "UTC";
+		String sourcePattern = "^[a-zA-Z][^\\.]*";
 		boolean multiline = false;
 		return new Parser(pattern, patternGroups,
 				MessageSplitter.MESSAGE_PATTERN_DEFAULT, timestampFormat,
-				timezone, multiline);
+				timezone, multiline, sourcePattern);
 	}
 
 }

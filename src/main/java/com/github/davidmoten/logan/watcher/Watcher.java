@@ -1,10 +1,13 @@
 package com.github.davidmoten.logan.watcher;
+
 import java.io.File;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import com.github.davidmoten.logan.Data;
 import com.github.davidmoten.logan.LogFile;
@@ -61,7 +64,19 @@ public class Watcher {
 					log.info("starting tail on " + file);
 					LogParserOptions options = LogParserOptions.load(
 							configuration.parser, group);
-					LogFile logFile = new LogFile(file, lg.source, 500,
+					String source;
+					if (lg.source == null
+							&& configuration.parser.sourcePattern != null)
+						source = extractSource(
+								configuration.parser.sourcePattern,
+								file.getName());
+					else
+						source = lg.source;
+					if (source == null)
+						throw new RuntimeException(
+								"source not specified or could not be extracted using sourcePattern for log:"
+										+ lg);
+					LogFile logFile = new LogFile(file, source, 500,
 							new LogParser(options), executor);
 					logFile.tail(data);
 					logs.add(logFile);
@@ -69,6 +84,16 @@ public class Watcher {
 			}
 		}
 		log.info("started watcher");
+	}
+
+	private String extractSource(String sourcePattern, String filename) {
+		Pattern p = Pattern.compile(sourcePattern);
+		Matcher m = p.matcher(filename);
+		if (!m.find())
+			throw new RuntimeException("could not find source in " + filename
+					+ " using pattern " + sourcePattern);
+		else
+			return m.group();
 	}
 
 	/**

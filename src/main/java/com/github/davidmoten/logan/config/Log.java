@@ -1,6 +1,5 @@
 package com.github.davidmoten.logan.config;
 
-
 import javax.xml.bind.annotation.XmlAttribute;
 
 /**
@@ -12,7 +11,7 @@ import javax.xml.bind.annotation.XmlAttribute;
 public class Log {
 	public String path;
 
-	@XmlAttribute(required = true)
+	@XmlAttribute(required = false)
 	public String source;
 
 	@XmlAttribute(required = false)

@@ -12,6 +12,9 @@ import com.github.davidmoten.logan.MessageSplitter;
  * 
  */
 public class Parser {
+
+	@XmlElement(required = false)
+	public String sourcePattern;
 	@XmlElement(required = true)
 	public String pattern;
 	@XmlElement(required = true)
@@ -35,7 +38,8 @@ public class Parser {
 	 * @param multiline
 	 */
 	public Parser(String pattern, String patternGroups, String messagePattern,
-			String timestampFormat, String timezone, boolean multiline) {
+			String timestampFormat, String timezone, boolean multiline,
+			String sourcePattern) {
 		super();
 		this.pattern = pattern;
 		this.patternGroups = patternGroups;
@@ -43,6 +47,7 @@ public class Parser {
 		this.timestampFormat = timestampFormat;
 		this.timezone = timezone;
 		this.multiline = multiline;
+		this.sourcePattern = sourcePattern;
 	}
 
 	/**
