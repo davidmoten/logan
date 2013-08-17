@@ -48,8 +48,9 @@ public class Watcher {
 	public Watcher(Data data, Configuration configuration) {
 		this.data = data;
 		this.configuration = configuration;
-		executor = Executors.newFixedThreadPool(Runtime.getRuntime()
-				.availableProcessors());
+		// executor = Executors.newFixedThreadPool(Runtime.getRuntime()
+		// .availableProcessors());
+		executor = Executors.newFixedThreadPool(100);
 	}
 
 	/**
