@@ -9,6 +9,7 @@ import java.util.TreeSet;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
+import com.google.common.base.Function;
 import com.google.common.base.Predicate;
 import com.google.common.base.Supplier;
 import com.google.common.collect.Iterables;
@@ -151,5 +152,15 @@ public class Data {
 
 	public void setMaxSize(int maxSize) {
 		this.maxSize = maxSize;
+	}
+
+	public Iterable<String> getLogs(long startTime, long finishTime) {
+		return Iterables.transform(find(startTime, finishTime),
+				new Function<LogEntry, String>() {
+					@Override
+					public String apply(LogEntry entry) {
+						return entry.getProperties().get(Field.MSG);
+					}
+				});
 	}
 }
