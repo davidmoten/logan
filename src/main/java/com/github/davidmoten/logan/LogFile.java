@@ -74,8 +74,8 @@ public class LogFile {
 
 		TailerListener listener = createListener(data);
 
-		// tail from the start of the file
 		if (follow)
+			// tail from the start of the file and watch for future changes
 			tailer = new Tailer(file, listener, checkIntervalMs, false,
 					BUFFER_SIZE);
 
@@ -94,7 +94,8 @@ public class LogFile {
 		if (tailer != null)
 			if (tailer instanceof Tailer)
 				((Tailer) tailer).stop();
-
+			else if (tailer instanceof MyTailer)
+				((MyTailer) tailer).stop();
 	}
 
 	private synchronized static void incrementCounter() {

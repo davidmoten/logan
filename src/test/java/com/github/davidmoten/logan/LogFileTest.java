@@ -18,7 +18,7 @@ public class LogFileTest {
 		LogFile log = new LogFile(new File("src/test/resources/test.log"),
 				"testing", 300, new LogParser(LogParserOptions.load()),
 				Executors.newFixedThreadPool(3));
-		log.tail(data);
+		log.tail(data, true);
 		Thread.sleep(1000);
 		log.stop();
 		long numEntries = data.getNumEntries();
