@@ -100,7 +100,7 @@ public class LogFile {
 
 	private synchronized static void incrementCounter() {
 		if (counter.incrementAndGet() % 1000 == 0)
-			log.info(counter + " log lines persisted");
+			log.info(counter + " log lines processed");
 	}
 
 	private TailerListener createListener(final Data data) {
@@ -125,7 +125,7 @@ public class LogFile {
 					LogEntry entry = parser.parse(source, line);
 					if (entry != null) {
 						db.add(entry);
-						log.fine("persisted");
+						log.fine("added");
 						incrementCounter();
 					}
 				} catch (Throwable e) {
