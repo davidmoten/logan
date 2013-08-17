@@ -80,7 +80,8 @@ public class Watcher {
 										+ lg);
 					LogFile logFile = new LogFile(file, source, 500,
 							new LogParser(options), executor);
-					logFile.tail(data);
+					boolean follow = lg.watch;
+					logFile.tail(data, follow);
 					logs.add(logFile);
 				}
 			}

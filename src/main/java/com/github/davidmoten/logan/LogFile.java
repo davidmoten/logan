@@ -28,7 +28,7 @@ public class LogFile {
 
 	private final File file;
 	private final long checkIntervalMs;
-	private Tailer tailer;
+	private Runnable tailer;
 	private final LogParser parser;
 	private final ExecutorService executor;
 	private final String source;
@@ -62,18 +62,25 @@ public class LogFile {
 			}
 	}
 
+	private static int BUFFER_SIZE = 64 * 4096;
+
 	/**
 	 * Starts a thread that tails a file from the start and reports extracted
 	 * info from the lines to the database.
 	 * 
 	 * @param factory
 	 */
-	public void tail(Data data) {
+	public void tail(Data data, boolean follow) {
 
 		TailerListener listener = createListener(data);
 
 		// tail from the start of the file
-		tailer = new Tailer(file, listener, checkIntervalMs, false, 64 * 4096);
+		if (follow)
+			tailer = new Tailer(file, listener, checkIntervalMs, false,
+					BUFFER_SIZE);
+
+		else
+			tailer = new MyTailer(file, listener, BUFFER_SIZE);
 
 		// start in separate thread
 		log.info("starting tailer thread");
@@ -85,7 +92,9 @@ public class LogFile {
 	 */
 	public void stop() {
 		if (tailer != null)
-			tailer.stop();
+			if (tailer instanceof Tailer)
+				((Tailer) tailer).stop();
+
 	}
 
 	private synchronized static void incrementCounter() {
