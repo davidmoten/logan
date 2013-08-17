@@ -50,7 +50,7 @@ public class Watcher {
 		this.configuration = configuration;
 		// executor = Executors.newFixedThreadPool(Runtime.getRuntime()
 		// .availableProcessors());
-		executor = Executors.newFixedThreadPool(200);
+		executor = Executors.newFixedThreadPool(1000);
 	}
 
 	/**
