@@ -12,10 +12,10 @@
 	</parser>
 	<group>
 		<log>
-			<path>${log.base}/container/logs/**/[a-zA-Z].*.log</path>
+			<path>${log.base}/container/logs/**/cts-adapter-ais.*.log</path>
 		</log>
 		<log watch="false">
-			<path>${log.base}/container/logs/**/[a-zA-Z].*.log.2.*</path>
+			<path>${log.base}/container/logs/**/cts-adapter-ais.*.log.2.*</path>
 		</log>
 	</group>
 </ns2:configuration>
