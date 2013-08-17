@@ -1,4 +1,4 @@
-package com.github.davidmoten.logan.ui;
+package com.github.davidmoten.logan.servlet;
 
 import javax.servlet.http.HttpServletRequest;
 

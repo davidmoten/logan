@@ -1,6 +1,6 @@
-package com.github.davidmoten.logan.ui;
+package com.github.davidmoten.logan.servlet;
 
-import static com.github.davidmoten.logan.ui.ServletUtil.getMandatoryLong;
+import static com.github.davidmoten.logan.servlet.ServletUtil.getMandatoryLong;
 
 import java.io.IOException;
 import java.io.InputStream;
