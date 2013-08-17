@@ -1,9 +1,13 @@
 package com.github.davidmoten.logan;
 
+import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.TimeZone;
 import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.concurrent.TimeUnit;
@@ -159,7 +163,18 @@ public class Data {
 				new Function<LogEntry, String>() {
 					@Override
 					public String apply(LogEntry entry) {
-						return entry.getProperties().get(Field.MSG);
+						StringBuilder s = new StringBuilder();
+						DateFormat df = new SimpleDateFormat(
+								"yyyy-MM-dd HH:mm:ss.SSS");
+						df.setTimeZone(TimeZone.getTimeZone("UTC"));
+						s.append(df.format(new Date(entry.getTime())));
+						s.append(' ');
+						s.append(entry.getProperties().get(Field.LEVEL));
+						s.append(' ');
+						s.append(entry.getProperties().get(Field.LOGGER));
+						s.append(" - ");
+						s.append(entry.getProperties().get(Field.MSG));
+						return s.toString();
 					}
 				});
 	}
