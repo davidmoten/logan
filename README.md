@@ -49,27 +49,19 @@ Comprises the following internal components:
 * servlet (json data services)
 * ui (jQuery-UI + flot web front end which communicates exclusively with JSON services)
 
-Demo
----------------
-To test, run 
-
-    cd <YOUR_WORKSPACE>
-    git clone https://github.com/davidmoten/logan.git
-    cd logan
-	mvn jetty:run -Djetty.port=9292
-
-which will
-* start web server on port 9292
-
-Go to http://localhost:9292
 
 Getting started
 ---------------
 On host where logs are:
-    
+
+    cd <YOUR_WORKSPACE>
     git clone https://github.com/davidmoten/logan.git
     cd logan
 	mvn jetty:run -Djetty.port=9292 -Dlogan.config=<YOUR_CONFIG>
+	
+
+
+Go to http://localhost:9292
     
 File matching
 ---------------
