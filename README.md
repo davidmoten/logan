@@ -59,21 +59,20 @@ On host where logs are:
     cd logan
 	mvn jetty:run -Djetty.port=9292 -Dlogan.config=<YOUR_CONFIG>
 	
-
-
 Go to http://localhost:9292
     
 File matching
 ---------------
 The paths of log files to be analyzed is specified in the &lt;log&gt; element of the configuration file as below:
 
-    <log source="test">
+    <log source="test" watch="true">
         <path>PATH/FILENAME_REGEX</path>
 	</log>
 
 * PATH is the ANT style wildcard path of the directory. 
 * FILENAME_REGEX is a java regular expression for matching the filename part of the log file.
 * source can be extracted automatically from the filename by setting sourcePattern in the parser element in the xml
+* If you set watch=false (the default is true) then the file will be processed but further additions to that file will not be detected
 
 An example using directory wildcards and a regular expression:
 

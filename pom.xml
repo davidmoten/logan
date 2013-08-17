@@ -33,7 +33,7 @@
 		<changelog.version>2.2</changelog.version>
 		<coverage.reports.dir>${project.build.directory}/target/coverage-reports</coverage.reports.dir>
 		<maven.compiler.target>1.6</maven.compiler.target>
-		<jetty.plugin.version>8.1.8.v20121106</jetty.plugin.version>
+		<jetty.plugin.version>8.1.12.v20130726</jetty.plugin.version>
 		<jetty.stop.port>9998</jetty.stop.port>
 		<log.server.url>http://localhost:8080</log.server.url>
 		<logan.config>src/test/resources/sample-configuration.xml</logan.config>
