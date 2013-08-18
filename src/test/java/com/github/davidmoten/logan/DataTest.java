@@ -9,7 +9,6 @@ import java.util.Map;
 
 import org.junit.Test;
 
-import com.google.common.base.Optional;
 import com.google.common.collect.Maps;
 
 public class DataTest {
@@ -58,26 +57,23 @@ public class DataTest {
 		d.add(new LogEntry(100L, map));
 		assertEquals(1, d.getNumEntries());
 		{
-			BucketQuery q = new BucketQuery(new java.util.Date(0), 101, 0, "n",
-					Optional.<String> absent());
+			BucketQuery q = new BucketQuery(new java.util.Date(0), 101, 0, "n");
 			Buckets buckets = d.execute(q);
 			assertEquals(1, buckets.getBuckets().size());
 		}
 		{
-			BucketQuery q = new BucketQuery(new java.util.Date(0), 99, 0, "n",
-					Optional.<String> absent());
+			BucketQuery q = new BucketQuery(new java.util.Date(0), 99, 0, "n");
 			Buckets buckets = d.execute(q);
 			assertEquals(0, buckets.getBuckets().size());
 		}
 		{
 			BucketQuery q = new BucketQuery(new java.util.Date(101), 100, 0,
-					"n", Optional.<String> absent());
+					"n");
 			Buckets buckets = d.execute(q);
 			assertEquals(0, buckets.getBuckets().size());
 		}
 		{
-			BucketQuery q = new BucketQuery(new java.util.Date(99), 2, 0, "n",
-					Optional.<String> absent());
+			BucketQuery q = new BucketQuery(new java.util.Date(99), 2, 0, "n");
 			Buckets buckets = d.execute(q);
 			assertEquals(1, buckets.getBuckets().size());
 		}

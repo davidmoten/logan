@@ -46,6 +46,12 @@ public class BucketQuery {
 		this.source = source;
 	}
 
+	public BucketQuery(Date startTime, double intervalSizeMs,
+			long numIntervals, String field) {
+		this(startTime, intervalSizeMs, numIntervals, field, Optional
+				.<String> absent());
+	}
+
 	public Date getStartTime() {
 		return startTime;
 	}
