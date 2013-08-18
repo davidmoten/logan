@@ -27,6 +27,7 @@ import com.github.davidmoten.logan.Buckets;
 import com.github.davidmoten.logan.Data;
 import com.github.davidmoten.logan.Metric;
 import com.github.davidmoten.logan.Util;
+import com.google.common.base.Optional;
 
 @WebServlet(urlPatterns = { "/data" })
 public class DataServlet extends HttpServlet {
@@ -89,11 +90,10 @@ public class DataServlet extends HttpServlet {
 			long startTime, double interval, long numBuckets, Metric metric,
 			PrintWriter writer) {
 		BucketQuery q = new BucketQuery(new Date(startTime), interval,
-				numBuckets, field, source);
+				numBuckets, field, Optional.fromNullable(source));
 		Buckets buckets = data.execute(q);
 		log.info("building json");
 		Util.writeJson(buckets, metric, writer);
 		log.info("built json");
 	}
-
 }

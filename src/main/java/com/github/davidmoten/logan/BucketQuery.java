@@ -3,6 +3,9 @@ package com.github.davidmoten.logan;
 import java.util.Date;
 import java.util.logging.Logger;
 
+import com.google.common.base.Optional;
+import com.google.common.base.Preconditions;
+
 /**
  * Generates sql for an aggregated query from startTime,
  * intervalSizeMs,numIntervals and sql base.
@@ -19,7 +22,7 @@ public class BucketQuery {
 	private final double intervalSizeMs;
 	private final long numIntervals;
 	private final String field;
-	private final String source;
+	private final Optional<String> source;
 
 	/**
 	 * Constructor.
@@ -31,12 +34,13 @@ public class BucketQuery {
 	 * @param sql
 	 */
 	public BucketQuery(Date startTime, double intervalSizeMs,
-			long numIntervals, String field, String source) {
+			long numIntervals, String field, Optional<String> source) {
 		super();
 		this.startTime = startTime;
 		this.intervalSizeMs = intervalSizeMs;
 		this.numIntervals = numIntervals;
 		this.field = field;
+		Preconditions.checkNotNull(source);
 		this.source = source;
 	}
 
@@ -82,7 +86,7 @@ public class BucketQuery {
 		return field;
 	}
 
-	public String getSource() {
+	public Optional<String> getSource() {
 		return source;
 	}
 

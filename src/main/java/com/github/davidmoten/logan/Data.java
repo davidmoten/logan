@@ -123,6 +123,7 @@ public class Data {
 
 		Iterable<LogEntry> entries = find(query.getStartTime().getTime(),
 				query.getFinishTime());
+
 		// filter by field
 		Iterable<LogEntry> filtered = Iterables.filter(entries,
 				new Predicate<LogEntry>() {
@@ -132,13 +133,14 @@ public class Data {
 								query.getField());
 					}
 				});
+
 		// filter by source
-		if (query.getSource() != null)
+		if (query.getSource().isPresent())
 			filtered = Iterables.filter(entries, new Predicate<LogEntry>() {
 				@Override
 				public boolean apply(LogEntry entry) {
 					String src = entry.getProperties().get(Field.SOURCE);
-					return query.getSource().equals(src);
+					return query.getSource().get().equals(src);
 				}
 			});
 
