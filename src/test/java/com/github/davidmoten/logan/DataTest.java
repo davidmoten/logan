@@ -9,6 +9,7 @@ import java.util.Map;
 
 import org.junit.Test;
 
+import com.google.common.base.Optional;
 import com.google.common.collect.Maps;
 
 public class DataTest {
@@ -58,25 +59,25 @@ public class DataTest {
 		assertEquals(1, d.getNumEntries());
 		{
 			BucketQuery q = new BucketQuery(new java.util.Date(0), 101, 0, "n",
-					null);
+					Optional.<String> absent());
 			Buckets buckets = d.execute(q);
 			assertEquals(1, buckets.getBuckets().size());
 		}
 		{
 			BucketQuery q = new BucketQuery(new java.util.Date(0), 99, 0, "n",
-					null);
+					Optional.<String> absent());
 			Buckets buckets = d.execute(q);
 			assertEquals(0, buckets.getBuckets().size());
 		}
 		{
 			BucketQuery q = new BucketQuery(new java.util.Date(101), 100, 0,
-					"n", null);
+					"n", Optional.<String> absent());
 			Buckets buckets = d.execute(q);
 			assertEquals(0, buckets.getBuckets().size());
 		}
 		{
 			BucketQuery q = new BucketQuery(new java.util.Date(99), 2, 0, "n",
-					null);
+					Optional.<String> absent());
 			Buckets buckets = d.execute(q);
 			assertEquals(1, buckets.getBuckets().size());
 		}
