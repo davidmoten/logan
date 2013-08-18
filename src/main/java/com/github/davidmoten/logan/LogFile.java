@@ -24,7 +24,7 @@ public class LogFile {
 
 	private static Logger log = Logger.getLogger(LogFile.class.getName());
 
-	private static AtomicLong counter = new AtomicLong();
+	private static volatile AtomicLong counter = new AtomicLong();
 
 	private final File file;
 	private final long checkIntervalMs;
