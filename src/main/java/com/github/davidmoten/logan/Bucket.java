@@ -23,6 +23,12 @@ public class Bucket {
 	private Double max;
 	private Double min;
 
+	/**
+	 * Constructor.
+	 * 
+	 * @param start
+	 * @param width
+	 */
 	public Bucket(double start, double width) {
 		this.start = start;
 		this.width = width;

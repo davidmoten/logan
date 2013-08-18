@@ -26,8 +26,12 @@ public class BucketQuery {
 	 * @param startTime
 	 * @param intervalSizeMs
 	 * @param numIntervals
+	 *            if 0 then one interval used of size intervalSizeMs and all
+	 *            points get their own bucket
+	 * @param field
+	 *            field to filter on
 	 * @param source
-	 * @param sql
+	 *            source to filter on.
 	 */
 	public BucketQuery(Date startTime, double intervalSizeMs,
 			long numIntervals, String field, Optional<String> source) {
