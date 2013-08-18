@@ -1,7 +1,6 @@
 package com.github.davidmoten.logan;
 
 import java.util.Date;
-import java.util.logging.Logger;
 
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
@@ -14,9 +13,6 @@ import com.google.common.base.Preconditions;
  * 
  */
 public class BucketQuery {
-
-	private static final Logger log = Logger.getLogger(BucketQuery.class
-			.getName());
 
 	private final Date startTime;
 	private final double intervalSizeMs;
