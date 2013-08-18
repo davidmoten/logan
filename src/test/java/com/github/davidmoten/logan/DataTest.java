@@ -57,23 +57,26 @@ public class DataTest {
 		d.add(new LogEntry(100L, map));
 		assertEquals(1, d.getNumEntries());
 		{
-			BucketQuery q = new BucketQuery(new java.util.Date(0), 101, 0, "n");
+			BucketQuery q = new BucketQuery(new java.util.Date(0), 101, 0, "n",
+					null);
 			Buckets buckets = d.execute(q);
 			assertEquals(1, buckets.getBuckets().size());
 		}
 		{
-			BucketQuery q = new BucketQuery(new java.util.Date(0), 99, 0, "n");
+			BucketQuery q = new BucketQuery(new java.util.Date(0), 99, 0, "n",
+					null);
 			Buckets buckets = d.execute(q);
 			assertEquals(0, buckets.getBuckets().size());
 		}
 		{
 			BucketQuery q = new BucketQuery(new java.util.Date(101), 100, 0,
-					"n");
+					"n", null);
 			Buckets buckets = d.execute(q);
 			assertEquals(0, buckets.getBuckets().size());
 		}
 		{
-			BucketQuery q = new BucketQuery(new java.util.Date(99), 2, 0, "n");
+			BucketQuery q = new BucketQuery(new java.util.Date(99), 2, 0, "n",
+					null);
 			Buckets buckets = d.execute(q);
 			assertEquals(1, buckets.getBuckets().size());
 		}

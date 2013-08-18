@@ -18,7 +18,8 @@ public class BucketQuery {
 	private final Date startTime;
 	private final double intervalSizeMs;
 	private final long numIntervals;
-	private final String name;
+	private final String field;
+	private final String source;
 
 	/**
 	 * Constructor.
@@ -26,15 +27,17 @@ public class BucketQuery {
 	 * @param startTime
 	 * @param intervalSizeMs
 	 * @param numIntervals
+	 * @param source
 	 * @param sql
 	 */
 	public BucketQuery(Date startTime, double intervalSizeMs,
-			long numIntervals, String name) {
+			long numIntervals, String field, String source) {
 		super();
 		this.startTime = startTime;
 		this.intervalSizeMs = intervalSizeMs;
 		this.numIntervals = numIntervals;
-		this.name = name;
+		this.field = field;
+		this.source = source;
 	}
 
 	public Date getStartTime() {
@@ -75,8 +78,12 @@ public class BucketQuery {
 		return Math.round(startTime.getTime() + n * intervalSizeMs);
 	}
 
-	public String getName() {
-		return name;
+	public String getField() {
+		return field;
+	}
+
+	public String getSource() {
+		return source;
 	}
 
 }

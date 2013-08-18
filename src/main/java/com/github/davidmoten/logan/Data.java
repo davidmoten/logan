@@ -123,18 +123,28 @@ public class Data {
 
 		Iterable<LogEntry> entries = find(query.getStartTime().getTime(),
 				query.getFinishTime());
+		// filter by field
 		Iterable<LogEntry> filtered = Iterables.filter(entries,
 				new Predicate<LogEntry>() {
 					@Override
 					public boolean apply(LogEntry entry) {
 						return entry.getProperties().containsKey(
-								query.getName());
+								query.getField());
 					}
 				});
+		// filter by source
+		if (query.getSource() != null)
+			filtered = Iterables.filter(entries, new Predicate<LogEntry>() {
+				@Override
+				public boolean apply(LogEntry entry) {
+					String src = entry.getProperties().get(Field.SOURCE);
+					return query.getSource().equals(src);
+				}
+			});
 
 		Buckets buckets = new Buckets(query);
 		for (LogEntry entry : filtered) {
-			String s = entry.getProperties().get(query.getName());
+			String s = entry.getProperties().get(query.getField());
 			try {
 				double d = Double.parseDouble(s);
 				buckets.add(entry.getTime(), d);

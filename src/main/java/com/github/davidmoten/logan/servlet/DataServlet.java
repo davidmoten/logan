@@ -54,10 +54,10 @@ public class DataServlet extends HttpServlet {
 		double interval = getMandatoryDouble(req, "interval");
 		long numBuckets = getMandatoryLong(req, "buckets");
 		String field = ServletUtil.getMandatoryParameter(req, "field");
-		Metric metric = Metric
-				.valueOf(getMandatoryParameter(req, "metric"));
+		String source = req.getParameter("source");
+		Metric metric = Metric.valueOf(getMandatoryParameter(req, "metric"));
 		resp.setContentType("application/json");
-		writeJson(data, field, startTime, interval, numBuckets, metric,
+		writeJson(data, field, source, startTime, interval, numBuckets, metric,
 				resp.getWriter());
 	}
 
@@ -85,10 +85,11 @@ public class DataServlet extends HttpServlet {
 		resp.getWriter().print(json);
 	}
 
-	private static void writeJson(Data data, String field, long startTime,
-			double interval, long numBuckets, Metric metric, PrintWriter writer) {
+	private static void writeJson(Data data, String field, String source,
+			long startTime, double interval, long numBuckets, Metric metric,
+			PrintWriter writer) {
 		BucketQuery q = new BucketQuery(new Date(startTime), interval,
-				numBuckets, field);
+				numBuckets, field, source);
 		Buckets buckets = data.execute(q);
 		log.info("building json");
 		Util.writeJson(buckets, metric, writer);
