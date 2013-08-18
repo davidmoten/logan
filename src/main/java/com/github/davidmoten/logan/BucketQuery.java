@@ -35,12 +35,14 @@ public class BucketQuery {
 	 */
 	public BucketQuery(Date startTime, double intervalSizeMs,
 			long numIntervals, String field, Optional<String> source) {
-		super();
+		Preconditions.checkNotNull(source,
+				"source must not be null but can be Optional.absent()");
+		Preconditions.checkNotNull(startTime, "startTime must not be null");
+		Preconditions.checkNotNull(field, "field must not be null");
 		this.startTime = startTime;
 		this.intervalSizeMs = intervalSizeMs;
 		this.numIntervals = numIntervals;
 		this.field = field;
-		Preconditions.checkNotNull(source);
 		this.source = source;
 	}
 
