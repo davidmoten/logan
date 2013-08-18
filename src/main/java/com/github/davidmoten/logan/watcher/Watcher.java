@@ -27,6 +27,8 @@ import com.google.common.collect.Lists;
  */
 public class Watcher {
 
+	private static final int DELAY_BETWEEN_CHECKS_FOR_NEW_CONTENT_MS = 500;
+
 	private static final int TERMINATION_TIMEOUT_MS = 30000;
 
 	private static final Logger log = Logger.getLogger(Watcher.class.getName());
@@ -78,7 +80,8 @@ public class Watcher {
 						throw new RuntimeException(
 								"source not specified or could not be extracted using sourcePattern for log:"
 										+ lg);
-					LogFile logFile = new LogFile(file, source, 500,
+					LogFile logFile = new LogFile(file, source,
+							DELAY_BETWEEN_CHECKS_FOR_NEW_CONTENT_MS,
 							new LogParser(options), executor);
 					boolean follow = lg.watch;
 					logFile.tail(data, follow);
