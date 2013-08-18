@@ -49,7 +49,6 @@ Comprises the following internal components:
 * servlet (json data services)
 * ui (jQuery-UI + flot web front end which communicates exclusively with JSON services)
 
-
 Getting started
 ---------------
 On host where logs are:
@@ -57,9 +56,13 @@ On host where logs are:
     cd <YOUR_WORKSPACE>
     git clone https://github.com/davidmoten/logan.git
     cd logan
-	mvn jetty:run -Djetty.port=9292 -Dlogan.config=<YOUR_CONFIG>
-	
-Go to http://localhost:9292
+	mvn jetty:run
+		
+Go to http://localhost:8080
+
+To customize with your own configuration and say port 9292:
+
+    mvn jetty:run -Djetty.port=9292 -Dlogan.config=<YOUR_CONFIGURATION_XML>
     
 File matching
 ---------------
@@ -89,14 +92,14 @@ The FILENAME_REGEX is
 which matches all filenames starting with *my* and ending in *.log*.
 
 Property substitution in configuration xml
----------------
-System properties are substituted in the configuration.xml file. 
+---------------------------------------------
+System properties are substituted in the configuration.xml file at runtime. 
 
 For example if you have specified <code>-Dmybase=/var/logs</code> at the command line then all instances of <code>${mybase}</code> will be substituted with <code>/var/logs</code> at runtime.
 
 Pattern matching
----------------
-The configuration file ([here](https://raw.github.com/davidmoten/logan/master/src/test/resources/configuration-test.xml)) refers to two patterns. Here's a fragment concerning patterns:
+---------------------------------------------
+The configuration file ([here](https://raw.github.com/davidmoten/logan/master/src/test/resources/configuration-test.xml)) refers to three patterns. Here's a fragment concerning patterns:
 
     <pattern>^(\d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d\.\d\d\d) +(\S+) +(\S+)+(\S+)? ?- (.*)$</pattern>
     <patternGroups>logTimestamp,logLevel,logLogger,threadName,logMsg</patternGroups>
