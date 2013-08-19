@@ -6,8 +6,8 @@ import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 
 /**
- * Generates sql for an aggregated query from startTime,
- * intervalSizeMs,numIntervals and sql base.
+ * Parameters for an aggregated query from startTime,
+ * intervalSizeMs,numIntervals.
  * 
  * @author dave
  * 
@@ -52,7 +52,10 @@ public class BucketQuery {
 	 * @param startTime
 	 * @param intervalSizeMs
 	 * @param numIntervals
+	 *            if 0 then one interval used of size intervalSizeMs and all
+	 *            points get their own bucket
 	 * @param field
+	 *            field to filter on
 	 */
 	public BucketQuery(Date startTime, double intervalSizeMs,
 			long numIntervals, String field) {
@@ -76,19 +79,6 @@ public class BucketQuery {
 		return numIntervals > 0;
 	}
 
-	@Override
-	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("BucketQuery [startTime=");
-		builder.append(startTime.getTime());
-		builder.append(", intervalSizeMs=");
-		builder.append(intervalSizeMs);
-		builder.append(", numIntervals=");
-		builder.append(numIntervals);
-		builder.append("]");
-		return builder.toString();
-	}
-
 	public long getFinishTime() {
 		long n;
 		if (numIntervals == 0)
@@ -104,6 +94,19 @@ public class BucketQuery {
 
 	public Optional<String> getSource() {
 		return source;
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("BucketQuery [startTime=");
+		builder.append(startTime.getTime());
+		builder.append(", intervalSizeMs=");
+		builder.append(intervalSizeMs);
+		builder.append(", numIntervals=");
+		builder.append(numIntervals);
+		builder.append("]");
+		return builder.toString();
 	}
 
 }
