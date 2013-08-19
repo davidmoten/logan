@@ -30,22 +30,6 @@ public class Data {
 
 	private static Data instance;
 
-	public static synchronized Data instance() {
-		if (instance == null) {
-			instance = new Data();
-			for (int i = 0; i < 10000; i++)
-				instance.add(createLogEntry(i));
-		}
-		return instance;
-	}
-
-	private static LogEntry createLogEntry(int i) {
-		Map<String, String> map = Maps.newHashMap();
-		map.put("specialNumber", Math.random() * 100 + "");
-		return new LogEntry(System.currentTimeMillis()
-				- TimeUnit.MINUTES.toMillis(i), map);
-	}
-
 	private TreeMap<Long, Collection<LogEntry>> map;
 	private ListMultimap<Long, LogEntry> facade;
 	private final TreeSet<String> keys = Sets.newTreeSet();
@@ -63,6 +47,34 @@ public class Data {
 		});
 	}
 
+	/**
+	 * Returns a singleton instance of {@link Data} with some dummy data loaded
+	 * for the key <code>specialNumber</code>.
+	 * 
+	 * @return
+	 */
+	public static synchronized Data instance() {
+		if (instance == null) {
+			instance = new Data();
+			for (int i = 0; i < 10000; i++)
+				instance.add(createRandomLogEntry(i));
+		}
+		return instance;
+	}
+
+	private static LogEntry createRandomLogEntry(int i) {
+		Map<String, String> map = Maps.newHashMap();
+		map.put("specialNumber", Math.random() * 100 + "");
+		return new LogEntry(System.currentTimeMillis()
+				- TimeUnit.MINUTES.toMillis(i), map);
+	}
+
+	/**
+	 * Adds a {@link LogEntry} to the data.
+	 * 
+	 * @param entry
+	 * @return this
+	 */
 	public synchronized Data add(LogEntry entry) {
 		facade.put(entry.getTime(), entry);
 		keys.addAll(entry.getProperties().keySet());
