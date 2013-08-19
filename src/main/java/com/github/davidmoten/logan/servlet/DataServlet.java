@@ -45,6 +45,8 @@ public class DataServlet extends HttpServlet {
 		long numBuckets = getMandatoryLong(req, "buckets");
 		String field = ServletUtil.getMandatoryParameter(req, "field");
 		String source = req.getParameter("source");
+		if ("*".equals(source)) source = null;
+		
 		Metric metric = Metric.valueOf(getMandatoryParameter(req, "metric"));
 		resp.setContentType("application/json");
 		writeJson(data, field, source, startTime, interval, numBuckets, metric,
