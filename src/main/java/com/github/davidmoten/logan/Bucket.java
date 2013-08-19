@@ -1,8 +1,8 @@
 package com.github.davidmoten.logan;
 
 /**
- * Aggregates metrics about coordinate pairs where the x-axis coordinate is a
- * {@link Long} timestamp.
+ * Aggregates metrics about coordinate pairs (x,y) where the x-axis coordinate
+ * is a {@link Long} timestamp.
  * 
  * @author dave
  * 
@@ -200,6 +200,24 @@ public class Bucket {
 			throw new RuntimeException("not implemented " + metric);
 	}
 
+	/**
+	 * Returns the start time of the bucket (x-coordinate min).
+	 * 
+	 * @return
+	 */
+	public double getStart() {
+		return start;
+	}
+
+	/**
+	 * Returns the width in ms of the bucket.
+	 * 
+	 * @return
+	 */
+	public double getWidth() {
+		return width;
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -218,24 +236,6 @@ public class Bucket {
 
 		builder.append("]");
 		return builder.toString();
-	}
-
-	/**
-	 * Returns the start time of the bucket (x-coordinate min).
-	 * 
-	 * @return
-	 */
-	public double getStart() {
-		return start;
-	}
-
-	/**
-	 * Returns the width in ms of the bucket.
-	 * 
-	 * @return
-	 */
-	public double getWidth() {
-		return width;
 	}
 
 }
