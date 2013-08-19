@@ -14,7 +14,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
 /**
- * Persister utility methods.
+ * Watcher utility methods.
  * 
  * @author dave
  * 

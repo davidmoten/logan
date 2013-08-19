@@ -21,10 +21,21 @@ import com.google.common.collect.Lists;
  */
 public class Configuration {
 
+	/**
+	 * Maximum number of log entries to keep in memory. Oldest are discarded
+	 * first once size reaches maxSize.
+	 */
 	@XmlElement(required = false, defaultValue = "1000000")
 	public int maxSize;
+	/**
+	 * Default parser for log lines for all log files where the parser is not
+	 * specified.
+	 */
 	@XmlElement(required = false)
 	public Parser parser;
+	/**
+	 * Groups of Parser and Log items.
+	 */
 	@XmlElement(required = true)
 	public List<Group> group = Lists.newArrayList();
 
@@ -59,10 +70,23 @@ public class Configuration {
 		return builder.toString();
 	}
 
-	private static final String DEFAULT_CONFIGURATION_LOCATION = "/persister-configuration.xml";
+	private static final String DEFAULT_CONFIGURATION_LOCATION = "/logan-configuration.xml";
 
 	private static Logger log = Logger.getLogger(Configuration.class.getName());
 
+	/**
+	 * <p><code>logan.config</code> system property used to load configuration as
+	 * though property was a classpath file and then a file system file. If set
+	 * but does not exist in the classpath or on the file system then throws
+	 * {@link RuntimeException}. If the <code>logan.config</code> property not
+	 * set then is assumed to be /configuration.xml.</p>
+	 * 
+	 * <p>Any properties specified in the configuration.xml file in the format
+	 * <code>${property.name}</code> will be replaced with system properties if
+	 * set.</p>
+	 * 
+	 * @return loaded configuration
+	 */
 	public static Configuration getConfiguration() {
 		String configLocation = System.getProperty("logan.config",
 				DEFAULT_CONFIGURATION_LOCATION);
