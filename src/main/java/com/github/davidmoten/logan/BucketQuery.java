@@ -46,6 +46,14 @@ public class BucketQuery {
 		this.source = source;
 	}
 
+	/**
+	 * Constructor.
+	 * 
+	 * @param startTime
+	 * @param intervalSizeMs
+	 * @param numIntervals
+	 * @param field
+	 */
 	public BucketQuery(Date startTime, double intervalSizeMs,
 			long numIntervals, String field) {
 		this(startTime, intervalSizeMs, numIntervals, field, Optional
