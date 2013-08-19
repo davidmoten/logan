@@ -54,4 +54,12 @@ public class LogEntry {
 		return builder.toString();
 	}
 
+	public String getSource() {
+		return properties.get(Field.SOURCE);
+	}
+
+	public String getMsg() {
+		return properties.get(Field.MSG);
+	}
+
 }

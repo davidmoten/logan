@@ -48,6 +48,7 @@ public class Data {
 	private TreeMap<Long, Collection<LogEntry>> map;
 	private ListMultimap<Long, LogEntry> facade;
 	private final TreeSet<String> keys = Sets.newTreeSet();
+	private final TreeSet<String> sources = Sets.newTreeSet();
 
 	private int maxSize = 1000000;
 
@@ -68,6 +69,9 @@ public class Data {
 			log.info("data size=" + facade.size());
 		if (facade.size() > maxSize)
 			map.remove(map.firstKey());
+		String source = entry.getSource();
+		if (source != null)
+			sources.add(source);
 		return this;
 	}
 
