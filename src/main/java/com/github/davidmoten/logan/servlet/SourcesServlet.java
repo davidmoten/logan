@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.github.davidmoten.logan.Data;
 
-@WebServlet(urlPatterns = { "/keys" })
-public class KeysServlet extends HttpServlet {
+@WebServlet(urlPatterns = { "/sources" })
+public class SourcesServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1044384045444686984L;
 
@@ -23,7 +23,7 @@ public class KeysServlet extends HttpServlet {
 
 	private void doLocal(HttpServletResponse resp) throws IOException {
 		StringBuilder s = new StringBuilder();
-		for (String key : Data.instance().getKeys()) {
+		for (String key : Data.instance().getSources()) {
 			if (s.length() > 0)
 				s.append(",");
 			s.append("\"");
@@ -31,7 +31,7 @@ public class KeysServlet extends HttpServlet {
 			s.append("\"");
 		}
 		resp.setContentType("application/json");
-		resp.getWriter().print("{ \"keys\": [" + s.toString() + "] }");
+		resp.getWriter().print("{ \"sources\": [" + s.toString() + "] }");
 	}
 
 }

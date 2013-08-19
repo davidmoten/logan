@@ -7,6 +7,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.NavigableSet;
 import java.util.TimeZone;
 import java.util.TreeMap;
 import java.util.TreeSet;
@@ -166,7 +167,7 @@ public class Data {
 		return facade.size();
 	}
 
-	public TreeSet<String> getKeys() {
+	public NavigableSet<String> getKeys() {
 		return keys;
 	}
 
@@ -193,5 +194,9 @@ public class Data {
 						return s.toString();
 					}
 				});
+	}
+
+	public NavigableSet<String> getSources() {
+		return sources;
 	}
 }

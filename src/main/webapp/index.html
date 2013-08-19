@@ -72,6 +72,9 @@
 			Field: <select id="field1" name="field1"></select>
 		</p>
 		<p>
+			Source: <select id="source1" name="source1"></select>
+		</p>
+		<p>
 			Width: <input type="text" name="width" value="1000px"></input>
 		</p>
 		<p>
@@ -91,10 +94,18 @@
 							"<option value='"+ key + "'>" + key + "</option>");
 				}
 			}
+			
+			function receivedSources(data) {
+				console.log(data);
+				for ( var i = 0; i < data.sources.length; i++) {
+					var source = data.sources[i];
+					$("#source1").append(
+							"<option value='"+ source + "'>" + source + "</option>");
+				}
+			}
 
-			var url = "keys";
 			$.ajax({
-				url : url,
+				url : "keys",
 				method : 'GET',
 				dataType : 'json',
 				success : receivedKeys,
@@ -103,6 +114,18 @@
 				},
 				timeout : 60000
 			});
+			
+			$.ajax({
+				url : "sources",
+				method : 'GET',
+				dataType : 'json',
+				success : receivedSources,
+				error : function(request, textStatus, errorThrown) {
+					console.log("error=" + errorThrown);
+				},
+				timeout : 60000
+			});
+			
 		});
 	</script>
 
