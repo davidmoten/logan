@@ -11,6 +11,8 @@ import javax.xml.bind.Unmarshaller;
 import javax.xml.namespace.QName;
 import javax.xml.transform.stream.StreamSource;
 
+import org.apache.commons.io.output.ByteArrayOutputStream;
+
 /**
  * Marshaller for {@link Configuration}.
  * 
@@ -58,6 +60,12 @@ public class Marshaller {
 		} catch (JAXBException e) {
 			throw new RuntimeException(e);
 		}
+	}
+
+	public synchronized String marshal(Configuration configuration) {
+		ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+		marshal(configuration, bytes);
+		return bytes.toString();
 	}
 
 	/**

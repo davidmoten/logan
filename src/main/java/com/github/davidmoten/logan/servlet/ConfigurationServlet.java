@@ -1,5 +1,6 @@
 package com.github.davidmoten.logan.servlet;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -30,7 +31,9 @@ public class ConfigurationServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		Marshaller m = new Marshaller();
-		Configuration configuration = m.unmarshal(req.getInputStream());
+		String xml = req.getParameter("configuration");
+		Configuration configuration = m.unmarshal(new ByteArrayInputStream(xml
+				.getBytes()));
 		Data data = new Data(configuration.maxSize);
 		State.instance().getWatcher().stop();
 
@@ -38,5 +41,7 @@ public class ConfigurationServlet extends HttpServlet {
 		watcher.start();
 
 		State.setInstance(new State(data, configuration, watcher));
+		resp.setContentType("text/plain");
+		resp.getWriter().print("New configuration loaded, watchers started");
 	}
 }
