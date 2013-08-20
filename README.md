@@ -73,11 +73,11 @@ As a rough guide, if
 
 then
 
-    maxHeapSize = max(64, n/4 + m/2000) in MB
+    maxHeapSize = max(64, (n+10)*4 + m/2000) in MB
 
-For example if n = 100, m = 1000000, then maxHeapSize=525MB so run logan like this:
+For example if n = 100, m = 1000000, then maxHeapSize=940MB so run logan like this:
 
-    export MAVEN_OPTS='-Xmx525m'
+    export MAVEN_OPTS='-Xmx940m'
     mvn jetty:run <params>
  
 File matching
