@@ -52,7 +52,29 @@ public class Watcher {
 		this.configuration = configuration;
 		// executor = Executors.newFixedThreadPool(Runtime.getRuntime()
 		// .availableProcessors());
-		executor = Executors.newFixedThreadPool(1000);
+		int numTailers = countTailers(configuration);
+		log.info("numTailers=" + numTailers);
+		// each tailer needs an active thread at all times and we need some
+		// spares to load the files that are not being watched after load. The
+		// non-watched file threads will terminate so a pool smaller than the
+		// number of such files is appropriate.
+		int size = numTailers + 10;
+		executor = Executors.newFixedThreadPool(size);
+		log.info("create fixed thread pool of size=" + size);
+	}
+
+	private static int countTailers(Configuration configuration) {
+
+		int tailers = 0;
+		for (Group group : configuration.group) {
+			for (Log lg : group.log) {
+				List<File> files = Util
+						.getFilesFromPathWithRegexFilename(lg.path);
+				if (lg.watch)
+					tailers += files.size();
+			}
+		}
+		return tailers;
 	}
 
 	/**
