@@ -24,8 +24,7 @@ public class ApplicationServletContextListener implements
 	public void contextInitialized(ServletContextEvent event) {
 		setupLogging();
 		Configuration configuration = Configuration.getConfiguration();
-		Data data = Data.instance();
-		data.setMaxSize(configuration.maxSize);
+		Data data = new Data(configuration.maxSize, true);
 		Watcher w = new Watcher(data, configuration);
 		w.start();
 		State.setInstance(new State(data, configuration, w));

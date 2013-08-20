@@ -31,20 +31,18 @@ public class Data {
 
 	private static Logger log = Logger.getLogger(Data.class.getName());
 
-	private static Data instance;
-
 	private TreeMap<Long, Collection<LogEntry>> map;
 	private ListMultimap<Long, LogEntry> facade;
 	private final TreeSet<String> keys = Sets.newTreeSet();
 	private final TreeSet<String> sources = Sets.newTreeSet();
 
-	private int maxSize = DEFAULT_MAX_SIZE;
+	private final int maxSize;
 
 	public Data() {
-		this(DEFAULT_MAX_SIZE);
+		this(DEFAULT_MAX_SIZE, false);
 	}
 
-	public Data(int maxSize) {
+	public Data(int maxSize, boolean loadDummyData) {
 		this.maxSize = maxSize;
 		map = Maps.newTreeMap();
 		facade = Multimaps.newListMultimap(map, new Supplier<List<LogEntry>>() {
@@ -53,21 +51,9 @@ public class Data {
 				return Lists.newArrayList();
 			}
 		});
-	}
-
-	/**
-	 * Returns a singleton instance of {@link Data} with some dummy data loaded
-	 * for the key <code>specialNumber</code>.
-	 * 
-	 * @return
-	 */
-	public static synchronized Data instance() {
-		if (instance == null) {
-			instance = new Data();
+		if (loadDummyData)
 			for (int i = 0; i < 10000; i++)
-				instance.add(createRandomLogEntry(i));
-		}
-		return instance;
+				add(createRandomLogEntry(i));
 	}
 
 	private static LogEntry createRandomLogEntry(int i) {
@@ -200,10 +186,6 @@ public class Data {
 
 	public NavigableSet<String> getKeys() {
 		return keys;
-	}
-
-	public void setMaxSize(int maxSize) {
-		this.maxSize = maxSize;
 	}
 
 	public Iterable<String> getLogs(long startTime, long finishTime) {

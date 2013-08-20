@@ -34,7 +34,7 @@ public class ConfigurationServlet extends HttpServlet {
 		String xml = req.getParameter("configuration");
 		Configuration configuration = m.unmarshal(new ByteArrayInputStream(xml
 				.getBytes()));
-		Data data = new Data(configuration.maxSize);
+		Data data = new Data(configuration.maxSize, true);
 		State.instance().getWatcher().stop();
 
 		Watcher watcher = new Watcher(data, configuration);
