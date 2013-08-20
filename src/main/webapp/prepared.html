@@ -1,6 +1,8 @@
 <html>
-<h2>Log Analysis</h2>
-<h3>Sample graphs</h3>
+<h3>Prepared graphs</h3>
+<p>The graphs below depend on the presence of AMSA style configuration (/aus$MODE/container/logs/*/*.log + rollovers)</p>
+
+<p>One graph to a page:</p>
 <ul>
 <li><a href="graph.html?buckets=0&finish=now&interval=1d&metric=MAX&extraMetric=MAX&field1=fixes%20arrived%20from%20FIS&width=1000px&height=500px">Last day, fixesArrivedFromFIS</a></li>
 <li><a href="graph.html?buckets=24&finish=now&interval=1h&metric=MAX&extraMetric=MAX&field1=fixes%20arrived%20from%20FIS&width=1000px&height=500px">Last day, fixesArrivedFromFIS by hour</a></li>
@@ -8,6 +10,10 @@
 <li><a href="graph.html?buckets=0&finish=now&interval=1d&metric=MAX&extraMetric=MAX&field1=rateMsgPerSecond&width=1000px&height=500px">Last day, rate msgs/second persisted to CTS</a></li>
 <li><a href="graph.html?buckets=0&finish=now&interval=1d&metric=MAX&extraMetric=MAX&field1=elapsedTimeSeconds&width=1000px&height=500px">Last day, CTS craftpic preparal time</a></li>
 <li><a href="graph.html?buckets=0&finish=now&interval=1d&metric=MAX&extraMetric=MAX&field1=fixes%20queue%20size&width=1000px&height=500px">Last day, CTS actor queue size</a></li>
+</ul>
+
+<p>Many graphs to a page</p>
+<ul>
 <li><a href="graph.html?buckets=0&finish=now&interval=1d&metric=MAX&extraMetric=MAX&field1=fixes%20arrived%20from%20FIS&field2=fixes%20arrived%20from%20AIS&field3=rateMsgPerSecond&title3=CTS%20fix%20processing%20rate&field4=elapsedTimeSeconds&title4=Cached%20craftpic%20preparation%20time&field5=fixes%20queue%20size&width=1000px&height=500px">All in one</a></li>
 <li><a href="graph.html?buckets=24&finish=now&interval=1h&metric=MAX&extraMetric=MAX&field1=fixes%20arrived%20from%20FIS&field2=fixes%20arrived%20from%20AIS&field3=fixes%20arrived%20from%20SPIDERTRACKS&field4=rateMsgPerSecond&field5=elapsedTimeSeconds&field6=fixes%20queue%20size&title6=CTS fixes queue size&width=1000px&height=500px">All in one aggregated</a></li>
 </ul>
