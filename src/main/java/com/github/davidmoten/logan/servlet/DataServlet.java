@@ -29,8 +29,6 @@ public class DataServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1044384045444686984L;
 
-	private final Data data = Data.instance();
-
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
@@ -45,12 +43,13 @@ public class DataServlet extends HttpServlet {
 		long numBuckets = getMandatoryLong(req, "buckets");
 		String field = ServletUtil.getMandatoryParameter(req, "field");
 		String source = req.getParameter("source");
-		if ("*".equals(source)) source = null;
-		
+		if ("*".equals(source))
+			source = null;
+
 		Metric metric = Metric.valueOf(getMandatoryParameter(req, "metric"));
 		resp.setContentType("application/json");
-		writeJson(data, field, source, startTime, interval, numBuckets, metric,
-				resp.getWriter());
+		writeJson(State.instance().getData(), field, source, startTime,
+				interval, numBuckets, metric, resp.getWriter());
 	}
 
 	private static void writeJson(Data data, String field, String source,

@@ -8,8 +8,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.github.davidmoten.logan.Data;
-
 @WebServlet(urlPatterns = { "/sources" })
 public class SourcesServlet extends HttpServlet {
 
@@ -23,7 +21,7 @@ public class SourcesServlet extends HttpServlet {
 
 	private void doLocal(HttpServletResponse resp) throws IOException {
 		StringBuilder s = new StringBuilder();
-		for (String key : Data.instance().getSources()) {
+		for (String key : State.instance().getData().getSources()) {
 			if (s.length() > 0)
 				s.append(",");
 			s.append("\"");

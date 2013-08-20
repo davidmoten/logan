@@ -8,8 +8,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.github.davidmoten.logan.Data;
-
 @WebServlet(urlPatterns = { "/keys" })
 public class KeysServlet extends HttpServlet {
 
@@ -23,7 +21,7 @@ public class KeysServlet extends HttpServlet {
 
 	private void doLocal(HttpServletResponse resp) throws IOException {
 		StringBuilder s = new StringBuilder();
-		for (String key : Data.instance().getKeys()) {
+		for (String key : State.instance().getData().getKeys()) {
 			if (s.length() > 0)
 				s.append(",");
 			s.append("\"");
@@ -33,5 +31,4 @@ public class KeysServlet extends HttpServlet {
 		resp.setContentType("application/json");
 		resp.getWriter().print("{ \"keys\": [" + s.toString() + "] }");
 	}
-
 }

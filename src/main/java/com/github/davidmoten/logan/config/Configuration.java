@@ -88,7 +88,8 @@ public class Configuration {
 	 * 
 	 * @return loaded configuration
 	 */
-	public static Configuration getConfiguration() {
+
+	public static synchronized Configuration getConfiguration() {
 		String configLocation = System.getProperty("logan.config",
 				DEFAULT_CONFIGURATION_LOCATION);
 		log.info("config=" + configLocation);

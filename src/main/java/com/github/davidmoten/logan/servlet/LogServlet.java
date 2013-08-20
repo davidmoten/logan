@@ -11,8 +11,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.github.davidmoten.logan.Data;
-
 @WebServlet(urlPatterns = { "/log" })
 public class LogServlet extends HttpServlet {
 
@@ -31,7 +29,8 @@ public class LogServlet extends HttpServlet {
 		long finishTime = getMandatoryLong(req, "finish");
 		resp.setContentType("text/plain");
 		PrintWriter out = resp.getWriter();
-		for (String line : Data.instance().getLogs(startTime, finishTime)) {
+		for (String line : State.instance().getData()
+				.getLogs(startTime, finishTime)) {
 			if (line != null)
 				out.println(line);
 		}

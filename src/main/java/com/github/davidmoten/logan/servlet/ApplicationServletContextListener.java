@@ -13,7 +13,8 @@ import com.github.davidmoten.logan.config.Configuration;
 import com.github.davidmoten.logan.watcher.Watcher;
 
 @WebListener
-public class ApplicationServletContextListener implements ServletContextListener {
+public class ApplicationServletContextListener implements
+		ServletContextListener {
 
 	private static Logger log = Logger
 			.getLogger(ApplicationServletContextListener.class.getName());
@@ -27,7 +28,9 @@ public class ApplicationServletContextListener implements ServletContextListener
 	public void contextInitialized(ServletContextEvent event) {
 		setupLogging();
 		Configuration configuration = Configuration.getConfiguration();
-		Data.instance().setMaxSize(configuration.maxSize);
+		Data data = Data.instance();
+		data.setMaxSize(configuration.maxSize);
+		State.setInstance(new State(data, configuration));
 		Watcher w = new Watcher(Data.instance(), configuration);
 		log.info("starting watcher");
 		w.start();

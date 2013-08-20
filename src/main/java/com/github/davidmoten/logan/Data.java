@@ -27,6 +27,8 @@ import com.google.common.collect.Sets;
 
 public class Data {
 
+	private static final int DEFAULT_MAX_SIZE = 1000000;
+
 	private static Logger log = Logger.getLogger(Data.class.getName());
 
 	private static Data instance;
@@ -36,9 +38,14 @@ public class Data {
 	private final TreeSet<String> keys = Sets.newTreeSet();
 	private final TreeSet<String> sources = Sets.newTreeSet();
 
-	private int maxSize = 1000000;
+	private int maxSize = DEFAULT_MAX_SIZE;
 
 	public Data() {
+		this(DEFAULT_MAX_SIZE);
+	}
+
+	public Data(int maxSize) {
+		this.maxSize = maxSize;
 		map = Maps.newTreeMap();
 		facade = Multimaps.newListMultimap(map, new Supplier<List<LogEntry>>() {
 			@Override
@@ -78,7 +85,7 @@ public class Data {
 	 */
 	public synchronized Data add(LogEntry entry) {
 		facade.put(entry.getTime(), entry);
-		for (Entry<String, String> pair : entry.getProperties().entrySet()) 
+		for (Entry<String, String> pair : entry.getProperties().entrySet())
 			if (isNumeric(pair.getValue()))
 				keys.add(pair.getKey());
 		if (facade.size() % 10000 == 0)
