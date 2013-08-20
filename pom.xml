@@ -36,7 +36,7 @@
 		<jetty.stop.port>9998</jetty.stop.port>
 		<log.server.url>http://localhost:8080</log.server.url>
 		<logan.config>/sample-configuration.xml</logan.config>
-		<log.base>/ausdev</log.base>
+		<log.base>/var/logs</log.base>
 	</properties>
 
 	<licenses>
