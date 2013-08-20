@@ -7,6 +7,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.NavigableSet;
 import java.util.TimeZone;
 import java.util.TreeMap;
@@ -77,7 +78,9 @@ public class Data {
 	 */
 	public synchronized Data add(LogEntry entry) {
 		facade.put(entry.getTime(), entry);
-		keys.addAll(entry.getProperties().keySet());
+		for (Entry<String, String> pair : entry.getProperties().entrySet()) 
+			if (isNumeric(pair.getValue()))
+				keys.add(pair.getKey());
 		if (facade.size() % 10000 == 0)
 			log.info("data size=" + facade.size());
 		if (facade.size() > maxSize)
@@ -86,6 +89,15 @@ public class Data {
 		if (source != null)
 			sources.add(source);
 		return this;
+	}
+
+	private boolean isNumeric(String s) {
+		try {
+			Double.parseDouble(s);
+			return true;
+		} catch (NumberFormatException e) {
+			return false;
+		}
 	}
 
 	public synchronized Iterable<LogEntry> find(final long startTime,
