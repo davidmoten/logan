@@ -16,10 +16,6 @@ public class SourcesServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		doLocal(resp);
-	}
-
-	private void doLocal(HttpServletResponse resp) throws IOException {
 		StringBuilder s = new StringBuilder();
 		for (String key : State.instance().getData().getSources()) {
 			if (s.length() > 0)

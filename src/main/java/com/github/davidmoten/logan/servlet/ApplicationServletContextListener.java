@@ -2,7 +2,6 @@ package com.github.davidmoten.logan.servlet;
 
 import java.io.IOException;
 import java.util.logging.LogManager;
-import java.util.logging.Logger;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -16,9 +15,6 @@ import com.github.davidmoten.logan.watcher.Watcher;
 public class ApplicationServletContextListener implements
 		ServletContextListener {
 
-	private static Logger log = Logger
-			.getLogger(ApplicationServletContextListener.class.getName());
-
 	@Override
 	public void contextDestroyed(ServletContextEvent event) {
 
@@ -30,11 +26,9 @@ public class ApplicationServletContextListener implements
 		Configuration configuration = Configuration.getConfiguration();
 		Data data = Data.instance();
 		data.setMaxSize(configuration.maxSize);
-		State.setInstance(new State(data, configuration));
-		Watcher w = new Watcher(Data.instance(), configuration);
-		log.info("starting watcher");
+		Watcher w = new Watcher(data, configuration);
 		w.start();
-		log.info("started");
+		State.setInstance(new State(data, configuration, w));
 	}
 
 	private static void setupLogging() {

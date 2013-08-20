@@ -20,11 +20,6 @@ public class LogServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 
-		doLocal(req, resp);
-	}
-
-	private void doLocal(HttpServletRequest req, HttpServletResponse resp)
-			throws IOException {
 		long startTime = getMandatoryLong(req, "start");
 		long finishTime = getMandatoryLong(req, "finish");
 		resp.setContentType("text/plain");

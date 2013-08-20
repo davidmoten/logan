@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.github.davidmoten.logan.Data;
 import com.github.davidmoten.logan.config.Configuration;
 import com.github.davidmoten.logan.config.Marshaller;
+import com.github.davidmoten.logan.watcher.Watcher;
 
 @WebServlet(urlPatterns = { "/configuration" })
 public class ConfigurationServlet extends HttpServlet {
@@ -31,6 +32,11 @@ public class ConfigurationServlet extends HttpServlet {
 		Marshaller m = new Marshaller();
 		Configuration configuration = m.unmarshal(req.getInputStream());
 		Data data = new Data(configuration.maxSize);
-		State.setInstance(new State(data, configuration));
+		State.instance().getWatcher().stop();
+
+		Watcher watcher = new Watcher(data, configuration);
+		watcher.start();
+
+		State.setInstance(new State(data, configuration, watcher));
 	}
 }

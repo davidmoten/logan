@@ -33,11 +33,6 @@ public class DataServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 
-		doLocal(req, resp);
-	}
-
-	private void doLocal(HttpServletRequest req, HttpServletResponse resp)
-			throws IOException {
 		long startTime = getMandatoryLong(req, "start");
 		double interval = getMandatoryDouble(req, "interval");
 		long numBuckets = getMandatoryLong(req, "buckets");
