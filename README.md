@@ -71,9 +71,11 @@ As a rough guide, if
     n = the number of files being actively watched,
     m = maxSize from configuration (max number of log lines to be kept in memory for queries)
 
-    heap setting = max(64, n/4 + m/2000) in MB
+then
 
-For example if n = 100, m = 1000000, then run logan like this:
+    maxHeapSize = max(64, n/4 + m/2000) in MB
+
+For example if n = 100, m = 1000000, then maxHeapSize=525MB so run logan like this:
 
     export MAVEN_OPTS='-Xmx525m'
     mvn jetty:run <params>
