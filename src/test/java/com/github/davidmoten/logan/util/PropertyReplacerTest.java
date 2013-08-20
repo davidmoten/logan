@@ -34,4 +34,16 @@ public class PropertyReplacerTest {
 		System.out.println(result);
 		assertEquals("hello Dave, how are you Dave", result);
 	}
+
+	@Test
+	public void testReplaceWhenPropertySetToSomethingDoesReplacementOnTwoLines()
+			throws IOException {
+		String text = "hello ${my.name}, how are you ${my.name}\nseeya ${my.name}";
+		InputStream is = new ByteArrayInputStream(text.getBytes());
+		System.setProperty("my.name", "Dave");
+		String result = IOUtils.toString(PropertyReplacer
+				.replaceSystemProperties(is));
+		System.out.println(result);
+		assertEquals("hello Dave, how are you Dave\nseeya Dave", result);
+	}
 }
