@@ -177,3 +177,4 @@ Todo
 * add more documentation to this site!
 * improve unit test coverage 
 * multiple field criteria support
+* use NIO for tailing files
