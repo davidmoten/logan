@@ -62,7 +62,7 @@ public class LogFile {
 			}
 	}
 
-	private static int BUFFER_SIZE = 64 * 4096;
+	private static int BUFFER_SIZE = 2 * 4096;
 
 	/**
 	 * Starts a thread that tails a file from the start and reports extracted
