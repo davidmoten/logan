@@ -35,7 +35,7 @@
 		<jetty.plugin.version>8.1.12.v20130726</jetty.plugin.version>
 		<jetty.stop.port>9998</jetty.stop.port>
 		<log.server.url>http://localhost:8080</log.server.url>
-		<logan.config>src/test/resources/sample-configuration.xml</logan.config>
+		<logan.config>/sample-configuration.xml</logan.config>
 		<log.base>/ausdev</log.base>
 	</properties>
 
@@ -149,10 +149,6 @@
 						<contextPath>/</contextPath>
 					</webAppConfig>
 					<systemProperties>
-						<systemProperty>
-							<name>log.server.url</name>
-							<value>${log.server.url}</value>
-						</systemProperty>
 						<systemProperty>
 							<name>logan.config</name>
 							<value>${logan.config}</value>

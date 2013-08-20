@@ -29,7 +29,7 @@ public class ConfigurationTest {
 	public void testLoadFromFileSystem() {
 		String temp = System.getProperty("logan.config");
 		System.setProperty("logan.config",
-				"src/test/resources/sample-configuration.xml");
+				"src/main/resources/sample-configuration.xml");
 		Configuration c = Configuration.getConfiguration();
 		assertEquals(1000000, c.maxSize);
 		if (temp == null)
