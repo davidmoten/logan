@@ -47,7 +47,12 @@ public class MessageSplitter {
 			Map<String, String> map = Maps.newHashMap();
 			Matcher matcher = pattern.matcher(s);
 			while (matcher.find()) {
-				map.put(matcher.group(1).trim(), matcher.group(2).trim());
+				String value = matcher.group(2).trim();
+				Matcher m = Pattern.compile("^\\d+(\\.\\d*)?").matcher(value);
+				if (m.find()) {
+					value = Double.parseDouble(m.group()) + "";
+				}
+				map.put(matcher.group(1).trim(), value);
 			}
 			return map;
 		}

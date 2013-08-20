@@ -129,7 +129,7 @@ public class LogParserTest {
 	}
 
 	@Test
-	public void testParseLineWithExtraSpaces() {
+	public void testParseLineWithComma() {
 		String line = "2013-08-20 07:20:10,228 INFO  au.gov.amsa.watch.WatchTask - checked 66 in 10219ms, rate=6.5 watches/s";
 		LogParser p = new LogParser();
 		LogEntry entry = p.parse("temp", line);

@@ -23,14 +23,7 @@ public class SampleConfigurationTest {
 
 	@Test
 	public void test() {
-		InputStream is = SampleConfigurationTest.class
-				.getResourceAsStream("/sample-configuration.xml");
-		Configuration configuration = new Marshaller().unmarshal(is);
-		Parser p = configuration.parser;
-		LogParserOptions options = LogParserOptions.load(p.pattern,
-				p.patternGroups, p.messagePattern, p.timestampFormat,
-				p.timezone, p.multiline);
-		LogParser parser = new LogParser(options);
+		LogParser parser = getParser();
 		// matches without a threadname
 		LogEntry entry = parser.parse("test", LINE_1);
 		assertNotNull(entry);
@@ -46,6 +39,29 @@ public class SampleConfigurationTest {
 				.parse("test",
 						"2013-02-05 00:00:03,421 INFO  au.gov.amsa.er.craft.tracking.actor.RootActor threadName    - fixes queue size = 33");
 		assertNotNull(entry);
+
+	}
+
+	@Test
+	public void testExtractRate() {
+		LogParser parser = getParser();
+		LogEntry entry = parser
+				.parse("test",
+						"2013-08-20 07:20:10,228 INFO  au.gov.amsa.watch.WatchTask - checked 66 in 10219ms, rate=6.5 watches/s");
+		assertNotNull(entry);
+		assertEquals("6.5", entry.getProperties().get("rate"));
+	}
+
+	private LogParser getParser() {
+		InputStream is = SampleConfigurationTest.class
+				.getResourceAsStream("/sample-configuration.xml");
+		Configuration configuration = new Marshaller().unmarshal(is);
+		Parser p = configuration.parser;
+		LogParserOptions options = LogParserOptions.load(p.pattern,
+				p.patternGroups, p.messagePattern, p.timestampFormat,
+				p.timezone, p.multiline);
+		LogParser parser = new LogParser(options);
+		return parser;
 	}
 
 	@Test

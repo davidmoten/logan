@@ -89,6 +89,15 @@ public class MessageSplitterTest {
 	}
 
 	@Test
+	public void testReturnsNumericAndIgnoresUnits() {
+		MessageSplitter m = new MessageSplitter();
+		Map<String, String> map = m
+				.split("Finished run. run time  = 200 msg/s");
+		assertEquals("200", map.get("run time"));
+		assertEquals(1, map.size());
+	}
+
+	@Test
 	public void testVariableNameStartsWithALetter() {
 		MessageSplitter m = new MessageSplitter();
 		Map<String, String> map = m.split("Finished run. 1run time  = 200");
