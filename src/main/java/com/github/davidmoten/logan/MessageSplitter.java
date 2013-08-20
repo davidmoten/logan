@@ -48,10 +48,6 @@ public class MessageSplitter {
 			Matcher matcher = pattern.matcher(s);
 			while (matcher.find()) {
 				String value = matcher.group(2).trim();
-				Matcher m = Pattern.compile("^\\d+(\\.\\d*)?").matcher(value);
-				if (m.find()) {
-					value = Double.parseDouble(m.group()) + "";
-				}
 				map.put(matcher.group(1).trim(), value);
 			}
 			return map;
