@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.List;
 import java.util.Properties;
 import java.util.regex.Pattern;
 
@@ -11,6 +12,7 @@ import com.github.davidmoten.logan.config.Group;
 import com.github.davidmoten.logan.config.Parser;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
+import com.google.common.collect.Lists;
 
 /**
  * Options for a {@link LogParser}.
@@ -24,7 +26,7 @@ public class LogParserOptions {
 	private final BiMap<String, Integer> patternGroups;
 	private final Pattern messagePattern;
 
-	private final DateFormat timestampFormat;
+	private final List<DateFormat> timestampFormat;
 	private final String timezone;
 	private final boolean multiline;
 
@@ -40,7 +42,7 @@ public class LogParserOptions {
 	 */
 	public LogParserOptions(Pattern pattern,
 			BiMap<String, Integer> patternGroups, Pattern messagePattern,
-			DateFormat timestampFormat, String timezone, boolean multiline) {
+			List<DateFormat> timestampFormat, String timezone, boolean multiline) {
 		super();
 		this.pattern = pattern;
 		this.patternGroups = patternGroups;
@@ -63,8 +65,9 @@ public class LogParserOptions {
 	public LogParserOptions(Pattern pattern,
 			BiMap<String, Integer> patternGroups, Pattern messagePattern,
 			String timestampFormat, String timezone, boolean multiline) {
-		this(pattern, patternGroups, messagePattern,
-				createDateFormat(timestampFormat), timezone, multiline);
+		this(pattern, patternGroups, messagePattern, Lists
+				.newArrayList(createDateFormat(timestampFormat)), timezone,
+				multiline);
 	}
 
 	private static LogParserOptions load(InputStream is) {
@@ -83,23 +86,30 @@ public class LogParserOptions {
 		BiMap<String, Integer> patternGroups = createGroupMap(p
 				.getProperty("pattern.groups"));
 		boolean multiline = "true".equalsIgnoreCase(p.getProperty("multiline"));
-		return new LogParserOptions(pattern, patternGroups, messagePattern, df,
-				timezone, multiline);
+		return new LogParserOptions(pattern, patternGroups, messagePattern,
+				Lists.newArrayList(df), timezone, multiline);
 	}
 
-	private static SimpleDateFormat createDateFormat(String timestampFormat) {
+	private static DateFormat createDateFormat(String timestampFormat) {
 		return new SimpleDateFormat(timestampFormat + " Z");
 	}
 
 	public static LogParserOptions load(String pPattern, String pPatternGroups,
-			String pMessagePattern, String pTimestampFormat, String pTimezone,
-			boolean pMultiline) {
+			String pMessagePattern, List<String> pTimestampFormat,
+			String pTimezone, boolean pMultiline) {
 		Pattern pattern = Pattern.compile(pPattern);
 		Pattern messagePattern = Pattern.compile(pMessagePattern);
-		DateFormat df = new SimpleDateFormat(pTimestampFormat);
+		List<DateFormat> dfs = toDateFormats(pTimestampFormat);
 		BiMap<String, Integer> patternGroups = createGroupMap(pPatternGroups);
-		return new LogParserOptions(pattern, patternGroups, messagePattern, df,
-				pTimezone, pMultiline);
+		return new LogParserOptions(pattern, patternGroups, messagePattern,
+				dfs, pTimezone, pMultiline);
+	}
+
+	private static List<DateFormat> toDateFormats(List<String> formats) {
+		List<DateFormat> list = Lists.newArrayList();
+		for (String format : formats)
+			list.add(new SimpleDateFormat(format));
+		return list;
 	}
 
 	/**
@@ -140,7 +150,7 @@ public class LogParserOptions {
 	 * 
 	 * @return
 	 */
-	public DateFormat getTimestampFormat() {
+	public List<DateFormat> getTimestampFormat() {
 		return timestampFormat;
 	}
 

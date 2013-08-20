@@ -1,5 +1,7 @@
 package com.github.davidmoten.logan.config;
 
+import java.util.List;
+
 import javax.xml.bind.annotation.XmlElement;
 
 import com.github.davidmoten.logan.MessageSplitter;
@@ -22,7 +24,7 @@ public class Parser {
 	@XmlElement(defaultValue = MessageSplitter.MESSAGE_PATTERN_DEFAULT)
 	public String messagePattern = MessageSplitter.MESSAGE_PATTERN_DEFAULT;
 	@XmlElement(required = true)
-	public String timestampFormat;
+	public List<String> timestampFormat;
 	@XmlElement(defaultValue = "UTC")
 	public String timezone = "UTC";
 	@XmlElement(required = false, defaultValue = "false")
@@ -38,7 +40,7 @@ public class Parser {
 	 * @param multiline
 	 */
 	public Parser(String pattern, String patternGroups, String messagePattern,
-			String timestampFormat, String timezone, boolean multiline,
+			List<String> timestampFormat, String timezone, boolean multiline,
 			String sourcePattern) {
 		super();
 		this.pattern = pattern;

@@ -104,13 +104,14 @@ public class LogParser {
 
 	private Long parseTime(String timestamp) {
 		Long time;
-		try {
-			time = options.getTimestampFormat()
-					.parse(timestamp + " " + options.getTimezone()).getTime();
-		} catch (ParseException e) {
-			time = null;
-		}
-		return time;
+		for (DateFormat df : options.getTimestampFormat())
+			try {
+				time = df.parse(timestamp + " " + options.getTimezone())
+						.getTime();
+				return time;
+			} catch (ParseException e) {
+			}
+		return null;
 	}
 
 	private Map<String, String> getValues(String level, String logger,

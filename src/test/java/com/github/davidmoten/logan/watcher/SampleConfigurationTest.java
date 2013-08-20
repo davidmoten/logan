@@ -40,6 +40,12 @@ public class SampleConfigurationTest {
 				.parse("test",
 						"2013-02-05 00:00:03.421 INFO  au.gov.amsa.er.craft.tracking.actor.RootActor threadName    - fixes queue size = 33");
 		assertNotNull(entry);
+
+		// check works with both forms of ISO8601 datetime format (with comma)
+		entry = parser
+				.parse("test",
+						"2013-02-05 00:00:03,421 INFO  au.gov.amsa.er.craft.tracking.actor.RootActor threadName    - fixes queue size = 33");
+		assertNotNull(entry);
 	}
 
 	@Test

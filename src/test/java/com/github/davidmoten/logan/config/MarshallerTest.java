@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 import com.github.davidmoten.logan.LogParserOptions;
+import com.google.common.collect.Lists;
 
 public class MarshallerTest {
 
@@ -22,7 +23,7 @@ public class MarshallerTest {
 		Parser parser = new Parser();
 		group.parser = parser;
 		parser.pattern = "^(\\d\\d\\d\\d-\\d\\d-\\d\\d \\d\\d:\\d\\d:\\d\\d\\.\\d\\d\\d) +(\\S+) +(\\S+) +(\\S+)? ?- (.*)$";
-		parser.timestampFormat = "yyyy-MM-dd HH:mm:ss.SSS";
+		parser.timestampFormat = Lists.newArrayList("yyyy-MM-dd HH:mm:ss.SSS");
 		parser.patternGroups = "logTimestamp,logLevel,logLogger,threadName,logMsg";
 		parser.timezone = "UTC";
 		parser.multiline = false;

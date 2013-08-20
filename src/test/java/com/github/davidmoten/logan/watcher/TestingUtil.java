@@ -2,6 +2,7 @@ package com.github.davidmoten.logan.watcher;
 
 import com.github.davidmoten.logan.MessageSplitter;
 import com.github.davidmoten.logan.config.Parser;
+import com.google.common.collect.Lists;
 
 public class TestingUtil {
 
@@ -13,8 +14,9 @@ public class TestingUtil {
 		String sourcePattern = "^[a-zA-Z][^\\.]*";
 		boolean multiline = false;
 		return new Parser(pattern, patternGroups,
-				MessageSplitter.MESSAGE_PATTERN_DEFAULT, timestampFormat,
-				timezone, multiline, sourcePattern);
+				MessageSplitter.MESSAGE_PATTERN_DEFAULT,
+				Lists.newArrayList(timestampFormat), timezone, multiline,
+				sourcePattern);
 	}
 
 }
