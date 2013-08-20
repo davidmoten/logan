@@ -63,7 +63,21 @@ Go to http://localhost:8080
 To customize with your own configuration and say port 9292:
 
     mvn jetty:run -Djetty.port=9292 -Dlogan.config=<YOUR_CONFIGURATION_XML>
-    
+
+Memory use
+--------------------
+As a rough guide, if 
+
+    n = the number of files being actively watched,
+    m = maxSize from configuration (max number of log lines to be kept in memory for queries)
+
+    heap setting = max(64, n/4 + m/2000) in MB
+
+For example if n = 100, m = 1000000, then run logan like this:
+
+    export MAVEN_OPTS='-Xmx525m'
+    mvn jetty:run <params>
+ 
 File matching
 ---------------
 The paths of log files to be analyzed is specified in the &lt;log&gt; element of the configuration file as below:
