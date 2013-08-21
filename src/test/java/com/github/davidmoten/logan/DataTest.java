@@ -2,6 +2,7 @@ package com.github.davidmoten.logan;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Iterator;
@@ -94,7 +95,7 @@ public class DataTest {
 		BucketQuery q = new BucketQuery(new java.util.Date(0), 101, 0,
 				Optional.<String> absent(), Optional.<String> absent(),
 				Optional.<String> absent(), Optional.of(3),
-				Optional.<String> absent());
+				Optional.of("(\\s|=|,)+"));
 		Buckets buckets = d.execute(q);
 		assertEquals(1, buckets.getBuckets().size());
 		assertEquals(10.0, buckets.getBucketForAll().sum(), PRECISION);
@@ -135,6 +136,13 @@ public class DataTest {
 		Double d = Data.getDouble("hello there 1.3 and 1.5",
 				Optional.<Pattern> absent(), 2);
 		assertEquals(1.5, d, PRECISION);
+	}
+	
+	@Test
+	public void testScanForDoubleReturnsNullForThirdDouble() {
+		Double d = Data.getDouble("hello there 1.3 and 1.5",
+				Optional.<Pattern> absent(), 3);
+		assertNull(d);
 	}
 
 }

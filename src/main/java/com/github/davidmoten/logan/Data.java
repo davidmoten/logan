@@ -242,6 +242,8 @@ public class Data {
 				} else if (scanner.hasNext())
 					System.out.println(scanner.next());
 			}
+			if (i <index)
+				d = null;
 			scanner.close();
 			log.info("returning " + d);
 			return d;
