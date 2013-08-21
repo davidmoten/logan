@@ -20,6 +20,7 @@ public class BucketQuery {
 	private final Optional<String> field;
 	private final Optional<String> source;
 	private final Optional<String> text;
+	private final Optional<Integer> scan;
 
 	/**
 	 * Constructor.
@@ -33,11 +34,14 @@ public class BucketQuery {
 	 *            field to filter on
 	 * @param source
 	 *            source to filter on.
-	 * @param optional
+	 * @param text
+	 * @param scan
+	 *            the 1 based index of the double after a text field to find
+	 * 
 	 */
 	public BucketQuery(Date startTime, double intervalSizeMs,
 			long numIntervals, Optional<String> field, Optional<String> source,
-			Optional<String> text) {
+			Optional<String> text, Optional<Integer> scan) {
 		Preconditions.checkNotNull(source,
 				"source must not be null but can be Optional.absent()");
 		Preconditions.checkNotNull(text,
@@ -45,12 +49,22 @@ public class BucketQuery {
 		Preconditions.checkNotNull(startTime, "startTime must not be null");
 		Preconditions.checkNotNull(field,
 				"field must not be null but can be Optional.absent()");
+		Preconditions.checkNotNull(scan,
+				"scan must not be null but can be Optional.absent()");
+		Preconditions.checkArgument(!scan.isPresent() || scan.isPresent()
+				&& text.isPresent(),
+				"if scan is specified then text must be specified");
+		Preconditions.checkArgument(!scan.isPresent() || scan.isPresent()
+				&& !field.isPresent(),
+				"if scan is specified then field must not be specified");
+
 		this.startTime = startTime;
 		this.intervalSizeMs = intervalSizeMs;
 		this.numIntervals = numIntervals;
 		this.field = field;
 		this.source = source;
 		this.text = text;
+		this.scan = scan;
 	}
 
 	/**
@@ -67,7 +81,8 @@ public class BucketQuery {
 	public BucketQuery(Date startTime, double intervalSizeMs,
 			long numIntervals, String field) {
 		this(startTime, intervalSizeMs, numIntervals, Optional.of(field),
-				Optional.<String> absent(), Optional.<String> absent());
+				Optional.<String> absent(), Optional.<String> absent(),
+				Optional.<Integer> absent());
 	}
 
 	public Date getStartTime() {
@@ -107,17 +122,16 @@ public class BucketQuery {
 		return text;
 	}
 
+	public Optional<Integer> getScan() {
+		return scan;
+	}
+
 	@Override
 	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("BucketQuery [startTime=");
-		builder.append(startTime.getTime());
-		builder.append(", intervalSizeMs=");
-		builder.append(intervalSizeMs);
-		builder.append(", numIntervals=");
-		builder.append(numIntervals);
-		builder.append("]");
-		return builder.toString();
+		return "BucketQuery [startTime=" + startTime + ", intervalSizeMs="
+				+ intervalSizeMs + ", numIntervals=" + numIntervals
+				+ ", field=" + field + ", source=" + source + ", text=" + text
+				+ ", scan=" + scan + "]";
 	}
 
 }

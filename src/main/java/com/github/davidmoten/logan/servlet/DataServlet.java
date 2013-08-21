@@ -47,19 +47,26 @@ public class DataServlet extends HttpServlet {
 		if (WILDCARD.equals(source)
 				|| (source != null && source.trim().length() == 0))
 			source = null;
+		String scanString = req.getParameter("scan");
+		final Integer scan;
+		if (scanString == null)
+			scan = null;
+		else
+			scan = Integer.parseInt(scanString);
 
 		Metric metric = Metric.valueOf(getMandatoryParameter(req, "metric"));
 		resp.setContentType("application/json");
-		writeJson(State.instance().getData(), field, source, text, startTime,
-				interval, numBuckets, metric, resp.getWriter());
+		writeJson(State.instance().getData(), field, source, text, scan,
+				startTime, interval, numBuckets, metric, resp.getWriter());
 	}
 
 	private static void writeJson(Data data, String field, String source,
-			String text, long startTime, double interval, long numBuckets,
-			Metric metric, PrintWriter writer) {
+			String text, Integer scan, long startTime, double interval,
+			long numBuckets, Metric metric, PrintWriter writer) {
 		BucketQuery q = new BucketQuery(new Date(startTime), interval,
 				numBuckets, Optional.fromNullable(field),
-				Optional.fromNullable(source), Optional.fromNullable(text));
+				Optional.fromNullable(source), Optional.fromNullable(text),
+				Optional.fromNullable(scan));
 		Buckets buckets = data.execute(q);
 		log.info("building json");
 		Util.writeJson(buckets, metric, writer);
