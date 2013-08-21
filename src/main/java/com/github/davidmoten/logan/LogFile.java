@@ -3,7 +3,6 @@ package com.github.davidmoten.logan;
 import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.atomic.AtomicLong;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -23,8 +22,6 @@ import com.google.common.annotations.VisibleForTesting;
 public class LogFile {
 
 	private static Logger log = Logger.getLogger(LogFile.class.getName());
-
-	private static volatile AtomicLong counter = new AtomicLong();
 
 	private final File file;
 	private final long checkIntervalMs;
@@ -98,11 +95,6 @@ public class LogFile {
 				((MyTailer) tailer).stop();
 	}
 
-	private synchronized static void incrementCounter() {
-		if (counter.incrementAndGet() % 1000 == 0)
-			log.info(counter + " log lines processed");
-	}
-
 	private TailerListener createListener(final Data data) {
 		return new TailerListener() {
 			private final Data db = data;
@@ -126,7 +118,6 @@ public class LogFile {
 					if (entry != null) {
 						db.add(entry);
 						log.fine("added");
-						incrementCounter();
 					}
 				} catch (Throwable e) {
 					log.log(Level.WARNING, e.getMessage(), e);

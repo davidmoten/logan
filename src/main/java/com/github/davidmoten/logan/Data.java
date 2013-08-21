@@ -13,6 +13,7 @@ import java.util.TimeZone;
 import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.logging.Logger;
 
 import com.google.common.base.Function;
@@ -37,6 +38,7 @@ public class Data {
 	private final TreeSet<String> sources = Sets.newTreeSet();
 
 	private final int maxSize;
+	private final AtomicLong counter = new AtomicLong();
 
 	public Data() {
 		this(DEFAULT_MAX_SIZE, false);
@@ -81,6 +83,7 @@ public class Data {
 		String source = entry.getSource();
 		if (source != null)
 			sources.add(source);
+		incrementCounter();
 		return this;
 	}
 
@@ -184,6 +187,10 @@ public class Data {
 		return facade.size();
 	}
 
+	public synchronized long getNumEntriesAdded() {
+		return counter.get();
+	}
+
 	public NavigableSet<String> getKeys() {
 		return keys;
 	}
@@ -219,4 +226,10 @@ public class Data {
 		else
 			return new Date(map.firstKey());
 	}
+
+	private synchronized void incrementCounter() {
+		if (counter.incrementAndGet() % 1000 == 0)
+			log.info(counter + " log lines processed");
+	}
+
 }

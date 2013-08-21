@@ -41,6 +41,8 @@ public class Watcher {
 
 	private final Data data;
 
+	private final int numTailers;
+
 	/**
 	 * Constructor.
 	 * 
@@ -52,7 +54,7 @@ public class Watcher {
 		this.configuration = configuration;
 		// executor = Executors.newFixedThreadPool(Runtime.getRuntime()
 		// .availableProcessors());
-		int numTailers = countTailers(configuration);
+		numTailers = countTailers(configuration);
 		log.info("numTailers=" + numTailers);
 		// each tailer needs an active thread at all times and we need some
 		// spares to load the files that are not being watched after load. The
@@ -141,6 +143,10 @@ public class Watcher {
 		} catch (InterruptedException e) {
 			throw new RuntimeException("failed to stop running threads", e);
 		}
+	}
+
+	public int getNumTailers() {
+		return numTailers;
 	}
 
 }
