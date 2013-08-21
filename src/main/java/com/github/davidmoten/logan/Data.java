@@ -173,7 +173,7 @@ public class Data {
 
 		// filter by source
 		if (query.getSource().isPresent())
-			filtered = Iterables.filter(entries, new Predicate<LogEntry>() {
+			filtered = Iterables.filter(filtered, new Predicate<LogEntry>() {
 				@Override
 				public boolean apply(LogEntry entry) {
 					String src = entry.getProperties().get(Field.SOURCE);
@@ -183,7 +183,7 @@ public class Data {
 
 		// filter by text
 		if (query.getText().isPresent())
-			filtered = Iterables.filter(entries, new Predicate<LogEntry>() {
+			filtered = Iterables.filter(filtered, new Predicate<LogEntry>() {
 				@Override
 				public boolean apply(LogEntry entry) {
 					String searchFor = query.getText().get();
