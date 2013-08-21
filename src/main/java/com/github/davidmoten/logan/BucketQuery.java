@@ -21,6 +21,7 @@ public class BucketQuery {
 	private final Optional<String> source;
 	private final Optional<String> text;
 	private final Optional<Integer> scan;
+	private final Optional<String> delimiterPattern;
 
 	/**
 	 * Constructor.
@@ -41,7 +42,8 @@ public class BucketQuery {
 	 */
 	public BucketQuery(Date startTime, double intervalSizeMs,
 			long numIntervals, Optional<String> field, Optional<String> source,
-			Optional<String> text, Optional<Integer> scan) {
+			Optional<String> text, Optional<Integer> scan,
+			Optional<String> delimiterPattern) {
 		Preconditions.checkNotNull(source,
 				"source must not be null but can be Optional.absent()");
 		Preconditions.checkNotNull(text,
@@ -55,6 +57,9 @@ public class BucketQuery {
 				"if scan is specified then field must not be specified");
 		Preconditions.checkArgument(!(scan.isPresent() && scan.get() <= 0),
 				"scan must be >0");
+		Preconditions
+				.checkNotNull(delimiterPattern,
+						"delimiterPattern must not be null but can be Optional.absent()");
 
 		this.startTime = startTime;
 		this.intervalSizeMs = intervalSizeMs;
@@ -63,6 +68,8 @@ public class BucketQuery {
 		this.source = source;
 		this.text = text;
 		this.scan = scan;
+		this.delimiterPattern = delimiterPattern;
+
 	}
 
 	/**
@@ -80,7 +87,7 @@ public class BucketQuery {
 			long numIntervals, String field) {
 		this(startTime, intervalSizeMs, numIntervals, Optional.of(field),
 				Optional.<String> absent(), Optional.<String> absent(),
-				Optional.<Integer> absent());
+				Optional.<Integer> absent(), Optional.<String> absent());
 	}
 
 	public Date getStartTime() {
@@ -122,6 +129,10 @@ public class BucketQuery {
 
 	public Optional<Integer> getScan() {
 		return scan;
+	}
+
+	public Optional<String> getDelimiterPattern() {
+		return delimiterPattern;
 	}
 
 	@Override

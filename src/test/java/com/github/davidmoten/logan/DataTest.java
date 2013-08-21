@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.Iterator;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import org.junit.Test;
 
@@ -92,7 +93,8 @@ public class DataTest {
 		d.add(new LogEntry(100L, map));
 		BucketQuery q = new BucketQuery(new java.util.Date(0), 101, 0,
 				Optional.<String> absent(), Optional.<String> absent(),
-				Optional.<String> absent(), Optional.of(3));
+				Optional.<String> absent(), Optional.of(3),
+				Optional.<String> absent());
 		Buckets buckets = d.execute(q);
 		assertEquals(1, buckets.getBuckets().size());
 		assertEquals(10.0, buckets.getBucketForAll().sum(), PRECISION);
@@ -100,25 +102,38 @@ public class DataTest {
 
 	@Test
 	public void testScanForDoubleFindsFirstDoubleInMiddleOfString() {
-		Double d = Data.getDouble("hello there 1.3 and 1.5", 1);
+		Double d = Data.getDouble("hello there 1.3 and 1.5",
+				Optional.<Pattern> absent(), 1);
 		assertEquals(1.3, d, PRECISION);
 	}
 
 	@Test
+	public void testScan() {
+
+		String line = "processing=true,specialNumber=10.264801185812955,specialNumber2=47.90687220218723";
+		Double d = Data.getDouble(line,
+				Optional.of(Pattern.compile("(\\s|,|:|\\|;|=)+")), 2);
+		assertEquals(47.90687220218723, d, PRECISION);
+	}
+
+	@Test
 	public void testScanForDoubleFindsFirstDoubleAtStartOfString() {
-		Double d = Data.getDouble("1.3 and 1.5", 1);
+		Double d = Data
+				.getDouble("1.3 and 1.5", Optional.<Pattern> absent(), 1);
 		assertEquals(1.3, d, PRECISION);
 	}
 
 	@Test
 	public void testScanForDoubleFindsSecondDoubleInMiddleOfString() {
-		Double d = Data.getDouble("hello there 1.3 and 1.5 boo", 2);
+		Double d = Data.getDouble("hello there 1.3 and 1.5 boo",
+				Optional.<Pattern> absent(), 2);
 		assertEquals(1.5, d, PRECISION);
 	}
 
 	@Test
 	public void testScanForDoubleFindsSecondDoubleAtEndOfString() {
-		Double d = Data.getDouble("hello there 1.3 and 1.5", 2);
+		Double d = Data.getDouble("hello there 1.3 and 1.5",
+				Optional.<Pattern> absent(), 2);
 		assertEquals(1.5, d, PRECISION);
 	}
 

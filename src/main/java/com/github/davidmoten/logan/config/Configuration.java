@@ -31,6 +31,9 @@ public class Configuration {
 	 */
 	@XmlElement(required = false, defaultValue = "1000000")
 	public int maxSize;
+
+	@XmlElement(required = false)
+	public String scanDelimiterPattern;
 	/**
 	 * Default parser for log lines for all log files where the parser is not
 	 * specified.

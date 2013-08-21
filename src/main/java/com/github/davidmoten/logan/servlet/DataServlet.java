@@ -56,17 +56,21 @@ public class DataServlet extends HttpServlet {
 
 		Metric metric = Metric.valueOf(getMandatoryParameter(req, "metric"));
 		resp.setContentType("application/json");
+
 		writeJson(State.instance().getData(), field, source, text, scan,
-				startTime, interval, numBuckets, metric, resp.getWriter());
+				startTime, interval, numBuckets, metric, resp.getWriter(),
+				State.instance().getConfiguration().scanDelimiterPattern);
 	}
 
 	private static void writeJson(Data data, String field, String source,
 			String text, Integer scan, long startTime, double interval,
-			long numBuckets, Metric metric, PrintWriter writer) {
+			long numBuckets, Metric metric, PrintWriter writer,
+			String scanDelimiterPattern) {
 		BucketQuery q = new BucketQuery(new Date(startTime), interval,
 				numBuckets, Optional.fromNullable(field),
 				Optional.fromNullable(source), Optional.fromNullable(text),
-				Optional.fromNullable(scan));
+				Optional.fromNullable(scan),
+				Optional.<String> fromNullable(scanDelimiterPattern));
 		Buckets buckets = data.execute(q);
 		log.info("building json");
 		Util.writeJson(buckets, metric, writer);

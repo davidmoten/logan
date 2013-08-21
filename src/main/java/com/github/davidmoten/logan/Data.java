@@ -16,9 +16,11 @@ import java.util.TreeSet;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
 
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Function;
+import com.google.common.base.Optional;
 import com.google.common.base.Predicate;
 import com.google.common.base.Supplier;
 import com.google.common.collect.Iterables;
@@ -131,54 +133,6 @@ public class Data {
 		return buckets;
 	}
 
-	private Buckets getBuckets(Iterable<LogEntry> filtered,
-			final BucketQuery query) {
-
-		Buckets buckets = new Buckets(query);
-		for (LogEntry entry : filtered) {
-			if (query.getField().isPresent()) {
-				String s = entry.getProperties().get(query.getField().get());
-				try {
-					double d = Double.parseDouble(s);
-					buckets.add(entry.getTime(), d);
-				} catch (NumberFormatException e) {
-					// ignored value because non-numeric
-				}
-			} else if (query.getScan().isPresent()) {
-				String msg = entry.getProperties().get(Field.MSG);
-				Double d = getDouble(msg, query.getScan().get());
-				if (d != null)
-					buckets.add(entry.getTime(), d);
-			} else
-				// just count the entries
-				buckets.add(entry.getTime(), 1);
-		}
-		return buckets;
-	}
-
-	@VisibleForTesting
-	static Double getDouble(String s, int index) {
-		if (s == null)
-			return null;
-		try {
-			Scanner scanner = new Scanner(s);
-			Double d = null;
-			int i = 0;
-			while (i < index && scanner.hasNext()) {
-				if (scanner.hasNextDouble()) {
-					i++;
-					d = scanner.nextDouble();
-				} else if (scanner.hasNext())
-					scanner.next();
-			}
-			scanner.close();
-			return d;
-		} catch (RuntimeException e) {
-			// could not find in msg
-			return null;
-		}
-	}
-
 	private Iterable<LogEntry> filter(Iterable<LogEntry> entries,
 			BucketQuery query) {
 
@@ -233,6 +187,66 @@ public class Data {
 						|| contains(entry, Field.THREAD_NAME, searchFor);
 			}
 		});
+	}
+
+	private Buckets getBuckets(Iterable<LogEntry> filtered,
+			final BucketQuery query) {
+		final Optional<Pattern> delimiterPattern;
+		if (query.getDelimiterPattern().isPresent())
+			delimiterPattern = Optional.of(Pattern.compile(query
+					.getDelimiterPattern().get()));
+		else
+			delimiterPattern = Optional.absent();
+
+		Buckets buckets = new Buckets(query);
+		for (LogEntry entry : filtered) {
+			if (query.getField().isPresent()) {
+				String s = entry.getProperties().get(query.getField().get());
+				try {
+					double d = Double.parseDouble(s);
+					buckets.add(entry.getTime(), d);
+				} catch (NumberFormatException e) {
+					// ignored value because non-numeric
+				}
+			} else if (query.getScan().isPresent()) {
+				String msg = entry.getProperties().get(Field.MSG);
+				Double d = getDouble(msg, delimiterPattern, query.getScan()
+						.get());
+				if (d != null)
+					buckets.add(entry.getTime(), d);
+			} else
+				// just count the entries
+				buckets.add(entry.getTime(), 1);
+		}
+		return buckets;
+	}
+
+	@VisibleForTesting
+	static Double getDouble(String s, Optional<Pattern> delimiterPattern,
+			int index) {
+		log.info("scanning " + s + " for index " + index);
+		if (s == null)
+			return null;
+		try {
+			Scanner scanner = new Scanner(s);
+			if (delimiterPattern.isPresent())
+				scanner.useDelimiter(delimiterPattern.get());
+			Double d = null;
+			int i = 0;
+			while (i < index && scanner.hasNext()) {
+				if (scanner.hasNextDouble()) {
+					i++;
+					d = scanner.nextDouble();
+				} else if (scanner.hasNext())
+					System.out.println(scanner.next());
+			}
+			scanner.close();
+			log.info("returning " + d);
+			return d;
+		} catch (RuntimeException e) {
+			// could not find in msg
+			return null;
+		}
 	}
 
 	private static boolean contains(LogEntry entry, String field,
