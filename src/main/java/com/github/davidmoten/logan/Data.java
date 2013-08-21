@@ -60,7 +60,15 @@ public class Data {
 
 	private static LogEntry createRandomLogEntry(int i) {
 		Map<String, String> map = Maps.newHashMap();
-		map.put("specialNumber", Math.random() * 100 + "");
+		String sp1 = Math.random() * 100 + "";
+		map.put("specialNumber", sp1);
+		String sp2 = Math.random() * 50 + "";
+		map.put("specialNumber2", sp2);
+		boolean processing = Math.random() > 0.5;
+		map.put("processing", processing + "");
+		map.put(Field.MSG, "processing=" + processing + ",specialNumber=" + sp1
+				+ ",specialNumber2=" + sp2);
+
 		return new LogEntry(System.currentTimeMillis()
 				- TimeUnit.MINUTES.toMillis(i), map);
 	}
