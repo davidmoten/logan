@@ -6,6 +6,8 @@
 </head>
 <body>
 
+<p>Num records = <%= State.instance().getData().getNumEntries() %></p>
+<p>Oldest record time = <%= State.instance().getData().oldestTime() %></p>
 <form action="/configuration" method="post">
 <textarea name="configuration" rows="30" style="width:100%">
 <%= new Marshaller().marshal(State.instance().getConfiguration()) %>

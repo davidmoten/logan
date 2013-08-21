@@ -1,9 +1,9 @@
 package com.github.davidmoten.logan;
 
-import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -211,5 +211,12 @@ public class Data {
 
 	public NavigableSet<String> getSources() {
 		return sources;
+	}
+
+	public Date oldestTime() {
+		if (map.size() == 0)
+			return null;
+		else
+			return new Date(map.firstKey());
 	}
 }
