@@ -147,8 +147,10 @@ public class Data {
 			filtered = filterBySource(filtered, query.getSource().get());
 
 		// filter by text
-		if (query.getText().isPresent())
-			filtered = filterByText(filtered, query.getText().get());
+		if (query.getText().isPresent()) {
+			Pattern p = Pattern.compile(query.getText().get());
+			filtered = filterByText(filtered, p);
+		}
 
 		return filtered;
 	}
@@ -176,7 +178,7 @@ public class Data {
 	}
 
 	private Iterable<LogEntry> filterByText(Iterable<LogEntry> filtered,
-			final String searchFor) {
+			final Pattern searchFor) {
 		return Iterables.filter(filtered, new Predicate<LogEntry>() {
 			@Override
 			public boolean apply(LogEntry entry) {
@@ -250,12 +252,12 @@ public class Data {
 	}
 
 	private static boolean contains(LogEntry entry, String field,
-			String searchFor) {
+			Pattern searchFor) {
 		String s = entry.getProperties().get(field);
 		if (s == null)
 			return false;
 		else
-			return s.contains(searchFor);
+			return searchFor.matcher(s).find();
 	}
 
 	public synchronized long getNumEntries() {
