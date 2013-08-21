@@ -272,7 +272,8 @@ function addGraph(main, graphId) {
 	$("#title"+ graphId).click(function () {
 		$("#edit"+graphId).toggle();
 	});
-	var h = '<div> \
+	$("#edit"+graphId).hide();
+	var h = '<div style="font-size:75%"> \
     Buckets: <input type="text" name="buckets" value="24" \
 				style="width: 5em;"></input>&nbsp;&nbsp; \
 	Interval: <input \
