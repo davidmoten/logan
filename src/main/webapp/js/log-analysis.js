@@ -5,7 +5,7 @@
 //
 
 function drawGraph(field, tablename, buckets, interval, startTime, metric,
-		extraMetric,find, plot, refresh, source, sqlElement) {
+		extraMetric,find, plot, refresh, source,scan, sqlElement) {
 
 	var barOptions = {
 		show : true,
@@ -207,7 +207,8 @@ function drawGraph(field, tablename, buckets, interval, startTime, metric,
 				+ "&metric=" + metric;
 		if (field != "*") dataurl += "&field=" + field;
 		if (find !== "null") dataurl += "&text="+find;
-		if (source != "null") dataurl += "&source=" + source
+		if (source != "null") dataurl += "&source=" + source;
+		if (scan != "null") dataurl += "&scan=" + scan;
 		console.log("dataurl=" + dataurl);
 
 		$.ajax({
@@ -308,13 +309,14 @@ function addGraph(main, graphId) {
 		startTime = now - duration;
 	}
 	var metric = getURLParameter("metric");
+	var scan = getURLParameter("scan");
 	var extraMetric = getURLParameter("extraMetric");
 	var find = getURLParameter("text");
    
 	// draw the graphs
 	drawGraph(field, tablename, buckets, interval, startTime, metric,
 			extraMetric, find, $("#graph" + graphId), $("#refresh" + graphId),
-			source, $("#sql" + graphId));
+			source, scan, $("#sql" + graphId));
 }
 
 function getURLParameter(name) {
