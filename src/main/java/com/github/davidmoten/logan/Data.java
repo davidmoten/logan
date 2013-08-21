@@ -116,47 +116,14 @@ public class Data {
 
 	public synchronized Buckets execute(final BucketQuery query) {
 
+		// get the time range of entries
 		Iterable<LogEntry> entries = find(query.getStartTime().getTime(),
 				query.getFinishTime());
 
-		Iterable<LogEntry> filtered = entries;
+		// filter by field, source, text
+		Iterable<LogEntry> filtered = filter(entries, query);
 
-		// filter by field
-		if (query.getField().isPresent()) {
-			filtered = Iterables.filter(filtered, new Predicate<LogEntry>() {
-				@Override
-				public boolean apply(LogEntry entry) {
-					String value = entry.getProperties().get(
-							query.getField().get());
-					return value != null;
-				}
-			});
-		}
-
-		// filter by source
-		if (query.getSource().isPresent())
-			filtered = Iterables.filter(filtered, new Predicate<LogEntry>() {
-				@Override
-				public boolean apply(LogEntry entry) {
-					String src = entry.getProperties().get(Field.SOURCE);
-					return query.getSource().get().equals(src);
-				}
-			});
-
-		// filter by text
-		if (query.getText().isPresent())
-			filtered = Iterables.filter(filtered, new Predicate<LogEntry>() {
-				@Override
-				public boolean apply(LogEntry entry) {
-					String searchFor = query.getText().get();
-					return contains(entry, Field.MSG, searchFor)
-							|| contains(entry, Field.LEVEL, searchFor)
-							|| contains(entry, Field.METHOD, searchFor)
-							|| contains(entry, Field.SOURCE, searchFor)
-							|| contains(entry, Field.THREAD_NAME, searchFor);
-				}
-			});
-
+		// get numeric values or count
 		Buckets buckets = new Buckets(query);
 		for (LogEntry entry : filtered) {
 			if (query.getField().isPresent()) {
@@ -173,6 +140,62 @@ public class Data {
 		}
 
 		return buckets;
+	}
+
+	private Iterable<LogEntry> filter(Iterable<LogEntry> entries,
+			BucketQuery query) {
+
+		Iterable<LogEntry> filtered = entries;
+		// filter by field
+		if (query.getField().isPresent()) {
+			filtered = filterByField(filtered, query.getField().get());
+		}
+
+		// filter by source
+		if (query.getSource().isPresent())
+			filtered = filterBySource(filtered, query.getSource().get());
+
+		// filter by text
+		if (query.getText().isPresent())
+			filtered = filterByText(filtered, query.getText().get());
+
+		return filtered;
+	}
+
+	private Iterable<LogEntry> filterByField(Iterable<LogEntry> filtered,
+			final String field) {
+		return Iterables.filter(filtered, new Predicate<LogEntry>() {
+			@Override
+			public boolean apply(LogEntry entry) {
+				String value = entry.getProperties().get(field);
+				return value != null;
+			}
+		});
+	}
+
+	private Iterable<LogEntry> filterBySource(Iterable<LogEntry> filtered,
+			final String source) {
+		return Iterables.filter(filtered, new Predicate<LogEntry>() {
+			@Override
+			public boolean apply(LogEntry entry) {
+				String src = entry.getProperties().get(Field.SOURCE);
+				return source.equals(src);
+			}
+		});
+	}
+
+	private Iterable<LogEntry> filterByText(Iterable<LogEntry> filtered,
+			final String searchFor) {
+		return Iterables.filter(filtered, new Predicate<LogEntry>() {
+			@Override
+			public boolean apply(LogEntry entry) {
+				return contains(entry, Field.MSG, searchFor)
+						|| contains(entry, Field.LEVEL, searchFor)
+						|| contains(entry, Field.METHOD, searchFor)
+						|| contains(entry, Field.SOURCE, searchFor)
+						|| contains(entry, Field.THREAD_NAME, searchFor);
+			}
+		});
 	}
 
 	private static boolean contains(LogEntry entry, String field,
