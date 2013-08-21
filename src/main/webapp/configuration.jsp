@@ -2,9 +2,10 @@
 <%@ page import="com.github.davidmoten.logan.servlet.State" %>
 <html>
 <head>
-<title>Configuration</title>
+<title>Administration</title>
 </head>
 <body>
+<h3>Administration</h3>
 
 <p>Num records = <%= State.instance().getData().getNumEntries() %></p>
 <p>Num records added = <%= State.instance().getData().getNumEntriesAdded() %></p>
