@@ -74,7 +74,7 @@ public class Data {
 		for (Entry<String, String> pair : entry.getProperties().entrySet())
 			if (isNumeric(pair.getValue()))
 				keys.add(pair.getKey());
-		if (facade.size() % 10000 == 0)
+		if (facade.size() % 10000 == 0 && facade.size() < maxSize)
 			log.info("data size=" + facade.size());
 		if (facade.size() > maxSize)
 			facade.removeAll(map.firstKey());
