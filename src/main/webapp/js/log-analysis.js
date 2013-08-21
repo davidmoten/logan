@@ -261,7 +261,7 @@ function addGraph(main, graphId) {
 		return;
 
 	main.append('<div class="graphParent"><div id="title' + graphId
-			+ '" class="graphTitle"></div><div id="graph' + graphId
+			+ '" class="graphTitle"></div><div id="edit' + graphId + '"></div><div id="graph' + graphId
 			+ '" class="graph"></div><img id="refresh' + graphId
 			+ '" src="images/refresh.png" class="refresh"/><textarea id="sql'
 			+ graphId + '" class="sql"></textarea></div>');
@@ -269,7 +269,52 @@ function addGraph(main, graphId) {
 	$("#graph" + graphId).css("width", getURLParameter("width"));
 	$("#graph" + graphId).css("height", getURLParameter("height"));
 	$(".graphParent").css("width", getURLParameter("width"));
-	// $(".graphParent").css("height", getURLParameter("height"));
+	$("#title"+ graphId).click(function () {
+		$("#edit"+graphId).toggle();
+	});
+	var h = '<div> \
+    Field: <select id="field'+graphId+'"></select> \ \
+	Text: <input type="text" id="text'+ graphId+'"></input> \
+	Scan: <input type="text" id="scan'+graphId+'"></input> \
+    Finish: <input type="text" name="finish" value="now"></input> \
+	Buckets: <input type="text" name="buckets" value="24" \
+				style="width: 5em;"></input>&nbsp;&nbsp; Interval: <input \
+				type="text" name="interval" value="1h" style="width: 8em;" \
+				pattern="[0-9]+(d|h|m|s|ms)?"></input>	\
+	Metric: \
+	<select name="metric"> \
+		<option value="MEAN">Mean</option> \
+		<option value="MIN">Min</option> \
+		<option value="MAX" selected="selected">Max</option> \
+		<option value="COUNT">Count</option> \
+		<option value="SUM">Sum</option> \
+		<option value="FIRST">First</option> \
+		<option value="LAST">Last</option> \
+		<option value="EARLIEST">Earliest</option> \
+		<option value="LATEST">Latest</option> \
+		<option value="STANDARD_DEVIATION">Standard Deviation</option> \
+		<option value="SUM_SQUARES">Sum of squares</option> \
+		<option value="VARIANCE">Variance</option> \
+	</select> \
+	Extra: \
+	<select name="extraMetric"> \
+		<option value="NONE">None</option> \
+		<option value="MEAN">Mean</option> \
+		<option value="MIN">Min</option> \
+		<option value="MAX" selected="MAX">Max</option> \
+		<option value="COUNT">Count</option> \
+		<option value="SUM">Sum</option> \
+		<option value="FIRST">First</option> \
+		<option value="LAST">Last</option> \
+		<option value="EARLIEST">Earliest</option> \
+		<option value="LATEST">Latest</option> \
+		<option value="STANDARD_DEVIATION">Standard Deviation</option> \
+		<option value="SUM_SQUARES">Sum of squares</option> \
+		<option value="VARIANCE">Variance</option> \
+	</select> \
+	</div>';
+	
+	$("#edit" + graphId).html(h);
 
 	// parse parameters from the url
 	var now = new Date().getTime();
