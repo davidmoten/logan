@@ -37,21 +37,23 @@ public class DataServlet extends HttpServlet {
 		double interval = getMandatoryDouble(req, "interval");
 		long numBuckets = getMandatoryLong(req, "buckets");
 		String field = ServletUtil.getMandatoryParameter(req, "field");
+		String text = req.getParameter("text");
 		String source = req.getParameter("source");
 		if ("*".equals(source))
 			source = null;
 
 		Metric metric = Metric.valueOf(getMandatoryParameter(req, "metric"));
 		resp.setContentType("application/json");
-		writeJson(State.instance().getData(), field, source, startTime,
+		writeJson(State.instance().getData(), field, source, text, startTime,
 				interval, numBuckets, metric, resp.getWriter());
 	}
 
 	private static void writeJson(Data data, String field, String source,
-			long startTime, double interval, long numBuckets, Metric metric,
-			PrintWriter writer) {
+			String text, long startTime, double interval, long numBuckets,
+			Metric metric, PrintWriter writer) {
 		BucketQuery q = new BucketQuery(new Date(startTime), interval,
-				numBuckets, field, Optional.fromNullable(source));
+				numBuckets, field, Optional.fromNullable(source),
+				Optional.fromNullable(text));
 		Buckets buckets = data.execute(q);
 		log.info("building json");
 		Util.writeJson(buckets, metric, writer);

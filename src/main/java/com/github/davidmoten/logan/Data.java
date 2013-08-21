@@ -169,6 +169,18 @@ public class Data {
 				}
 			});
 
+		if (query.getText().isPresent())
+			filtered = Iterables.filter(entries, new Predicate<LogEntry>() {
+				@Override
+				public boolean apply(LogEntry entry) {
+					String searchFor = query.getText().get();
+					return contains(entry, Field.MSG, searchFor)
+							|| contains(entry, Field.LEVEL, searchFor)
+							|| contains(entry, Field.METHOD, searchFor)
+							|| contains(entry, Field.SOURCE, searchFor)
+							|| contains(entry, Field.THREAD_NAME, searchFor);
+				}
+			});
 		Buckets buckets = new Buckets(query);
 		for (LogEntry entry : filtered) {
 			String s = entry.getProperties().get(query.getField());
@@ -181,6 +193,15 @@ public class Data {
 		}
 
 		return buckets;
+	}
+
+	private static boolean contains(LogEntry entry, String field,
+			String searchFor) {
+		String s = entry.getProperties().get(field);
+		if (s == null)
+			return false;
+		else
+			return s.contains(searchFor);
 	}
 
 	public synchronized long getNumEntries() {
