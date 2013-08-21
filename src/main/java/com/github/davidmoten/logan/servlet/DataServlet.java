@@ -25,6 +25,8 @@ import com.google.common.base.Optional;
 @WebServlet(urlPatterns = { "/data" })
 public class DataServlet extends HttpServlet {
 
+	private static final String WILDCARD = "*";
+
 	private static Logger log = Logger.getLogger(DataServlet.class.getName());
 
 	private static final long serialVersionUID = 1044384045444686984L;
@@ -38,8 +40,12 @@ public class DataServlet extends HttpServlet {
 		long numBuckets = getMandatoryLong(req, "buckets");
 		String field = req.getParameter("field");
 		String text = req.getParameter("text");
+		if (WILDCARD.equals(text)
+				|| (text != null && text.trim().length() == 0))
+			text = null;
 		String source = req.getParameter("source");
-		if ("*".equals(source))
+		if (WILDCARD.equals(source)
+				|| (source != null && source.trim().length() == 0))
 			source = null;
 
 		Metric metric = Metric.valueOf(getMandatoryParameter(req, "metric"));
