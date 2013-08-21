@@ -272,13 +272,15 @@ function addGraph(main, graphId) {
 	$("#title"+ graphId).click(function () {
 		$("#edit"+graphId).toggle();
 	});
-	$("#edit"+graphId).hide();
+	//$("#edit"+graphId).hide();
 	var h = '<div style="font-size:75%"> \
     Buckets: <input type="text" name="buckets" value="24" \
-				style="width: 5em;"></input>&nbsp;&nbsp; \
+				style="width: 3em;"></input>&nbsp; \
 	Interval: <input \
-				type="text" name="interval" value="1h" style="width: 8em;" \
-				pattern="[0-9]+(d|h|m|s|ms)?"></input>&nbsp;&nbsp;	\
+				type="text" name="interval" value="1h" style="width: 3em;" \
+				pattern="[0-9]+(d|h|m|s|ms)?"></input>&nbsp;	\
+	Finish: <input type="text" name="finish" value="now" style="width:3em"></input>&nbsp; \
+	Field: <select id="field'+graphId+'"></select>&nbsp; \
 	Metric: \
 	<select name="metric"> \
 		<option value="MEAN">Mean</option> \
@@ -293,7 +295,7 @@ function addGraph(main, graphId) {
 		<option value="STANDARD_DEVIATION">Standard Deviation</option> \
 		<option value="SUM_SQUARES">Sum of squares</option> \
 		<option value="VARIANCE">Variance</option> \
-	</select>&nbsp;&nbsp; \
+	</select>&nbsp; \
 	Extra: \
 	<select name="extraMetric"> \
 		<option value="NONE">None</option> \
@@ -309,13 +311,12 @@ function addGraph(main, graphId) {
 		<option value="STANDARD_DEVIATION">Standard Deviation</option> \
 		<option value="SUM_SQUARES">Sum of squares</option> \
 		<option value="VARIANCE">Variance</option> \
-	</select>&nbsp;&nbsp; \
+	</select>&nbsp; \
 	<br/> \
-    Field: <select id="field'+graphId+'"></select>&nbsp;&nbsp; \
-    Source: <select id="source1" name="source1"></select>&nbsp;&nbsp; \
-    Text: <input type="text" id="text'+ graphId+'"></input>&nbsp;&nbsp; \
-	Scan: <input type="text" id="scan'+graphId+'"></input>&nbsp;&nbsp; \
-    Finish: <input type="text" name="finish" value="now"></input> \
+    Source: <select id="source1" name="source1"></select>&nbsp; \
+    Text: <input type="text" id="text'+ graphId+'" style="width:8em"></input>&nbsp; \
+	Scan: <input type="text" id="scan'+graphId+'" style="width:2em"></input>&nbsp; \
+	<input type="submit" value="Update"></input> \
 	</div>';
 	
 	$("#edit" + graphId).html(h);
