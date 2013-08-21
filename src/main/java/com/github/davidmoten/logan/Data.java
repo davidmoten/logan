@@ -4,11 +4,11 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.NavigableSet;
+import java.util.SortedMap;
 import java.util.TimeZone;
 import java.util.TreeMap;
 import java.util.TreeSet;
@@ -32,7 +32,6 @@ public class Data {
 
 	private static Logger log = Logger.getLogger(Data.class.getName());
 
-	private TreeMap<Long, Collection<LogEntry>> map;
 	private ListMultimap<Long, LogEntry> facade;
 	private final TreeSet<String> keys = Sets.newTreeSet();
 	private final TreeSet<String> sources = Sets.newTreeSet();
@@ -46,7 +45,7 @@ public class Data {
 
 	public Data(int maxSize, boolean loadDummyData) {
 		this.maxSize = maxSize;
-		map = Maps.newTreeMap();
+		TreeMap<Long, Collection<LogEntry>> map = Maps.newTreeMap();
 		facade = Multimaps.newListMultimap(map, new Supplier<List<LogEntry>>() {
 			@Override
 			public List<LogEntry> get() {
@@ -87,12 +86,16 @@ public class Data {
 		if (facade.size() % 10000 == 0 && facade.size() < maxSize)
 			log.info("data size=" + facade.size());
 		if (facade.size() > maxSize)
-			facade.removeAll(map.firstKey());
+			facade.removeAll(asSortedMap().firstKey());
 		String source = entry.getSource();
 		if (source != null)
 			sources.add(source);
 		incrementCounter();
 		return this;
+	}
+
+	private SortedMap<Long, Collection<LogEntry>> asSortedMap() {
+		return (SortedMap<Long, Collection<LogEntry>>) facade.asMap();
 	}
 
 	private boolean isNumeric(String s) {
@@ -107,49 +110,8 @@ public class Data {
 	public synchronized Iterable<LogEntry> find(final long startTime,
 			final long finishTime) {
 
-		return new Iterable<LogEntry>() {
-
-			@Override
-			public Iterator<LogEntry> iterator() {
-				return createIterator(startTime, finishTime);
-			}
-
-		};
-	}
-
-	private synchronized Iterator<LogEntry> createIterator(
-			final long startTime, final long finishTime) {
-
-		return new Iterator<LogEntry>() {
-
-			Long t = map.ceilingKey(startTime);
-			Long last = map.floorKey(finishTime);
-			Iterator<LogEntry> it = null;
-
-			@Override
-			public boolean hasNext() {
-				if (it == null || !it.hasNext())
-					return last != null && t != null && t <= last;
-				else
-					return it.hasNext();
-			}
-
-			@Override
-			public LogEntry next() {
-				while (it == null || !it.hasNext()) {
-					it = map.get(t).iterator();
-					t = map.higherKey(t);
-				}
-				return it.next();
-			}
-
-			@Override
-			public void remove() {
-				throw new RuntimeException("not implemented");
-			}
-
-		};
-
+		return Iterables.concat(asSortedMap().subMap(startTime, finishTime)
+				.values());
 	}
 
 	public synchronized Buckets execute(final BucketQuery query) {
@@ -260,10 +222,11 @@ public class Data {
 	}
 
 	public Date oldestTime() {
-		if (map.size() == 0)
+
+		if (asSortedMap().size() == 0)
 			return null;
 		else
-			return new Date(map.firstKey());
+			return new Date(asSortedMap().firstKey());
 	}
 
 	private synchronized void incrementCounter() {
