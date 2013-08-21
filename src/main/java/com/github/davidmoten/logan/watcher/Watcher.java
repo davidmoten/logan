@@ -1,6 +1,8 @@
 package com.github.davidmoten.logan.watcher;
 
 import java.io.File;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -79,17 +81,28 @@ public class Watcher {
 		return tailers;
 	}
 
+	private static class LogFileInfo {
+		final LogFile logFile;
+		final boolean follow;
+
+		public LogFileInfo(LogFile logFile, boolean follow) {
+			super();
+			this.logFile = logFile;
+			this.follow = follow;
+		}
+	}
+
 	/**
 	 * Starts tailing threads for each configured matched file.
 	 */
 	public void start() {
 		log.info("starting watcher");
+		List<LogFileInfo> list = Lists.newArrayList();
 		for (Group group : configuration.group) {
 			log.info("starting group " + group);
 			for (Log lg : group.log) {
 				for (File file : Util
 						.getFilesFromPathWithRegexFilename(lg.path)) {
-					log.info("starting tail on " + file);
 					LogParserOptions options = LogParserOptions.load(
 							configuration.parser, group);
 					String source;
@@ -108,10 +121,40 @@ public class Watcher {
 							DELAY_BETWEEN_CHECKS_FOR_NEW_CONTENT_MS,
 							new LogParser(options), executor);
 					boolean follow = lg.watch;
-					logFile.tail(data, follow);
-					logs.add(logFile);
+					list.add(new LogFileInfo(logFile, follow));
 				}
 			}
+		}
+
+		// tail oldest files first so that we are less likely to trim recent
+		// records using Data.maxSize
+		Collections.sort(list, new Comparator<LogFileInfo>() {
+
+			@Override
+			public int compare(LogFileInfo a, LogFileInfo b) {
+				long max = Long.MAX_VALUE;
+
+				final long timeA;
+				if (!a.logFile.getFile().exists())
+					timeA = max;
+				else
+					timeA = a.logFile.getFile().lastModified();
+
+				final long timeB;
+				if (!b.logFile.getFile().exists())
+					timeB = max;
+				else
+					timeB = b.logFile.getFile().lastModified();
+
+				return ((Long) timeA).compareTo(timeB);
+			}
+		});
+
+		for (LogFileInfo info : list) {
+			log.info("starting tail (follow=" + info.follow + ") on "
+					+ info.logFile.getFile());
+			info.logFile.tail(data, info.follow);
+			logs.add(info.logFile);
 		}
 		log.info("started watcher");
 	}

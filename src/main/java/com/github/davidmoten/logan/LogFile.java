@@ -135,4 +135,8 @@ public class LogFile {
 			}
 		};
 	}
+
+	public File getFile() {
+		return file;
+	}
 }
