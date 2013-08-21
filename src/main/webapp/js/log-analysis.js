@@ -200,7 +200,6 @@ function drawGraph(field, tablename, buckets, interval, startTime, metric,
 	}
 
 	function refreshGraph(startTime, interval, buckets) {
-
 		
 		var dataurl = "data?table=" + tablename +  "&start="
 				+ startTime + "&interval=" + interval + "&buckets=" + buckets
