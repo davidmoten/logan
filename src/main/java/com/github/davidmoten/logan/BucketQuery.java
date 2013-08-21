@@ -51,12 +51,10 @@ public class BucketQuery {
 				"field must not be null but can be Optional.absent()");
 		Preconditions.checkNotNull(scan,
 				"scan must not be null but can be Optional.absent()");
-		Preconditions.checkArgument(!scan.isPresent() || scan.isPresent()
-				&& text.isPresent(),
-				"if scan is specified then text must be specified");
-		Preconditions.checkArgument(!scan.isPresent() || scan.isPresent()
-				&& !field.isPresent(),
+		Preconditions.checkArgument(!(scan.isPresent() && field.isPresent()),
 				"if scan is specified then field must not be specified");
+		Preconditions.checkArgument(!(scan.isPresent() && scan.get() <= 0),
+				"scan must be >0");
 
 		this.startTime = startTime;
 		this.intervalSizeMs = intervalSizeMs;

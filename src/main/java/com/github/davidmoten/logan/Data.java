@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.NavigableSet;
+import java.util.Scanner;
 import java.util.SortedMap;
 import java.util.TimeZone;
 import java.util.TreeMap;
@@ -16,6 +17,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.logging.Logger;
 
+import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
 import com.google.common.base.Supplier;
@@ -124,6 +126,14 @@ public class Data {
 		Iterable<LogEntry> filtered = filter(entries, query);
 
 		// get numeric values or count
+		Buckets buckets = getBuckets(filtered, query);
+
+		return buckets;
+	}
+
+	private Buckets getBuckets(Iterable<LogEntry> filtered,
+			final BucketQuery query) {
+
 		Buckets buckets = new Buckets(query);
 		for (LogEntry entry : filtered) {
 			if (query.getField().isPresent()) {
@@ -134,12 +144,39 @@ public class Data {
 				} catch (NumberFormatException e) {
 					// ignored value because non-numeric
 				}
+			} else if (query.getScan().isPresent()) {
+				String msg = entry.getProperties().get(Field.MSG);
+				Double d = getDouble(msg, query.getScan().get());
+				if (d != null)
+					buckets.add(entry.getTime(), d);
 			} else
 				// just count the entries
 				buckets.add(entry.getTime(), 1);
 		}
-
 		return buckets;
+	}
+
+	@VisibleForTesting
+	static Double getDouble(String s, int index) {
+		if (s == null)
+			return null;
+		try {
+			Scanner scanner = new Scanner(s);
+			Double d = null;
+			int i = 0;
+			while (i < index && scanner.hasNext()) {
+				if (scanner.hasNextDouble()) {
+					i++;
+					d = scanner.nextDouble();
+				} else if (scanner.hasNext())
+					scanner.next();
+			}
+			scanner.close();
+			return d;
+		} catch (RuntimeException e) {
+			// could not find in msg
+			return null;
+		}
 	}
 
 	private Iterable<LogEntry> filter(Iterable<LogEntry> entries,

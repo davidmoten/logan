@@ -9,9 +9,12 @@ import java.util.Map;
 
 import org.junit.Test;
 
+import com.google.common.base.Optional;
 import com.google.common.collect.Maps;
 
 public class DataTest {
+
+	private static final double PRECISION = 0.00001;
 
 	@Test
 	public void testFindWithNoData() {
@@ -78,6 +81,45 @@ public class DataTest {
 			assertEquals(1, buckets.getBuckets().size());
 		}
 
+	}
+
+	@Test
+	public void testFindUsingScan() {
+		Data d = new Data();
+		Map<String, String> map = Maps.newHashMap();
+		map.put("n", "123");
+		map.put(Field.MSG, "n=123, aborted 5 of 10 attempts");
+		d.add(new LogEntry(100L, map));
+		BucketQuery q = new BucketQuery(new java.util.Date(0), 101, 0,
+				Optional.<String> absent(), Optional.<String> absent(),
+				Optional.<String> absent(), Optional.of(3));
+		Buckets buckets = d.execute(q);
+		assertEquals(1, buckets.getBuckets().size());
+		assertEquals(10.0, buckets.getBucketForAll().sum(), PRECISION);
+	}
+
+	@Test
+	public void testScanForDoubleFindsFirstDoubleInMiddleOfString() {
+		Double d = Data.getDouble("hello there 1.3 and 1.5", 1);
+		assertEquals(1.3, d, PRECISION);
+	}
+
+	@Test
+	public void testScanForDoubleFindsFirstDoubleAtStartOfString() {
+		Double d = Data.getDouble("1.3 and 1.5", 1);
+		assertEquals(1.3, d, PRECISION);
+	}
+
+	@Test
+	public void testScanForDoubleFindsSecondDoubleInMiddleOfString() {
+		Double d = Data.getDouble("hello there 1.3 and 1.5 boo", 2);
+		assertEquals(1.5, d, PRECISION);
+	}
+
+	@Test
+	public void testScanForDoubleFindsSecondDoubleAtEndOfString() {
+		Double d = Data.getDouble("hello there 1.3 and 1.5", 2);
+		assertEquals(1.5, d, PRECISION);
 	}
 
 }
