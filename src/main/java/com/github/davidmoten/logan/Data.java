@@ -77,7 +77,7 @@ public class Data {
 		if (facade.size() % 10000 == 0)
 			log.info("data size=" + facade.size());
 		if (facade.size() > maxSize)
-			map.remove(map.firstKey());
+			facade.removeAll(map.firstKey());
 		String source = entry.getSource();
 		if (source != null)
 			sources.add(source);
