@@ -154,8 +154,9 @@ public class Data {
 				new Predicate<LogEntry>() {
 					@Override
 					public boolean apply(LogEntry entry) {
-						return entry.getProperties().containsKey(
+						String value = entry.getProperties().get(
 								query.getField());
+						return value != null;
 					}
 				});
 
@@ -185,13 +186,12 @@ public class Data {
 		Buckets buckets = new Buckets(query);
 		for (LogEntry entry : filtered) {
 			String s = entry.getProperties().get(query.getField());
-			if (s != null)
-				try {
-					double d = Double.parseDouble(s);
-					buckets.add(entry.getTime(), d);
-				} catch (NumberFormatException e) {
-					// ignored value because non-numeric
-				}
+			try {
+				double d = Double.parseDouble(s);
+				buckets.add(entry.getTime(), d);
+			} catch (NumberFormatException e) {
+				// ignored value because non-numeric
+			}
 		}
 
 		return buckets;
