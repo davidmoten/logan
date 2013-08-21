@@ -201,9 +201,11 @@ function drawGraph(field, tablename, buckets, interval, startTime, metric,
 
 	function refreshGraph(startTime, interval, buckets) {
 
-		var dataurl = "data?table=" + tablename + "&field=" + field + "&start="
+		
+		var dataurl = "data?table=" + tablename +  "&start="
 				+ startTime + "&interval=" + interval + "&buckets=" + buckets
 				+ "&metric=" + metric;
+		if (field != "*") dataurl += "&field=" + field;
 		if (find !== "null") dataurl += "&text="+find;
 		if (source != "null") dataurl += "&source=" + source
 		console.log("dataurl=" + dataurl);
@@ -271,7 +273,6 @@ function addGraph(main, graphId) {
 
 	// parse parameters from the url
 	var now = new Date().getTime();
-	// var field = getURLParameter('field');
 	var tablename = getURLParameter("table");
 	if (tablename == null || tablename == "null")
 		tablename = "Entry";
@@ -281,6 +282,8 @@ function addGraph(main, graphId) {
 	var title = getURLParameter("title" + graphId);
 	if (title == "null")
 		title = field;
+    if (title == "*")
+        title = "Graph";
 	$("#title" + graphId).text(title);
     var source = getURLParameter("source" + graphId);
 

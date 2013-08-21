@@ -149,16 +149,19 @@ public class Data {
 		Iterable<LogEntry> entries = find(query.getStartTime().getTime(),
 				query.getFinishTime());
 
+		Iterable<LogEntry> filtered = entries;
+
 		// filter by field
-		Iterable<LogEntry> filtered = Iterables.filter(entries,
-				new Predicate<LogEntry>() {
-					@Override
-					public boolean apply(LogEntry entry) {
-						String value = entry.getProperties().get(
-								query.getField());
-						return value != null;
-					}
-				});
+		if (query.getField().isPresent()) {
+			filtered = Iterables.filter(filtered, new Predicate<LogEntry>() {
+				@Override
+				public boolean apply(LogEntry entry) {
+					String value = entry.getProperties().get(
+							query.getField().get());
+					return value != null;
+				}
+			});
+		}
 
 		// filter by source
 		if (query.getSource().isPresent())
@@ -170,6 +173,7 @@ public class Data {
 				}
 			});
 
+		// filter by text
 		if (query.getText().isPresent())
 			filtered = Iterables.filter(entries, new Predicate<LogEntry>() {
 				@Override
@@ -185,13 +189,17 @@ public class Data {
 
 		Buckets buckets = new Buckets(query);
 		for (LogEntry entry : filtered) {
-			String s = entry.getProperties().get(query.getField());
-			try {
-				double d = Double.parseDouble(s);
-				buckets.add(entry.getTime(), d);
-			} catch (NumberFormatException e) {
-				// ignored value because non-numeric
-			}
+			if (query.getField().isPresent()) {
+				String s = entry.getProperties().get(query.getField().get());
+				try {
+					double d = Double.parseDouble(s);
+					buckets.add(entry.getTime(), d);
+				} catch (NumberFormatException e) {
+					// ignored value because non-numeric
+				}
+			} else
+				// just count the entries
+				buckets.add(entry.getTime(), 1);
 		}
 
 		return buckets;

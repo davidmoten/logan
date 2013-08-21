@@ -17,7 +17,7 @@ public class BucketQuery {
 	private final Date startTime;
 	private final double intervalSizeMs;
 	private final long numIntervals;
-	private final String field;
+	private final Optional<String> field;
 	private final Optional<String> source;
 	private final Optional<String> text;
 
@@ -36,14 +36,15 @@ public class BucketQuery {
 	 * @param optional
 	 */
 	public BucketQuery(Date startTime, double intervalSizeMs,
-			long numIntervals, String field, Optional<String> source,
+			long numIntervals, Optional<String> field, Optional<String> source,
 			Optional<String> text) {
 		Preconditions.checkNotNull(source,
 				"source must not be null but can be Optional.absent()");
 		Preconditions.checkNotNull(text,
 				"text must not be null but can be Optional.absent()");
 		Preconditions.checkNotNull(startTime, "startTime must not be null");
-		Preconditions.checkNotNull(field, "field must not be null");
+		Preconditions.checkNotNull(field,
+				"field must not be null but can be Optional.absent()");
 		this.startTime = startTime;
 		this.intervalSizeMs = intervalSizeMs;
 		this.numIntervals = numIntervals;
@@ -65,8 +66,8 @@ public class BucketQuery {
 	 */
 	public BucketQuery(Date startTime, double intervalSizeMs,
 			long numIntervals, String field) {
-		this(startTime, intervalSizeMs, numIntervals, field, Optional
-				.<String> absent(), Optional.<String> absent());
+		this(startTime, intervalSizeMs, numIntervals, Optional.of(field),
+				Optional.<String> absent(), Optional.<String> absent());
 	}
 
 	public Date getStartTime() {
@@ -94,7 +95,7 @@ public class BucketQuery {
 		return Math.round(startTime.getTime() + n * intervalSizeMs);
 	}
 
-	public String getField() {
+	public Optional<String> getField() {
 		return field;
 	}
 
