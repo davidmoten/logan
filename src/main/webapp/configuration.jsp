@@ -12,6 +12,7 @@
 <p>Oldest record time = <%= State.instance().getData().oldestTime() %></p>
 <p>Num files being tailed = <%= State.instance().getWatcher().getNumTailers() %></p>
 
+<p><b>Current configuration:</b></p>
 <form action="/configuration" method="post">
 <textarea name="configuration" rows="30" style="width:100%">
 <%= new Marshaller().marshal(State.instance().getConfiguration()) %>
@@ -19,7 +20,7 @@
 <input type="submit" value="Reload"/>
 </form>
 
-<h4>Example configuration</h4>
+<p><b>Example configuration:</b></p>
 <textarea rows="100" style="width:100%">
 <%= org.apache.commons.io.IOUtils.toString(com.github.davidmoten.logan.Data.class.getResourceAsStream("/sample-configuration.xml")) %>
 </textarea>
