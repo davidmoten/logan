@@ -166,7 +166,7 @@ public class Watcher {
 		// start tails
 		for (LogFileInfo info : list) {
 			boolean follow = info.log.watch
-					|| watchLatest.containsKey(info.log);
+					|| info == watchLatest.get(info.log);
 			log.info("starting tail (follow=" + follow + ") on "
 					+ info.logFile.getFile());
 			logs.add(info.logFile);
