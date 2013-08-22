@@ -272,7 +272,7 @@ function addGraph(main, graphId) {
 	$("#title"+ graphId).click(function () {
 		$("#edit"+graphId).toggle();
 	});
-	//$("#edit"+graphId).hide();
+	$("#edit"+graphId).hide();
 
 	// parse parameters from the url
 	var now = new Date().getTime();
@@ -328,7 +328,7 @@ function addGraph(main, graphId) {
 				type="text" id="interval'+graphId+'" value="'+getURLParameter("interval")+'" style="width: 3em;" \
 				pattern="[0-9]+(d|h|m|s|ms)?"></input>&nbsp;	\
 	Finish: <input type="text" id="finish'+graphId+'" value="'+finishTime+'" style="width:3em"></input>&nbsp; \
-	Field: <select id="field'+graphId+'" value="'+field+'"></select>&nbsp; \
+	Field: <select id="field'+graphId+'"></select>&nbsp; \
 	Metric: \
 	<select id="metric'+graphId+'"> \
 		<option value="MEAN">Mean</option> \
@@ -375,15 +375,17 @@ function addGraph(main, graphId) {
 		url = updateURLParameter(url,'buckets',$("#buckets"+ graphId).val());
 		url = updateURLParameter(url,'interval',$("#interval"+ graphId).val());
 		url = updateURLParameter(url,'finish',$("#finish"+ graphId).val());
-		//url = updateURLParameter(url,'field'+graphId,$("#field"+ graphId).val());
+		url = updateURLParameter(url,'field'+graphId,$("#field"+ graphId).val());
 		url = updateURLParameter(url,'metric',$("#metric"+ graphId).val());
 		url = updateURLParameter(url,'extraMetric',$("#extraMetric"+ graphId).val());
-		//TODO source
+		url = updateURLParameter(url,'source'+graphId,$("#source"+ graphId).val());
 		url = updateURLParameter(url,'text',$("#text"+ graphId).val());
 		url = updateURLParameter(url,'scan',$("#scan"+ graphId).val());
 			
 		window.location.href=url;
 	});
+	loadKeys(graphId);
+	loadSources(graphId);
    
 	// draw the graphs
 	drawGraph(field, tablename, buckets, interval, startTime, metric,
@@ -394,6 +396,51 @@ function addGraph(main, graphId) {
 function getURLParameter(name) {
 	return decodeURIComponent((RegExp(name + '=' + '([^&]*)(&|$)').exec(
 			location.search) || [ , null ])[1]);
+}
+
+function loadKeys(graphId) {
+	$.ajax({
+	      type: "GET",
+	      url: "keys",
+	      dataType: "json",
+	      success: function(data, textStatus, error){
+	           receivedKeys(data,graphId);
+	      }
+	    });
+}
+
+function loadSources(graphId) {
+	$.ajax({
+	      type: "GET",
+	      url: "sources",
+	      dataType: "json",
+	      success: function(data, textStatus, error){
+	           receivedSources(data,graphId);
+	      }
+	    });
+}
+
+function receivedKeys(data, graphId) {
+    console.log("received " + data + " for " + graphId);
+    var fld = $("#field"+ graphId);
+	fld.append(
+				"<option value='"+ '*' + "'>" + "*" + "</option>");
+	for ( var i = 0; i < data.keys.length; i++) {
+		var key = data.keys[i];
+		fld.append(
+				"<option value='"+ key + "'>" + key + "</option>");
+	}
+	fld.val(getURLParameter("field"+ graphId));
+}
+			
+function receivedSources(data,graphId) {
+	$("#source"+graphId).append(
+				"<option value='*'>" + "*" + "</option>");
+	for ( var i = 0; i < data.sources.length; i++) {
+		var source = data.sources[i];
+		$("#source"+graphId).append(
+				"<option value='"+ source + "'>" + source + "</option>");
+	}
 }
 
 function updateURLParameter(url, param, paramVal){
