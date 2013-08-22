@@ -19,5 +19,10 @@
 <input type="submit" value="Reload"/>
 </form>
 
+<h4>Example configuration</h4>
+<textarea rows="100" style="width:100%">
+<%= org.apache.commons.io.IOUtils.toString(com.github.davidmoten.logan.Data.class.getResourceAsStream("/sample-configuration.xml")) %>
+</textarea>
+
 </body>
 </html>
