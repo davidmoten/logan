@@ -70,7 +70,10 @@ Configuration
 
 The crux of using a tool like this is really configuration. You have to tell the tool how to extract interesting bits of information out of your logs like timestamps, class names, method names, thread name, log levels, key-value pairs and the like.
 
-The file [src/main/resources/sample-configuration.xml](https://github.com/davidmoten/logan/blob/master/src/main/resources/sample-configuration.xml) contains configuration aimed at parsing log4j style logs and is in use at my workplace. The file has plenty of comments so is a good place to start to understand configuration.
+The file [src/main/resources/sample-configuration.xml](https://github.com/davidmoten/logan/blob/master/src/main/resources/sample-configuration.xml) contains configuration aimed at parsing log4j style logs and is in use at my workplace. The file has plenty of comments so is a good place to start to understand configuration. Examples are given for parsing:
+* log4j java logs
+* perl logs
+* solaris syslog
 
 Memory use
 --------------------
