@@ -26,7 +26,7 @@ public class LogParserOptions {
 	private final BiMap<String, Integer> patternGroups;
 	private final Pattern messagePattern;
 
-	private final List<DateFormat> timestampFormat;
+	private final List<SimpleDateFormat> timestampFormat;
 	private final String timezone;
 	private final boolean multiline;
 
@@ -42,7 +42,8 @@ public class LogParserOptions {
 	 */
 	public LogParserOptions(Pattern pattern,
 			BiMap<String, Integer> patternGroups, Pattern messagePattern,
-			List<DateFormat> timestampFormat, String timezone, boolean multiline) {
+			List<SimpleDateFormat> timestampFormat, String timezone,
+			boolean multiline) {
 		super();
 		this.pattern = pattern;
 		this.patternGroups = patternGroups;
@@ -81,7 +82,7 @@ public class LogParserOptions {
 		Pattern messagePattern = Pattern.compile(p
 				.getProperty("message.pattern"));
 		String timestampFormat = p.getProperty("timestamp.format");
-		DateFormat df = createDateFormat(timestampFormat);
+		SimpleDateFormat df = createDateFormat(timestampFormat);
 		String timezone = p.getProperty("timestamp.timezone");
 		BiMap<String, Integer> patternGroups = createGroupMap(p
 				.getProperty("pattern.groups"));
@@ -90,7 +91,7 @@ public class LogParserOptions {
 				Lists.newArrayList(df), timezone, multiline);
 	}
 
-	private static DateFormat createDateFormat(String timestampFormat) {
+	private static SimpleDateFormat createDateFormat(String timestampFormat) {
 		return new SimpleDateFormat(timestampFormat + " Z");
 	}
 
@@ -99,14 +100,14 @@ public class LogParserOptions {
 			String pTimezone, boolean pMultiline) {
 		Pattern pattern = Pattern.compile(pPattern);
 		Pattern messagePattern = Pattern.compile(pMessagePattern);
-		List<DateFormat> dfs = toDateFormats(pTimestampFormat);
+		List<SimpleDateFormat> dfs = toDateFormats(pTimestampFormat);
 		BiMap<String, Integer> patternGroups = createGroupMap(pPatternGroups);
 		return new LogParserOptions(pattern, patternGroups, messagePattern,
 				dfs, pTimezone, pMultiline);
 	}
 
-	private static List<DateFormat> toDateFormats(List<String> formats) {
-		List<DateFormat> list = Lists.newArrayList();
+	private static List<SimpleDateFormat> toDateFormats(List<String> formats) {
+		List<SimpleDateFormat> list = Lists.newArrayList();
 		for (String format : formats)
 			list.add(new SimpleDateFormat(format));
 		return list;
@@ -150,7 +151,7 @@ public class LogParserOptions {
 	 * 
 	 * @return
 	 */
-	public List<DateFormat> getTimestampFormat() {
+	public List<SimpleDateFormat> getTimestampFormat() {
 		return timestampFormat;
 	}
 

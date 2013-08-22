@@ -72,8 +72,8 @@
 		<!--  this group is for solaris syslog -->
 		<parser>
 			<sourcePattern>^[a-zA-Z][^\.]*</sourcePattern>
-			<!-- Dec  8 11:59:43 sardevc nrpe[8406]: [ID 927837 mail.info] connect from vmgtc.amsa.gov.au -->
-	        <pattern>^(\w\w\w \d\d \d\d:\d\d:\d\d) ([^:]+) ([^\[]+)\[(\d+)\]: (.*)$</pattern>
+			<!-- Aug 22 14:36:51 sarcnode sendmail[11872]: [ID 801593 mail.info] r7H5JR0O018125: to=postmaster, delay=4+23:17:23 -->
+	        <pattern>^(\w\w\w \d\d \d\d:\d\d:\d\d) (\S+) ([^\[]+)\[(\d+)\]: (.*)$</pattern>
 	        <patternGroups>logTimestamp,hostname,logLogger,pid,logMsg</patternGroups>
 	        <messagePattern>(\b[a-zA-Z](?:\w| )*)=([^;|,]*)(;|\||,|$)</messagePattern>
 	        <timestampFormat>MMM dd HH:mm:ss</timestampFormat>

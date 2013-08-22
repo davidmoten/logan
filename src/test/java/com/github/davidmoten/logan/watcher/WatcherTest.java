@@ -6,9 +6,12 @@ import static org.junit.Assert.assertTrue;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 import java.util.logging.LogManager;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -91,5 +94,23 @@ public class WatcherTest {
 			}
 		});
 		t.start();
+	}
+
+	@Test
+	public void testParseTimestampWithoutYear() throws ParseException {
+		DateFormat df = new SimpleDateFormat("MMM dd HH:mm:ss");
+		Date date = df.parse("Aug 22 14:36:51");
+		Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+		int year = calendar.get(Calendar.YEAR);
+		calendar.setTime(date);
+		if (calendar.get(Calendar.YEAR) == 1970) {
+			calendar.set(Calendar.YEAR, year);
+		}
+		System.out.println(calendar.getTime());
+	}
+
+	private Object SimpleDateFormat(String string) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

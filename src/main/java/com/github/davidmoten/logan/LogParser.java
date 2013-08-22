@@ -9,7 +9,11 @@ import static com.github.davidmoten.logan.Field.TIMESTAMP;
 
 import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Map;
+import java.util.TimeZone;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 
 import com.google.common.collect.BiMap;
@@ -104,10 +108,27 @@ public class LogParser {
 
 	private Long parseTime(String timestamp) {
 		Long time;
-		for (DateFormat df : options.getTimestampFormat())
+		for (SimpleDateFormat df : options.getTimestampFormat())
 			try {
-				time = df.parse(timestamp + " " + options.getTimezone())
-						.getTime();
+				StringBuilder s = new StringBuilder(timestamp);
+				s.append(" ");
+				s.append(options.getTimezone());
+				time = df.parse(s.toString()).getTime();
+
+				if (!df.toPattern().contains("yy")) {
+					// set year to most recent possible
+					Calendar cal = Calendar.getInstance(TimeZone
+							.getTimeZone(options.getTimezone()));
+					int year = cal.get(Calendar.YEAR);
+					cal.setTimeInMillis(time);
+					cal.set(Calendar.YEAR, year);
+					// if in future then make it last year
+					if (cal.getTimeInMillis() > System.currentTimeMillis()
+							+ TimeUnit.DAYS.toMillis(1)) {
+						cal.set(Calendar.YEAR, year - 1);
+					}
+					time = cal.getTimeInMillis();
+				}
 				return time;
 			} catch (ParseException e) {
 			}
