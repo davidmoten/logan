@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <ns2:configuration
 	xmlns:ns2="http://github.com/davidmoten/logan/configuration">
+	
 	<!--  the maximum number of log entries to hold in memory (eldest are trimmed first) -->
 	<maxSize>1000000</maxSize>
 	
@@ -47,4 +48,5 @@
 			<path>${log.base}/**/cts.log.2.*</path>
 		</log>
 	</group>
+	
 </ns2:configuration>
