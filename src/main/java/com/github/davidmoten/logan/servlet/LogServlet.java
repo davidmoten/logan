@@ -24,12 +24,10 @@ public class LogServlet extends HttpServlet {
 		long finishTime = getMandatoryLong(req, "finish");
 		resp.setContentType("text/plain");
 		PrintWriter out = resp.getWriter();
-		synchronized (State.instance().getData()) {
-			for (String line : State.instance().getData()
-					.getLogs(startTime, finishTime)) {
-				if (line != null)
-					out.println(line);
-			}
+		for (String line : State.instance().getData()
+				.getLogs(startTime, finishTime)) {
+			if (line != null)
+				out.println(line);
 		}
 	}
 }

@@ -11,8 +11,8 @@ import java.util.NavigableSet;
 import java.util.Scanner;
 import java.util.SortedMap;
 import java.util.TimeZone;
-import java.util.TreeMap;
 import java.util.TreeSet;
+import java.util.concurrent.ConcurrentSkipListMap;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.logging.Logger;
@@ -49,7 +49,7 @@ public class Data {
 
 	public Data(int maxSize, boolean loadDummyData) {
 		this.maxSize = maxSize;
-		TreeMap<Long, Collection<LogEntry>> map = Maps.newTreeMap();
+		SortedMap<Long, Collection<LogEntry>> map = new ConcurrentSkipListMap<Long, Collection<LogEntry>>();
 		facade = Multimaps.newListMultimap(map, new Supplier<List<LogEntry>>() {
 			@Override
 			public List<LogEntry> get() {
