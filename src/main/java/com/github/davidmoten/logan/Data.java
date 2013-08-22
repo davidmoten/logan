@@ -42,6 +42,7 @@ public class Data {
 
 	private final int maxSize;
 	private final AtomicLong counter = new AtomicLong();
+	private int numEntries;
 
 	public Data() {
 		this(DEFAULT_MAX_SIZE, false);
@@ -49,7 +50,8 @@ public class Data {
 
 	public Data(int maxSize, boolean loadDummyData) {
 		this.maxSize = maxSize;
-		SortedMap<Long, Collection<LogEntry>> map = new ConcurrentSkipListMap<Long, Collection<LogEntry>>();
+		ConcurrentSkipListMap<Long, Collection<LogEntry>> map = new ConcurrentSkipListMap<Long, Collection<LogEntry>>();
+		map.size();
 		facade = Multimaps.newListMultimap(map, new Supplier<List<LogEntry>>() {
 			@Override
 			public List<LogEntry> get() {
@@ -89,8 +91,14 @@ public class Data {
 				keys.add(pair.getKey());
 		if (facade.size() % 10000 == 0 && facade.size() < maxSize)
 			log.info("data size=" + facade.size());
-		if (facade.size() > maxSize)
-			facade.removeAll(asSortedMap().firstKey());
+
+		// note that for ConcurrentSkipListMap the size method is not a
+		// constant-time operation so don't call facade.size()
+		numEntries++;
+		if (numEntries > maxSize) {
+			List<LogEntry> list = facade.removeAll(asSortedMap().firstKey());
+			numEntries -= list.size();
+		}
 		String source = entry.getSource();
 		if (source != null)
 			sources.add(source);
@@ -263,7 +271,7 @@ public class Data {
 	}
 
 	public synchronized long getNumEntries() {
-		return facade.size();
+		return numEntries;
 	}
 
 	public synchronized long getNumEntriesAdded() {
