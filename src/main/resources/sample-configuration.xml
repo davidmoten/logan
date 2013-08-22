@@ -3,6 +3,7 @@
 	xmlns:ns2="http://github.com/davidmoten/logan/configuration">
 	
 	<!--  the maximum number of log entries to hold in memory (eldest are trimmed first) -->
+	<!--  set your heap size to match this approximately. Say 100MB + maxSize/1000 MB -->
 	<maxSize>1000000</maxSize>
 	
 	<!--  token delimiters when using scan parameter to find the nth double in a log message  -->
@@ -51,18 +52,20 @@
 	<group>
 		<!--  this group is for some perl logs and thus has its own parser -->
 		<parser>
+			<!--  2013/08/22:04.41.00:/usr/local/aussar/prod/bin/inwardsRouter.pl:20039:DOCKET:RX:m1440580.000:email:Position report for mvquest:b1440581.000 -->
 	        <pattern>^(\d\d\d\d/\d\d/\d\d:\d\d\.\d\d\.\d\d):([^:]+):([^:]+):([^:]+):(.*)$</pattern>
-	        <patternGroups>logTimestamp,logLogger,logMethod,logLevel,logMsg</patternGroups>
+	        <!--  logType=INFO,DOCKET,? -->
+	        <patternGroups>logTimestamp,logLogger,logMethod,logType,logMsg</patternGroups>
 	        <messagePattern>(\b[a-zA-Z](?:\w| )*)=([^;|,]*)(;|\||,|$)</messagePattern>
 	        <timestampFormat>yyyy/MM/dd:HH.mm.ss</timestampFormat>
 	        <timezone>UTC</timezone>
 	        <multiline>false</multiline>
     	</parser>
     	<log watch="false" source="inwardsRouter" watchLatest="true">
-            <path>/aus${mode}/inwardsRouter/logs/**/2.*</path>
+            <path>/aus${mode}/inwardsRouter/logs/2.*</path>
         </log>
         <log watch="false" source="registrar" watchLatest="true">
-            <path>/aus${mode}/registrar/logs/**/2.*</path>
+            <path>/aus${mode}/registrar/logs/2.*</path>
         </log>
 	</group>
 	<group>
