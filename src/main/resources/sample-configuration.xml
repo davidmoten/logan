@@ -1,20 +1,41 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <ns2:configuration
 	xmlns:ns2="http://github.com/davidmoten/logan/configuration">
+	<!--  the maximum number of log entries to hold in memory (eldest are trimmed first) -->
 	<maxSize>1000000</maxSize>
+	
+	<!--  token delimiters when using scan parameter to find the nth double in a log message  -->
 	<scanDelimiterPattern>(\s|,|:|\|;|=)+</scanDelimiterPattern>
+	
+	<!--  the default parser for all groups -->
 	<parser>
+		<!-- source for each log entry is extracted from the log filename (not including the directory)  -->
 		<sourcePattern>^[a-zA-Z][^\.]*</sourcePattern>
+	
+		<!-- pattern to match against log line. The groups are associated with the patternGroups below -->
 		<pattern>^(\d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d[\.,]\d\d\d) +(\S+) +(\S+)(?: +(\S+)?) *- (.*)$</pattern>
+	
+		<!--  These pattern groups have special meaning, don't mess with the names just the order -->
 		<patternGroups>logTimestamp,logLevel,logLogger,threadName,logMsg</patternGroups>
+	
+		<!--  logMsg is broken into key values using this pattern  -->
 		<messagePattern>(\b[a-zA-Z](?:\w| )*)=([^;|,]*)(;|\||,|$)</messagePattern>
+	
+		<!--  the log line timestamp is extracted using the following SimpleDateFormat formats in order  -->
 		<timestampFormat>yyyy-MM-dd HH:mm:ss.SSS</timestampFormat>
 		<timestampFormat>yyyy-MM-dd HH:mm:ss,SSS</timestampFormat>
+	
+		<!--  the timezone for the timestamp -->
 		<timezone>UTC</timezone>
+	
+		<!--  set to true for logs spread over multiple lines (for example java.util.logging style logs) and use a ZZZ delimiter in the pattern -->
 		<multiline>false</multiline>
 	</parser>
+	
+	<!--  multiple groups with optional dedicated parsers can be specified here -->
 	<group>
 		<log>
+			<!--  path uses ant-style wildcards for the base and regex matching for the filename -->
 			<path>${log.base}/**/cts.log</path>
 		</log>
 		<log watch="false">
