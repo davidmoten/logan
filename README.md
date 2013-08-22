@@ -63,6 +63,14 @@ Go to http://localhost:8080
 To customize with your own configuration and say port 9292:
 
     mvn jetty:run -Djetty.port=9292 -Dlogan.config=<YOUR_CONFIGURATION_XML>
+    
+    
+Configuration
+===============
+
+The crux of using a tool like this is really configuration. You have to tell the tool how to extract interesting bits of information out of your logs like timestamps, threadIds, log levels and the like.
+
+The file [src/main/resources/sample-configuration.xml](https://github.com/davidmoten/logan/blob/master/src/main/resources/sample-configuration.xml) contains configuration aimed at parsing log4j style logs and is in use at my workplace. The file has plenty of comments so is a good place to start to understand configuration.
 
 Memory use
 --------------------
