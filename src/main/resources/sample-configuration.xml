@@ -48,5 +48,18 @@
 			<path>${log.base}/**/cts.log.2.*</path>
 		</log>
 	</group>
+	<group>
+		<parser>
+	        <pattern>^(\d\d\d\d/\d\d/\d\d:\d\d\.\d\d\.\d\d):([^:]+):([^:]+):([^:]+):(.*)$</pattern>
+	        <patternGroups>logTimestamp,logLogger,logMethod,logLevel,logMsg</patternGroups>
+	        <messagePattern>(\b[a-zA-Z](?:\w| )*)=([^;|,]*)(;|\||,|$)</messagePattern>
+	        <timestampFormat>yyyy/MM/dd:HH.mm.ss</timestampFormat>
+	        <timezone>UTC</timezone>
+	        <multiline>false</multiline>
+    	</parser>
+    	<log watch="false" source="inwardsRouter">
+            <path>/ausprod/inwardsRouter/logs/**/2.*</path>
+        </log>
+	</group>
 	
 </ns2:configuration>

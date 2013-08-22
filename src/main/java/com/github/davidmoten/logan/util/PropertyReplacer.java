@@ -13,6 +13,10 @@ import org.apache.commons.io.IOUtils;
 
 public class PropertyReplacer {
 
+	private PropertyReplacer() {
+		// prevent instantiation
+	}
+
 	public static InputStream replaceSystemProperties(InputStream is) {
 		try {
 			List<String> lines = IOUtils.readLines(is);

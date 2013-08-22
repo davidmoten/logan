@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.github.davidmoten.logan.Data;
 import com.github.davidmoten.logan.config.Configuration;
 import com.github.davidmoten.logan.config.Marshaller;
+import com.github.davidmoten.logan.util.PropertyReplacer;
 import com.github.davidmoten.logan.watcher.Watcher;
 
 @WebServlet(urlPatterns = { "/configuration" })
@@ -32,8 +33,9 @@ public class ConfigurationServlet extends HttpServlet {
 			throws ServletException, IOException {
 		Marshaller m = new Marshaller();
 		String xml = req.getParameter("configuration");
-		Configuration configuration = m.unmarshal(new ByteArrayInputStream(xml
-				.getBytes()));
+		Configuration configuration = m.unmarshal(PropertyReplacer
+				.replaceSystemProperties(new ByteArrayInputStream(xml
+						.getBytes())));
 		Data data = new Data(configuration.maxSize, true);
 		State.instance().getWatcher().stop();
 
