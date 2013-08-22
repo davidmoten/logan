@@ -1,6 +1,5 @@
 package com.github.davidmoten.logan.config;
 
-
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -16,10 +15,10 @@ import com.google.common.collect.Lists;
 public class Group {
 
 	@XmlElement(required = false)
-	public List<Log> log = Lists.newArrayList();
+	public Parser parser;
 
 	@XmlElement(required = false)
-	public Parser parser;
+	public List<Log> log = Lists.newArrayList();
 
 	/**
 	 * Constructor.
