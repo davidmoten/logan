@@ -273,53 +273,6 @@ function addGraph(main, graphId) {
 		$("#edit"+graphId).toggle();
 	});
 	//$("#edit"+graphId).hide();
-	var h = '<div style="font-size:75%"> \
-    Buckets: <input type="text" name="buckets" value="24" \
-				style="width: 3em;"></input>&nbsp; \
-	Interval: <input \
-				type="text" name="interval" value="1h" style="width: 3em;" \
-				pattern="[0-9]+(d|h|m|s|ms)?"></input>&nbsp;	\
-	Finish: <input type="text" name="finish" value="now" style="width:3em"></input>&nbsp; \
-	Field: <select id="field'+graphId+'"></select>&nbsp; \
-	Metric: \
-	<select name="metric"> \
-		<option value="MEAN">Mean</option> \
-		<option value="MIN">Min</option> \
-		<option value="MAX" selected="selected">Max</option> \
-		<option value="COUNT">Count</option> \
-		<option value="SUM">Sum</option> \
-		<option value="FIRST">First</option> \
-		<option value="LAST">Last</option> \
-		<option value="EARLIEST">Earliest</option> \
-		<option value="LATEST">Latest</option> \
-		<option value="STANDARD_DEVIATION">Standard Deviation</option> \
-		<option value="SUM_SQUARES">Sum of squares</option> \
-		<option value="VARIANCE">Variance</option> \
-	</select>&nbsp; \
-	Extra: \
-	<select name="extraMetric"> \
-		<option value="NONE">None</option> \
-		<option value="MEAN">Mean</option> \
-		<option value="MIN">Min</option> \
-		<option value="MAX" selected="MAX">Max</option> \
-		<option value="COUNT">Count</option> \
-		<option value="SUM">Sum</option> \
-		<option value="FIRST">First</option> \
-		<option value="LAST">Last</option> \
-		<option value="EARLIEST">Earliest</option> \
-		<option value="LATEST">Latest</option> \
-		<option value="STANDARD_DEVIATION">Standard Deviation</option> \
-		<option value="SUM_SQUARES">Sum of squares</option> \
-		<option value="VARIANCE">Variance</option> \
-	</select>&nbsp; \
-	<br/> \
-    Source: <select id="source1" name="source1"></select>&nbsp; \
-    Text: <input type="text" id="text'+ graphId+'" style="width:8em"></input>&nbsp; \
-	Scan: <input type="text" id="scan'+graphId+'" style="width:2em"></input>&nbsp; \
-	<input type="submit" value="Update"></input> \
-	</div>';
-	
-	$("#edit" + graphId).html(h);
 
 	// parse parameters from the url
 	var now = new Date().getTime();
@@ -361,6 +314,76 @@ function addGraph(main, graphId) {
 	var scan = getURLParameter("scan");
 	var extraMetric = getURLParameter("extraMetric");
 	var find = getURLParameter("text");
+	var scanString;
+	if (scan == "null") scanString="";
+	else scanString = scan;
+	var findString;
+	if (find == "null") findString = "";
+	else findString = find; 
+
+	var h = '<div style="font-size:75%"> \
+    Buckets: <input type="text" id="buckets'+graphId+'" value="'+buckets+'" \
+				style="width: 3em;"></input>&nbsp; \
+	Interval: <input \
+				type="text" id="interval'+graphId+'" value="'+getURLParameter("interval")+'" style="width: 3em;" \
+				pattern="[0-9]+(d|h|m|s|ms)?"></input>&nbsp;	\
+	Finish: <input type="text" id="finish'+graphId+'" value="'+finishTime+'" style="width:3em"></input>&nbsp; \
+	Field: <select id="field'+graphId+'" value="'+field+'"></select>&nbsp; \
+	Metric: \
+	<select id="metric'+graphId+'"> \
+		<option value="MEAN">Mean</option> \
+		<option value="MIN">Min</option> \
+		<option value="MAX" selected="selected">Max</option> \
+		<option value="COUNT">Count</option> \
+		<option value="SUM">Sum</option> \
+		<option value="FIRST">First</option> \
+		<option value="LAST">Last</option> \
+		<option value="EARLIEST">Earliest</option> \
+		<option value="LATEST">Latest</option> \
+		<option value="STANDARD_DEVIATION">Standard Deviation</option> \
+		<option value="SUM_SQUARES">Sum of squares</option> \
+		<option value="VARIANCE">Variance</option> \
+	</select>&nbsp; \
+	Extra: \
+	<select id="extraMetric'+graphId+'"> \
+		<option value="NONE">None</option> \
+		<option value="MEAN">Mean</option> \
+		<option value="MIN">Min</option> \
+		<option value="MAX" selected="MAX">Max</option> \
+		<option value="COUNT">Count</option> \
+		<option value="SUM">Sum</option> \
+		<option value="FIRST">First</option> \
+		<option value="LAST">Last</option> \
+		<option value="EARLIEST">Earliest</option> \
+		<option value="LATEST">Latest</option> \
+		<option value="STANDARD_DEVIATION">Standard Deviation</option> \
+		<option value="SUM_SQUARES">Sum of squares</option> \
+		<option value="VARIANCE">Variance</option> \
+	</select>&nbsp; \
+	<br/> \
+    Source: <select id="source'+graphId+'"></select>&nbsp; \
+    Text: <input type="text" id="text'+ graphId+'" style="width:8em" value="'+findString+'"></input>&nbsp; \
+	Scan: <input type="text" id="scan'+graphId+'" style="width:2em" value="'+scanString+'"></input>&nbsp; \
+	<input type="submit" value="Update" style="margin-left:20px" id="update'+graphId+'"></input> \
+	</div>';
+	
+	$("#edit" + graphId).html(h);
+	$("#metric"+ graphId).val(metric);
+	$("#extraMetric"+ graphId).val(extraMetric);
+	$("#update"+graphId).click(function() {
+		var url = window.location.href;
+		url = updateURLParameter(url,'buckets',$("#buckets"+ graphId).val());
+		url = updateURLParameter(url,'interval',$("#interval"+ graphId).val());
+		url = updateURLParameter(url,'finish',$("#finish"+ graphId).val());
+		//url = updateURLParameter(url,'field'+graphId,$("#field"+ graphId).val());
+		url = updateURLParameter(url,'metric',$("#metric"+ graphId).val());
+		url = updateURLParameter(url,'extraMetric',$("#extraMetric"+ graphId).val());
+		//TODO source
+		url = updateURLParameter(url,'text',$("#text"+ graphId).val());
+		url = updateURLParameter(url,'scan',$("#scan"+ graphId).val());
+			
+		window.location.href=url;
+	});
    
 	// draw the graphs
 	drawGraph(field, tablename, buckets, interval, startTime, metric,
@@ -369,8 +392,28 @@ function addGraph(main, graphId) {
 }
 
 function getURLParameter(name) {
-	return decodeURIComponent((RegExp(name + '=' + '(.+?)(&|$)').exec(
+	return decodeURIComponent((RegExp(name + '=' + '([^&]*)(&|$)').exec(
 			location.search) || [ , null ])[1]);
+}
+
+function updateURLParameter(url, param, paramVal){
+    var newAdditionalURL = "";
+    var tempArray = url.split("?");
+    var baseURL = tempArray[0];
+    var additionalURL = tempArray[1];
+    var temp = "";
+    if (additionalURL) {
+        tempArray = additionalURL.split("&");
+        for (i=0; i<tempArray.length; i++){
+            if(tempArray[i].split('=')[0] != param){
+                newAdditionalURL += temp + tempArray[i];
+                temp = "&";
+            }
+        }
+    }
+
+    var rows_txt = temp + "" + param + "=" + paramVal;
+    return baseURL + "?" + newAdditionalURL + rows_txt;
 }
 
 function getAbsolutePath() {

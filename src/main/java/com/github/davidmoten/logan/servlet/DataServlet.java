@@ -49,7 +49,7 @@ public class DataServlet extends HttpServlet {
 			source = null;
 		String scanString = req.getParameter("scan");
 		final Integer scan;
-		if (scanString == null)
+		if (scanString == null || scanString.equals(""))
 			scan = null;
 		else
 			scan = Integer.parseInt(scanString);
