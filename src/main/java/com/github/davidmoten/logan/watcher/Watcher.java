@@ -78,6 +78,8 @@ public class Watcher {
 						.getFilesFromPathWithRegexFilename(lg.path);
 				if (lg.watch)
 					tailers += files.size();
+				if (lg.watchLatest)
+					tailers += 1;
 			}
 		}
 		return tailers;
