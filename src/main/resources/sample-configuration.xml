@@ -34,10 +34,15 @@
 	
 	<!--  multiple groups with optional dedicated parsers can be specified here -->
 	<group>
+	
+		<!--  can specify a parser like above here if desired -->
+
+		<!--  default for any log matching the path is to be completely scanned and then tailed -->		
 		<log>
 			<!--  path uses ant-style wildcards for the base and regex matching for the filename -->
 			<path>${log.base}/**/cts.log</path>
 		</log>
+		<!--  don't want to watch rolled over logs, they are scanned then closed -->
 		<log watch="false">
 			<path>${log.base}/**/cts.log.2.*</path>
 		</log>
