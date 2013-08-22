@@ -51,7 +51,6 @@ public class Data {
 	public Data(int maxSize, boolean loadDummyData) {
 		this.maxSize = maxSize;
 		ConcurrentSkipListMap<Long, Collection<LogEntry>> map = new ConcurrentSkipListMap<Long, Collection<LogEntry>>();
-		map.size();
 		facade = Multimaps.newListMultimap(map, new Supplier<List<LogEntry>>() {
 			@Override
 			public List<LogEntry> get() {
@@ -89,8 +88,8 @@ public class Data {
 		for (Entry<String, String> pair : entry.getProperties().entrySet())
 			if (isNumeric(pair.getValue()))
 				keys.add(pair.getKey());
-		if (facade.size() % 10000 == 0 && facade.size() < maxSize)
-			log.info("data size=" + facade.size());
+		if (numEntries % 10000 == 0 && numEntries < maxSize)
+			log.info("numEntries=" + numEntries);
 
 		// note that for ConcurrentSkipListMap the size method is not a
 		// constant-time operation so don't call facade.size()
@@ -315,7 +314,7 @@ public class Data {
 
 	public Date oldestTime() {
 
-		if (asSortedMap().size() == 0)
+		if (asSortedMap().isEmpty())
 			return null;
 		else
 			return new Date(asSortedMap().firstKey());
