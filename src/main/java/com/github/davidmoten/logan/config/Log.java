@@ -17,6 +17,9 @@ public class Log {
 	@XmlAttribute(required = false)
 	public boolean watch = true;
 
+	@XmlAttribute(required = false)
+	public boolean watchLatest = false;
+
 	/**
 	 * Constructor.
 	 * 

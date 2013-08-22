@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -19,6 +20,7 @@ import com.github.davidmoten.logan.config.Configuration;
 import com.github.davidmoten.logan.config.Group;
 import com.github.davidmoten.logan.config.Log;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 
 /**
  * Watches (tails) groups of files configured by persister configuration and
@@ -83,12 +85,12 @@ public class Watcher {
 
 	private static class LogFileInfo {
 		final LogFile logFile;
-		final boolean follow;
+		final Log log;
 
-		public LogFileInfo(LogFile logFile, boolean follow) {
+		public LogFileInfo(LogFile logFile, Log log) {
 			super();
 			this.logFile = logFile;
-			this.follow = follow;
+			this.log = log;
 		}
 	}
 
@@ -121,7 +123,7 @@ public class Watcher {
 							DELAY_BETWEEN_CHECKS_FOR_NEW_CONTENT_MS,
 							new LogParser(options), executor);
 					boolean follow = lg.watch;
-					list.add(new LogFileInfo(logFile, follow));
+					list.add(new LogFileInfo(logFile, lg));
 				}
 			}
 		}
@@ -150,11 +152,25 @@ public class Watcher {
 			}
 		});
 
+		Map<Log, LogFileInfo> watchLatest = Maps.newHashMap();
 		for (LogFileInfo info : list) {
-			log.info("starting tail (follow=" + info.follow + ") on "
+			if (info.log.watchLatest) {
+				LogFileInfo latest = watchLatest.get(info.log);
+				if (latest == null
+						|| info.logFile.getFile().lastModified() > latest.logFile
+								.getFile().lastModified())
+					watchLatest.put(info.log, info);
+			}
+		}
+
+		// start tails
+		for (LogFileInfo info : list) {
+			boolean follow = info.log.watch
+					|| watchLatest.containsKey(info.log);
+			log.info("starting tail (follow=" + follow + ") on "
 					+ info.logFile.getFile());
-			info.logFile.tail(data, info.follow);
 			logs.add(info.logFile);
+			info.logFile.tail(data, follow);
 		}
 		log.info("started watcher");
 	}

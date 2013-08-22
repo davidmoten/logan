@@ -57,8 +57,8 @@
 	        <timezone>UTC</timezone>
 	        <multiline>false</multiline>
     	</parser>
-    	<log watch="false" source="inwardsRouter">
-            <path>/ausprod/inwardsRouter/logs/**/2.*</path>
+    	<log watch="false" source="inwardsRouter" watchLatest="true">
+            <path>/aus${mode}/inwardsRouter/logs/**/2.*</path>
         </log>
 	</group>
 	
