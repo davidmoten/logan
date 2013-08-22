@@ -52,7 +52,7 @@
 	<group>
 		<!--  this group is for some perl logs and thus has its own parser -->
 		<parser>
-			<!--  2013/08/22:04.41.00:/usr/local/aussar/prod/bin/inwardsRouter.pl:20039:DOCKET:RX:m1440580.000:email:Position report for mvquest:b1440581.000 -->
+            <!--  2013/08/22:04.41.00:/usr/local/aussar/prod/bin/inwardsRouter.pl:20039:DOCKET:RX:m1440580.000:email:Position report for mvquest:b1440581.000 -->
 	        <pattern>^(\d\d\d\d/\d\d/\d\d:\d\d\.\d\d\.\d\d):([^:]+):([^:]+):([^:]+):(.*)$</pattern>
 	        <!--  logType=INFO,DOCKET,? -->
 	        <patternGroups>logTimestamp,logLogger,logMethod,logType,logMsg</patternGroups>
@@ -69,10 +69,10 @@
         </log>
 	</group>
 	<group>
-		<!--  this group is for solaris syslog -->
-		<parser>
-			<sourcePattern>^[a-zA-Z][^\.]*</sourcePattern>
-			<!-- Aug 22 14:36:51 sarcnode sendmail[11872]: [ID 801593 mail.info] r7H5JR0O018125: to=postmaster, delay=4+23:17:23 -->
+        <!--  this group is for solaris syslog -->
+        <parser>
+            <sourcePattern>^[a-zA-Z][^\.]*</sourcePattern>
+            <!-- Aug 22 14:36:51 sarcnode sendmail[11872]: [ID 801593 mail.info] r7H5JR0O018125: to=postmaster, delay=4+23:17:23 -->
 	        <pattern>^(\w\w\w \d\d \d\d:\d\d:\d\d) (\S+) ([^\[]+)\[(\d+)\]: (.*)$</pattern>
 	        <patternGroups>logTimestamp,hostname,logLogger,pid,logMsg</patternGroups>
 	        <messagePattern>(\b[a-zA-Z](?:\w| )*)=([^;|,]*)(;|\||,|$)</messagePattern>
