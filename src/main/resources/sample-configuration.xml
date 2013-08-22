@@ -49,6 +49,7 @@
 		</log>
 	</group>
 	<group>
+		<!--  this group is for some perl logs and thus has its own parser -->
 		<parser>
 	        <pattern>^(\d\d\d\d/\d\d/\d\d:\d\d\.\d\d\.\d\d):([^:]+):([^:]+):([^:]+):(.*)$</pattern>
 	        <patternGroups>logTimestamp,logLogger,logMethod,logLevel,logMsg</patternGroups>
@@ -59,6 +60,28 @@
     	</parser>
     	<log watch="false" source="inwardsRouter" watchLatest="true">
             <path>/aus${mode}/inwardsRouter/logs/**/2.*</path>
+        </log>
+        <log watch="false" source="registrar" watchLatest="true">
+            <path>/aus${mode}/registrar/logs/**/2.*</path>
+        </log>
+	</group>
+	<group>
+		<!--  this group is for solaris syslog -->
+		<parser>
+			<sourcePattern>^[a-zA-Z][^\.]*</sourcePattern>
+			<!-- Dec  8 11:59:43 sardevc nrpe[8406]: [ID 927837 mail.info] connect from vmgtc.amsa.gov.au -->
+	        <pattern>^(\w\w\w \d\d \d\d:\d\d:\d\d) ([^:]+) ([^\[]+)\[(\d+)\]: (.*)$</pattern>
+	        <patternGroups>logTimestamp,hostname,logLogger,pid,logMsg</patternGroups>
+	        <messagePattern>(\b[a-zA-Z](?:\w| )*)=([^;|,]*)(;|\||,|$)</messagePattern>
+	        <timestampFormat>MMM dd HH:mm:ss</timestampFormat>
+	        <timezone>UTC</timezone>
+	        <multiline>false</multiline>
+    	</parser>
+    	<log>
+            <path>/var/log/syslog</path>
+        </log>
+        <log watch="false">
+            <path>/var/log/syslog\.\d*</path>
         </log>
 	</group>
 	
