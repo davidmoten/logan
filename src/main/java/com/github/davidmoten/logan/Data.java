@@ -242,7 +242,7 @@ public class Data {
 				} else if (scanner.hasNext())
 					System.out.println(scanner.next());
 			}
-			if (i <index)
+			if (i < index)
 				d = null;
 			scanner.close();
 			log.info("returning " + d);
@@ -283,11 +283,17 @@ public class Data {
 						DateFormat df = new SimpleDateFormat(
 								"yyyy-MM-dd HH:mm:ss.SSS");
 						df.setTimeZone(TimeZone.getTimeZone("UTC"));
+						String level = entry.getProperties().get(Field.LEVEL);
+						if (level == null)
+							level = "INFO";
+						String logger = entry.getProperties().get(Field.LOGGER);
+						if (logger == null)
+							logger = "unknown";
 						s.append(df.format(new Date(entry.getTime())));
 						s.append(' ');
-						s.append(entry.getProperties().get(Field.LEVEL));
+						s.append(level);
 						s.append(' ');
-						s.append(entry.getProperties().get(Field.LOGGER));
+						s.append(logger);
 						s.append(" - ");
 						s.append(entry.getProperties().get(Field.MSG));
 						return s.toString();
