@@ -4,7 +4,7 @@ Java project for analysing logs using time-series analysis. Loaded data kept in 
 
 Configure to load and tail local files then start a local jetty web server to serve interactive graphs (charts in US speak).
 
-Status: in development
+Status: pre-alpha
 
 Non-aggregated:
 <img src="https://raw.github.com/davidmoten/logan/master/docs/screen1.png"/>
