@@ -5,6 +5,12 @@ import java.util.NavigableSet;
 
 public interface Data {
 
+	Buckets execute(BucketQuery query);
+
+	Iterable<String> getLogs(long startTime, long finishTime);
+
+	Iterable<LogEntry> find(long startTime, long finishTime);
+
 	/**
 	 * Adds a {@link LogEntry} to the data.
 	 * 
@@ -13,22 +19,16 @@ public interface Data {
 	 */
 	Data add(LogEntry entry);
 
-	Iterable<LogEntry> find(long startTime, long finishTime);
-
-	Buckets execute(BucketQuery query);
-
 	long getNumEntries();
 
 	long getNumEntriesAdded();
 
 	NavigableSet<String> getKeys();
 
-	Iterable<String> getLogs(long startTime, long finishTime);
-
 	NavigableSet<String> getSources();
 
-	Date oldestTime();
-
 	void close();
+
+	Date oldestTime();
 
 }

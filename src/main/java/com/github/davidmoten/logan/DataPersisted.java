@@ -161,8 +161,7 @@ public class DataPersisted implements Data {
 
 	@Override
 	public Buckets execute(BucketQuery query) {
-		// TODO Auto-generated method stub
-		return null;
+		return DataCore.Singleton.INSTANCE.instance().execute(this, query);
 	}
 
 	@Override
@@ -179,6 +178,12 @@ public class DataPersisted implements Data {
 	}
 
 	@Override
+	public Iterable<String> getLogs(long startTime, long finishTime) {
+		return DataCore.Singleton.INSTANCE.instance().getLogs(this, startTime,
+				finishTime);
+	}
+
+	@Override
 	public long getNumEntriesAdded() {
 		// TODO Auto-generated method stub
 		return 0;
@@ -186,12 +191,6 @@ public class DataPersisted implements Data {
 
 	@Override
 	public NavigableSet<String> getKeys() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Iterable<String> getLogs(long startTime, long finishTime) {
 		// TODO Auto-generated method stub
 		return null;
 	}
