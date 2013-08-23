@@ -1,5 +1,6 @@
 package com.github.davidmoten.logan;
 
+import java.util.Date;
 import java.util.Map;
 
 /**
@@ -47,7 +48,7 @@ public class LogEntry {
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		builder.append("LogEntry [time=");
-		builder.append(time);
+		builder.append(new Date(time));
 		builder.append(", properties=");
 		builder.append(properties);
 		builder.append("]");
