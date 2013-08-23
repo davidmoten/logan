@@ -47,15 +47,18 @@ public class Watcher {
 
 	private final int numTailers;
 
+	private final FileTailer fileTailer;
+
 	/**
 	 * Constructor.
 	 * 
 	 * @param factory
 	 * @param configuration
 	 */
-	public Watcher(Data data, Configuration configuration) {
+	public Watcher(Data data, Configuration configuration, FileTailer fileTailer) {
 		this.data = data;
 		this.configuration = configuration;
+		this.fileTailer = fileTailer;
 		// executor = Executors.newFixedThreadPool(Runtime.getRuntime()
 		// .availableProcessors());
 		numTailers = countTailers(configuration);
@@ -67,6 +70,11 @@ public class Watcher {
 		int size = numTailers + 10;
 		executor = Executors.newFixedThreadPool(size);
 		log.info("create fixed thread pool of size=" + size);
+	}
+
+	public Watcher(Data data, Configuration configuration) {
+		this(data, configuration, FileTailerStandard.Singleton.INSTANCE
+				.instance());
 	}
 
 	private static int countTailers(Configuration configuration) {
@@ -124,7 +132,6 @@ public class Watcher {
 					LogFile logFile = new LogFile(file, source,
 							DELAY_BETWEEN_CHECKS_FOR_NEW_CONTENT_MS,
 							new LogParser(options), executor);
-					boolean follow = lg.watch;
 					list.add(new LogFileInfo(logFile, lg));
 				}
 			}
@@ -172,7 +179,7 @@ public class Watcher {
 			log.info("starting tail (follow=" + follow + ") on "
 					+ info.logFile.getFile());
 			logs.add(info.logFile);
-			info.logFile.tail(data, follow);
+			fileTailer.tail(info.logFile, data, follow);
 		}
 		log.info("started watcher");
 	}

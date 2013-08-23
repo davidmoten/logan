@@ -17,7 +17,7 @@
 <textarea name="configuration" rows="30" style="width:100%">
 <%= new Marshaller().marshal(State.instance().getConfiguration()) %>
 </textarea>
-<input type="submit" value="Reload"/>
+<input type="submit" name="sample" value="Sample"/> <input type="submit" name="reload" value="Reload"/>
 </form>
 
 <p><b>Example configuration:</b></p>

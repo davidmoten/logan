@@ -2,6 +2,9 @@ package com.github.davidmoten.logan.servlet;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.List;
+import java.util.Map.Entry;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,9 +13,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.github.davidmoten.logan.Data;
+import com.github.davidmoten.logan.LogEntry;
+import com.github.davidmoten.logan.LogFile;
+import com.github.davidmoten.logan.LogFile.SampleResult;
 import com.github.davidmoten.logan.config.Configuration;
 import com.github.davidmoten.logan.config.Marshaller;
 import com.github.davidmoten.logan.util.PropertyReplacer;
+import com.github.davidmoten.logan.watcher.FileTailerSampling;
 import com.github.davidmoten.logan.watcher.Watcher;
 
 @WebServlet(urlPatterns = { "/configuration" })
@@ -31,6 +38,48 @@ public class ConfigurationServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
+		if (req.getParameter("reload") != null) {
+			reload(req, resp);
+		} else
+			sample(req, resp);
+	}
+
+	private void sample(HttpServletRequest req, HttpServletResponse resp) {
+		Marshaller m = new Marshaller();
+		String xml = req.getParameter("configuration");
+		Configuration configuration = m.unmarshal(PropertyReplacer
+				.replaceSystemProperties(new ByteArrayInputStream(xml
+						.getBytes())));
+		Data data = new Data(configuration.maxSize, true);
+		FileTailerSampling sampler = FileTailerSampling.Singleton.INSTANCE
+				.instance();
+		Watcher watcher = new Watcher(data, configuration, sampler);
+		watcher.start();
+		resp.setContentType("text/html");
+		PrintWriter out;
+		try {
+			out = resp.getWriter();
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+		out.println("<html>");
+		for (Entry<LogFile, SampleResult> en : sampler.getSamples().entrySet()) {
+			out.println("<p><b>File: " + en.getKey().getFile() + "</b></p>");
+			for (Entry<LogEntry, List<String>> info : en.getValue()
+					.getEntries().entrySet()) {
+				out.print("<pre style=\"margin-left:50px;\">");
+				for (String line : info.getValue()) {
+					out.println(line);
+				}
+				out.println("</pre>");
+				out.println(info.getKey());
+			}
+		}
+		out.println("</html>");
+	}
+
+	private void reload(HttpServletRequest req, HttpServletResponse resp)
+			throws IOException {
 		Marshaller m = new Marshaller();
 		String xml = req.getParameter("configuration");
 		Configuration configuration = m.unmarshal(PropertyReplacer

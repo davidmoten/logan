@@ -1,7 +1,12 @@
 package com.github.davidmoten.logan;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -10,6 +15,7 @@ import org.apache.commons.io.input.Tailer;
 import org.apache.commons.io.input.TailerListener;
 
 import com.google.common.annotations.VisibleForTesting;
+import com.google.common.collect.Lists;
 
 /**
  * Starts a thread using a given {@link ExecutorService} to load all logs from a
@@ -82,6 +88,46 @@ public class LogFile {
 		// start in separate thread
 		log.info("starting tailer thread");
 		executor.execute(tailer);
+	}
+
+	public static class SampleResult {
+
+		private final LinkedHashMap<LogEntry, List<String>> entries;
+
+		public SampleResult(LinkedHashMap<LogEntry, List<String>> entries) {
+			this.entries = entries;
+		}
+
+		public LinkedHashMap<LogEntry, List<String>> getEntries() {
+			return entries;
+		}
+
+	}
+
+	public SampleResult sample(int numLines) {
+
+		try {
+			FileInputStream fis = new FileInputStream(file);
+			BufferedReader br = new BufferedReader(new InputStreamReader(fis));
+
+			String line;
+			List<String> lines = Lists.newArrayList();
+			LinkedHashMap<LogEntry, List<String>> entries = new LinkedHashMap<LogEntry, List<String>>();
+			int lineCount = 0;
+			while (lineCount < numLines && (line = br.readLine()) != null) {
+				LogEntry entry = parser.parse(source, line);
+				lines.add(line);
+				if (entry != null) {
+					entries.put(entry, lines);
+					lines = Lists.newArrayList();
+				}
+				lineCount++;
+			}
+			br.close();
+			return new SampleResult(entries);
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 	/**
