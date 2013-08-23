@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -65,8 +66,9 @@ public class ConfigurationServlet extends HttpServlet {
 		out.println("<html>");
 		for (Entry<LogFile, SampleResult> en : sampler.getSamples().entrySet()) {
 			out.println("<p><b>File: " + en.getKey().getFile() + "</b></p>");
-			for (Entry<LogEntry, List<String>> info : en.getValue()
-					.getEntries().entrySet()) {
+			Set<Entry<LogEntry, List<String>>> items = en.getValue()
+					.getEntries().entrySet();
+			for (Entry<LogEntry, List<String>> info : items) {
 				String colour;
 				if (info.getValue().size() > 1)
 					colour = "red";
@@ -79,6 +81,13 @@ public class ConfigurationServlet extends HttpServlet {
 				out.println("</pre>");
 				out.println("<p style=\"margin-left:50px;\">" + info.getKey()
 						+ "</p>");
+			}
+			if (en.getValue().getLines().size() > 0) {
+				out.print("<pre style=\"color:" + "red" + ";\">");
+				for (String line : en.getValue().getLines()) {
+					out.println(line);
+				}
+				out.println("</pre>");
 			}
 		}
 		out.println("</html>");

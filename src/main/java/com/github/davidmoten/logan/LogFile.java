@@ -93,9 +93,16 @@ public class LogFile {
 	public static class SampleResult {
 
 		private final LinkedHashMap<LogEntry, List<String>> entries;
+		private final List<String> unparsedLines;
 
-		public SampleResult(LinkedHashMap<LogEntry, List<String>> entries) {
+		public SampleResult(LinkedHashMap<LogEntry, List<String>> entries,
+				List<String> unparsedLines) {
 			this.entries = entries;
+			this.unparsedLines = unparsedLines;
+		}
+
+		public List<String> getUnparsedLines() {
+			return unparsedLines;
 		}
 
 		public LinkedHashMap<LogEntry, List<String>> getEntries() {
@@ -124,7 +131,7 @@ public class LogFile {
 				lineCount++;
 			}
 			br.close();
-			return new SampleResult(entries);
+			return new SampleResult(entries, lines);
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
