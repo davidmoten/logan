@@ -13,7 +13,7 @@ public class LogFileTest {
 	@Test
 	public void testTailingAFilePutsRecordsIntoDatabase()
 			throws InterruptedException {
-		Data data = new Data();
+		Data data = new DataMemory();
 		assertEquals(0, data.getNumEntries());
 		LogFile log = new LogFile(new File("src/test/resources/test.log"),
 				"testing", 300, new LogParser(LogParserOptions.load()),

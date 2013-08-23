@@ -19,6 +19,7 @@ import java.util.regex.Pattern;
 import org.junit.Test;
 
 import com.github.davidmoten.logan.Data;
+import com.github.davidmoten.logan.DataMemory;
 import com.github.davidmoten.logan.LogParser;
 import com.github.davidmoten.logan.config.Configuration;
 import com.github.davidmoten.logan.config.Group;
@@ -46,7 +47,7 @@ public class WatcherTest {
 		configuration.parser = TestingUtil.createDefaultParser();
 		configuration.group.add(new Group(list));
 
-		Data data = new Data();
+		Data data = new DataMemory();
 		Watcher w = new Watcher(data, configuration);
 		w.start();
 		startWritingToFile(TEST_LOG);

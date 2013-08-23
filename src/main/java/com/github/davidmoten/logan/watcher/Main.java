@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
-import com.github.davidmoten.logan.Data;
+import com.github.davidmoten.logan.DataMemory;
 import com.github.davidmoten.logan.config.Configuration;
 
 /**
@@ -29,7 +29,7 @@ public class Main {
 		Configuration configuration = Configuration.getConfiguration();
 		setupLogging();
 
-		Watcher w = new Watcher(new Data(), configuration);
+		Watcher w = new Watcher(new DataMemory(), configuration);
 		log.info("starting watcher");
 		w.start();
 		log.info("started");

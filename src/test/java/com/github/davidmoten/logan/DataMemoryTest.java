@@ -14,13 +14,13 @@ import org.junit.Test;
 import com.google.common.base.Optional;
 import com.google.common.collect.Maps;
 
-public class DataTest {
+public class DataMemoryTest {
 
 	private static final double PRECISION = 0.00001;
 
 	@Test
 	public void testFindWithNoData() {
-		Data d = new Data();
+		Data d = new DataMemory();
 		assertEquals(0, d.getNumEntries());
 		Iterator<LogEntry> it = d.find(0, 200).iterator();
 		assertFalse(it.hasNext());
@@ -28,7 +28,7 @@ public class DataTest {
 
 	@Test
 	public void testFindWithOneEntryBetweenRangeAndNoOtherEntries() {
-		Data d = new Data();
+		Data d = new DataMemory();
 		Map<String, String> map = Maps.newHashMap();
 		map.put("n", "123");
 		d.add(new LogEntry(100L, map));
@@ -41,7 +41,7 @@ public class DataTest {
 
 	@Test
 	public void testFindWithThreeEntriesWhereOneEntryIsBetweenRange() {
-		Data d = new Data();
+		Data d = new DataMemory();
 		Map<String, String> map = Maps.newHashMap();
 		map.put("n", "123");
 		d.add(new LogEntry(-10L, map));
@@ -56,7 +56,7 @@ public class DataTest {
 
 	@Test
 	public void testFindWithNoDataNonAggregated() {
-		Data d = new Data();
+		Data d = new DataMemory();
 		Map<String, String> map = Maps.newHashMap();
 		map.put("n", "123");
 		d.add(new LogEntry(100L, map));
@@ -87,7 +87,7 @@ public class DataTest {
 
 	@Test
 	public void testFindUsingScan() {
-		Data d = new Data();
+		Data d = new DataMemory();
 		Map<String, String> map = Maps.newHashMap();
 		map.put("n", "123");
 		map.put(Field.MSG, "n=123, aborted 5 of 10 attempts");
@@ -103,7 +103,7 @@ public class DataTest {
 
 	@Test
 	public void testScanForDoubleFindsFirstDoubleInMiddleOfString() {
-		Double d = Data.getDouble("hello there 1.3 and 1.5",
+		Double d = DataMemory.getDouble("hello there 1.3 and 1.5",
 				Optional.<Pattern> absent(), 1);
 		assertEquals(1.3, d, PRECISION);
 	}
@@ -112,35 +112,35 @@ public class DataTest {
 	public void testScan() {
 
 		String line = "processing=true,specialNumber=10.264801185812955,specialNumber2=47.90687220218723";
-		Double d = Data.getDouble(line,
+		Double d = DataMemory.getDouble(line,
 				Optional.of(Pattern.compile("(\\s|,|:|\\|;|=)+")), 2);
 		assertEquals(47.90687220218723, d, PRECISION);
 	}
 
 	@Test
 	public void testScanForDoubleFindsFirstDoubleAtStartOfString() {
-		Double d = Data
+		Double d = DataMemory
 				.getDouble("1.3 and 1.5", Optional.<Pattern> absent(), 1);
 		assertEquals(1.3, d, PRECISION);
 	}
 
 	@Test
 	public void testScanForDoubleFindsSecondDoubleInMiddleOfString() {
-		Double d = Data.getDouble("hello there 1.3 and 1.5 boo",
+		Double d = DataMemory.getDouble("hello there 1.3 and 1.5 boo",
 				Optional.<Pattern> absent(), 2);
 		assertEquals(1.5, d, PRECISION);
 	}
 
 	@Test
 	public void testScanForDoubleFindsSecondDoubleAtEndOfString() {
-		Double d = Data.getDouble("hello there 1.3 and 1.5",
+		Double d = DataMemory.getDouble("hello there 1.3 and 1.5",
 				Optional.<Pattern> absent(), 2);
 		assertEquals(1.5, d, PRECISION);
 	}
 	
 	@Test
 	public void testScanForDoubleReturnsNullForThirdDouble() {
-		Double d = Data.getDouble("hello there 1.3 and 1.5",
+		Double d = DataMemory.getDouble("hello there 1.3 and 1.5",
 				Optional.<Pattern> absent(), 3);
 		assertNull(d);
 	}

@@ -8,6 +8,7 @@ import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
 import com.github.davidmoten.logan.Data;
+import com.github.davidmoten.logan.DataMemory;
 import com.github.davidmoten.logan.config.Configuration;
 import com.github.davidmoten.logan.watcher.Watcher;
 
@@ -24,7 +25,7 @@ public class ApplicationServletContextListener implements
 	public void contextInitialized(ServletContextEvent event) {
 		setupLogging();
 		Configuration configuration = Configuration.getConfiguration();
-		Data data = new Data(configuration.maxSize, true);
+		Data data = new DataMemory(configuration.maxSize, true);
 		Watcher w = new Watcher(data, configuration);
 		w.start();
 		State.setInstance(new State(data, configuration, w));
