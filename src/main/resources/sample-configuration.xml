@@ -73,7 +73,7 @@
         <parser>
             <sourcePattern>^[a-zA-Z][^\.]*</sourcePattern>
             <!-- Aug 22 14:36:51 sarcnode sendmail[11872]: [ID 801593 mail.info] r7H5JR0O018125: to=postmaster, delay=4+23:17:23 -->
-	        <pattern>^(\w\w\w (?: |\d)\d \d\d:\d\d:\d\d) (\S+) ([^\[]+)\[(\d+)\]: (.*)$</pattern>
+	        <pattern>^(\w\w\w +\d+ \d\d:\d\d:\d\d) (\S+) ([^\[]+)\[(\d+)\]: (.*)$</pattern>
 	        <patternGroups>logTimestamp,hostname,logLogger,pid,logMsg</patternGroups>
 	        <messagePattern>(\b[a-zA-Z](?:\w| )*)=([^;|,]*)(;|\||,|$)</messagePattern>
 	        <timestampFormat>MMM d HH:mm:ss</timestampFormat>
