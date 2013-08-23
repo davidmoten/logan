@@ -5,7 +5,7 @@
 </head>
 <body>
 	<h3>Create a graph</h3>
-	<form style="font-size: 12px; margin-left: 50px;" action="graph.html"
+	<form style="font-size: 12px; margin-left: 50px;" action="graph"
 		method="get">
 		<p>
 			Title: <input type="text" name="title1" value="Graph"></input>

@@ -75,6 +75,10 @@ The file [src/main/resources/sample-configuration.xml](https://github.com/davidm
 * perl logs
 * solaris syslog
 
+Can I test my configuration?
+==============================
+Yep. Go to http://localhost:8080/
+
 Memory use
 --------------------
 As a rough guide, if 
