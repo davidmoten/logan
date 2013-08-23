@@ -3,8 +3,10 @@ package com.github.davidmoten.logan;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.TimeZone;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
 
 import com.google.common.annotations.VisibleForTesting;
@@ -12,6 +14,7 @@ import com.google.common.base.Function;
 import com.google.common.base.Optional;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
+import com.google.common.collect.Maps;
 
 public class DataCore {
 
@@ -194,4 +197,25 @@ public class DataCore {
 					}
 				});
 	}
+
+	public void addRandomLogEntry(Data data, int range, int n) {
+		for (int i = 1; i <= n; i++)
+			data.add(createRandomLogEntry(range));
+	}
+
+	private static LogEntry createRandomLogEntry(int i) {
+		Map<String, String> map = Maps.newHashMap();
+		String sp1 = Math.random() * 100 + "";
+		map.put("specialNumber", sp1);
+		String sp2 = Math.random() * 50 + "";
+		map.put("specialNumber2", sp2);
+		boolean processing = Math.random() > 0.5;
+		map.put("processing", processing + "");
+		map.put(Field.MSG, "processing=" + processing + ",specialNumber=" + sp1
+				+ ",specialNumber2=" + sp2);
+
+		return new LogEntry(System.currentTimeMillis()
+				- TimeUnit.MINUTES.toMillis(i), map);
+	}
+
 }

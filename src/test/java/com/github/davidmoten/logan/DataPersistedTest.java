@@ -22,13 +22,23 @@ public class DataPersistedTest {
 
 	@Test
 	public void testCreateDatabase() {
-
 		DataPersisted d = createData();
 		Map<String, String> map = Maps.newHashMap();
 		map.put("n", "123");
 		map.put(Field.MSG, "n=123, not finished yet");
 		d.add(new LogEntry(100L, map));
 		assertEquals(1, d.getNumEntries());
+		d.close();
+	}
+
+	@Test
+	public void testInsertMany() {
+		DataPersisted d = createData();
+		Map<String, String> map = Maps.newHashMap();
+		map.put("n", "123");
+		map.put(Field.MSG, "n=123, not finished yet");
+		for (int i = 0; i < 1000; i++)
+			d.add(new LogEntry(100L, map));
 		d.close();
 	}
 

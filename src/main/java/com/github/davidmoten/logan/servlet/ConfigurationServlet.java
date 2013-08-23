@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.github.davidmoten.logan.Data;
+import com.github.davidmoten.logan.DataCore;
 import com.github.davidmoten.logan.DataMemory;
 import com.github.davidmoten.logan.LogEntry;
 import com.github.davidmoten.logan.LogFile;
@@ -52,7 +53,9 @@ public class ConfigurationServlet extends HttpServlet {
 		Configuration configuration = m.unmarshal(PropertyReplacer
 				.replaceSystemProperties(new ByteArrayInputStream(xml
 						.getBytes())));
-		Data data = new DataMemory(configuration.maxSize, true);
+		Data data = new DataMemory(configuration.maxSize);
+		DataCore.Singleton.INSTANCE.instance().addRandomLogEntry(data, 100,
+				1000);
 		FileTailerSampling sampler = FileTailerSampling.Singleton.INSTANCE
 				.instance();
 		Watcher watcher = new Watcher(data, configuration, sampler);
@@ -101,7 +104,9 @@ public class ConfigurationServlet extends HttpServlet {
 		Configuration configuration = m.unmarshal(PropertyReplacer
 				.replaceSystemProperties(new ByteArrayInputStream(xml
 						.getBytes())));
-		Data data = new DataMemory(configuration.maxSize, true);
+		Data data = new DataMemory(configuration.maxSize);
+		DataCore.Singleton.INSTANCE.instance().addRandomLogEntry(data, 100,
+				1000);
 		State.instance().getWatcher().stop();
 
 		Watcher watcher = new Watcher(data, configuration);

@@ -18,6 +18,8 @@ import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.h2.Driver;
+
 import com.google.common.base.Optional;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -38,13 +40,18 @@ public class DataPersisted implements Data {
 
 	public DataPersisted(String url, String username, String password) {
 		try {
+			try {
+				Class.forName(Driver.class.getName());
+			} catch (ClassNotFoundException e) {
+				throw new RuntimeException(e);
+			}
 			connection = DriverManager.getConnection(url, username, password);
 			createDatabase(connection);
 			connection.setAutoCommit(false);
 			stmtInsertEntry = connection
 					.prepareStatement("insert into Entry(entry_id, time,text) values(?,?,?)");
 			stmtInsertProperty = connection
-					.prepareStatement("insert into Property(entry_id,name,numeric_Value,text_Value) values(?,?,?,?)");
+					.prepareStatement("insert into Property(entry_id,name,numeric_Value,text_value) values(?,?,?,?)");
 			stmtCountEntries = connection
 					.prepareStatement("select count(entry_id) from Entry");
 			stmtFind = connection
@@ -82,8 +89,8 @@ public class DataPersisted implements Data {
 						+ ", constraint fk_property_entry_id foreign key (entry_id) references entry(entry_id) "
 						+ ")");
 
-		execute(con,
-				"create index if not exists idx_prop_entry_id_name on property(entry_id,name)");
+		// execute(con,
+		// "create index if not exists idx_prop_entry_id_name on property(entry_id,name)");
 	}
 
 	private static void execute(Connection con, String sql) {

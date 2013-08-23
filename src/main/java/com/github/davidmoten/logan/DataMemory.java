@@ -3,13 +3,11 @@ package com.github.davidmoten.logan;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 import java.util.Map.Entry;
 import java.util.NavigableSet;
 import java.util.SortedMap;
 import java.util.TreeSet;
 import java.util.concurrent.ConcurrentSkipListMap;
-import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.logging.Logger;
 
@@ -17,7 +15,6 @@ import com.google.common.base.Supplier;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.ListMultimap;
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import com.google.common.collect.Multimaps;
 import com.google.common.collect.Sets;
 
@@ -36,10 +33,10 @@ public class DataMemory implements Data {
 	private int numEntries;
 
 	public DataMemory() {
-		this(DEFAULT_MAX_SIZE, false);
+		this(DEFAULT_MAX_SIZE);
 	}
 
-	public DataMemory(int maxSize, boolean loadDummyData) {
+	public DataMemory(int maxSize) {
 		this.maxSize = maxSize;
 		ConcurrentSkipListMap<Long, Collection<LogEntry>> map = new ConcurrentSkipListMap<Long, Collection<LogEntry>>();
 		facade = Multimaps.newListMultimap(map, new Supplier<List<LogEntry>>() {
@@ -48,24 +45,6 @@ public class DataMemory implements Data {
 				return Lists.newArrayList();
 			}
 		});
-		if (loadDummyData)
-			for (int i = 0; i < 10000; i++)
-				add(createRandomLogEntry(i));
-	}
-
-	private static LogEntry createRandomLogEntry(int i) {
-		Map<String, String> map = Maps.newHashMap();
-		String sp1 = Math.random() * 100 + "";
-		map.put("specialNumber", sp1);
-		String sp2 = Math.random() * 50 + "";
-		map.put("specialNumber2", sp2);
-		boolean processing = Math.random() > 0.5;
-		map.put("processing", processing + "");
-		map.put(Field.MSG, "processing=" + processing + ",specialNumber=" + sp1
-				+ ",specialNumber2=" + sp2);
-
-		return new LogEntry(System.currentTimeMillis()
-				- TimeUnit.MINUTES.toMillis(i), map);
 	}
 
 	/*
