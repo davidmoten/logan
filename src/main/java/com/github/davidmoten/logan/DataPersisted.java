@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.NavigableSet;
+import java.util.TreeSet;
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,6 +21,7 @@ import java.util.logging.Logger;
 import com.google.common.base.Optional;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import com.google.common.collect.Sets;
 
 public class DataPersisted implements Data {
 
@@ -28,6 +30,9 @@ public class DataPersisted implements Data {
 	private final PreparedStatement stmtInsertProperty;
 	private final PreparedStatement stmtCountEntries;
 	private PreparedStatement stmtFind;
+	private PreparedStatement stmtKeys;
+	private PreparedStatement stmtSources;
+	private PreparedStatement stmtOldestTime;
 
 	private static Logger log = Logger.getLogger(DataPersisted.class.getName());
 
@@ -44,6 +49,14 @@ public class DataPersisted implements Data {
 					.prepareStatement("select count(entry_id) from Entry");
 			stmtFind = connection
 					.prepareStatement("select p.entry_id, time, name, numeric_value, text_value from property p inner join entry e on p.entry_id=e.entry_id where time between ? and ? order by time");
+			stmtKeys = connection
+					.prepareStatement("select distinct name from property");
+			stmtSources = connection
+					.prepareStatement("select distinct text_value source from property where name='"
+							+ Field.SOURCE + "'");
+			stmtOldestTime = connection
+					.prepareStatement("select min(time) min_time from entry");
+
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
@@ -185,26 +198,55 @@ public class DataPersisted implements Data {
 
 	@Override
 	public long getNumEntriesAdded() {
-		// TODO Auto-generated method stub
-		return 0;
+		return getNumEntries();
 	}
 
 	@Override
 	public NavigableSet<String> getKeys() {
-		// TODO Auto-generated method stub
-		return null;
+		TreeSet<String> set = Sets.newTreeSet();
+		try {
+			ResultSet rs = stmtKeys.executeQuery();
+			while (rs.next()) {
+				set.add(rs.getString("name"));
+			}
+			rs.close();
+			return set;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 	@Override
 	public NavigableSet<String> getSources() {
-		// TODO Auto-generated method stub
-		return null;
+		TreeSet<String> set = Sets.newTreeSet();
+		try {
+			ResultSet rs = stmtSources.executeQuery();
+			while (rs.next()) {
+				set.add(rs.getString("source"));
+			}
+			rs.close();
+			return set;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 	@Override
 	public Date oldestTime() {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			ResultSet rs = stmtOldestTime.executeQuery();
+			rs.next();
+			Timestamp t = rs.getTimestamp("min_time");
+			Date result;
+			if (t == null)
+				result = null;
+			else
+				result = new Date(t.getTime());
+			rs.close();
+			return result;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 	@Override
