@@ -160,6 +160,8 @@ Looking at the patternGroups the first matching group will be identified as the 
 The key-value parts of the logMsg are parsed by the *message pattern* described below.
 
 ###Multiline
+Logan supports one or two line patterns.
+
 The default java.util.logging pattern is a multiline (two line) pattern. Here's an example of a two line log:
 
     23/12/2012 6:58:04 AM org.moten.david.log.core.Database persistDummyRecords
