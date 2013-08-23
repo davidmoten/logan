@@ -77,7 +77,7 @@ The file [src/main/resources/sample-configuration.xml](https://github.com/davidm
 
 Can I test my configuration?
 ==============================
-Yep. Go to http://localhost:8080/
+Yep. Go to http://localhost:8080/admin and hit the Sample button. This will sample the first 20 lines of all matching log files and show what was parsed from them. This will not change the current configuration till you hit the reload button. 
 
 Memory use
 --------------------
