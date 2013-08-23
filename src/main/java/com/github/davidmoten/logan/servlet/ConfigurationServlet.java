@@ -82,9 +82,9 @@ public class ConfigurationServlet extends HttpServlet {
 				out.println("<p style=\"margin-left:50px;\">" + info.getKey()
 						+ "</p>");
 			}
-			if (en.getValue().getLines().size() > 0) {
+			if (en.getValue().getUnparsedLines().size() > 0) {
 				out.print("<pre style=\"color:" + "red" + ";\">");
-				for (String line : en.getValue().getLines()) {
+				for (String line : en.getValue().getUnparsedLines()) {
 					out.println(line);
 				}
 				out.println("</pre>");
