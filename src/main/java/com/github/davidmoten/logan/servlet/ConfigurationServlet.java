@@ -67,12 +67,18 @@ public class ConfigurationServlet extends HttpServlet {
 			out.println("<p><b>File: " + en.getKey().getFile() + "</b></p>");
 			for (Entry<LogEntry, List<String>> info : en.getValue()
 					.getEntries().entrySet()) {
-				out.print("<pre style=\"margin-left:50px;\">");
+				String colour;
+				if (info.getValue().size() > 1)
+					colour = "red";
+				else
+					colour = "green";
+				out.print("<pre style=\"color:" + colour + ";\">");
 				for (String line : info.getValue()) {
 					out.println(line);
 				}
 				out.println("</pre>");
-				out.println(info.getKey());
+				out.println("<p style=\"margin-left:50px;\">" + info.getKey()
+						+ "</p>");
 			}
 		}
 		out.println("</html>");
