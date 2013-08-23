@@ -3,6 +3,7 @@ package com.github.davidmoten.logan;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -136,4 +137,30 @@ public class LogParserTest {
 		System.out.println(entry);
 	}
 
+	@Test
+	public void testParseLineWithSpacePaddedDayFromSyslog() {
+		String line = "Aug  3 03:19:02 sarcnode sendmail[12325]: [ID 801593 mail.info] r72DY20O010335: to=root, delay=03:45:00, xdelay=00:00:00, mailer=relay, pri=1381565, relay=[127.0.0.1] [127.0.0.1], dsn=4.0.0, stat=Deferred: Connection refused by [127.0.0.1]";
+
+		Pattern pattern = Pattern
+				.compile("^(\\w\\w\\w\\s+\\d+ \\d\\d:\\d\\d:\\d\\d) (\\S+) ([^\\[]+)\\[(\\d+)\\]: (.*)$");
+		assertTrue(pattern.matcher(line).matches());
+
+		Pattern messagePattern = Pattern
+				.compile(MessageSplitter.MESSAGE_PATTERN_DEFAULT);
+		String format = "MMM d HH:mm:ss";
+		BiMap<String, Integer> map = HashBiMap.create(5);
+		map.put(Field.TIMESTAMP, 1);
+		map.put("hostname", 2);
+		map.put(Field.LOGGER, 3);
+		map.put("pid", 4);
+		map.put(Field.MSG, 5);
+
+		LogParserOptions options = new LogParserOptions(pattern, map,
+				messagePattern, format, "UTC", false);
+		LogParser p = new LogParser(options);
+		LogEntry entry = p.parse("syslog", line);
+		assertNotNull(entry);
+		System.out.println(entry);
+
+	}
 }
