@@ -8,19 +8,20 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Date;
-import java.util.List;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.NavigableSet;
 import java.util.TreeSet;
 import java.util.UUID;
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.h2.Driver;
 
 import com.google.common.base.Optional;
-import com.google.common.collect.Lists;
+import com.google.common.collect.AbstractIterator;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
@@ -36,6 +37,8 @@ public class DataPersisted implements Data {
 	private PreparedStatement stmtOldestTime;
 	private PreparedStatement stmtInsertPropertyNumeric;
 	private PreparedStatement stmtInsertPropertyText;
+
+	private final AtomicLong counter = new AtomicLong();
 
 	private static Logger log = Logger.getLogger(DataPersisted.class.getName());
 
@@ -138,6 +141,8 @@ public class DataPersisted implements Data {
 				}
 			}
 			connection.commit();
+			if (counter.incrementAndGet() % 10000 == 0)
+				log.info("addedRecords=" + counter.get());
 		} catch (SQLException e) {
 			try {
 				connection.rollback();
@@ -158,39 +163,81 @@ public class DataPersisted implements Data {
 	}
 
 	@Override
-	public Iterable<LogEntry> find(long startTime, long finishTime) {
-		try {
-			stmtFind.setTimestamp(1, new Timestamp(startTime));
-			stmtFind.setTimestamp(2, new Timestamp(finishTime));
-			ResultSet rs = stmtFind.executeQuery();
-			List<LogEntry> list = Lists.newArrayList();
-			Map<String, String> properties = Maps.newHashMap();
-			String currentEntryId = null;
-			Long currentTime = null;
-			while (rs.next()) {
-				String entryId = rs.getString("entry_id");
-				long time = rs.getTimestamp("time").getTime();
-				String name = rs.getString("name");
-				Double number = rs.getDouble("numeric_value");
-				String text = rs.getString("text_value");
-				if (currentEntryId != null && !currentEntryId.equals(entryId)) {
-					list.add(new LogEntry(currentTime, properties));
-					properties = Maps.newHashMap();
-					currentEntryId = entryId;
-					currentTime = time;
+	public Iterable<LogEntry> find(final long startTime, final long finishTime) {
+
+		return new Iterable<LogEntry>() {
+
+			@Override
+			public Iterator<LogEntry> iterator() {
+
+				try {
+					stmtFind.setTimestamp(1, new Timestamp(startTime));
+					stmtFind.setTimestamp(2, new Timestamp(finishTime));
+				} catch (SQLException e) {
+					throw new RuntimeException(e);
 				}
-				properties.put(name, (text == null ? number.toString() : text));
-				currentEntryId = entryId;
-				currentTime = time;
+
+				return new AbstractIterator<LogEntry>() {
+					final ResultSet rs;
+					{
+						try {
+							rs = stmtFind.executeQuery();
+						} catch (SQLException e) {
+							throw new RuntimeException(e);
+						}
+					}
+
+					Map<String, String> properties = Maps.newHashMap();
+					String currentEntryId = null;
+					Long currentTime = null;
+
+					@Override
+					protected LogEntry computeNext() {
+
+						try {
+							if (!rs.isClosed()) {
+								while (rs.next()) {
+									String entryId = rs.getString("entry_id");
+									long time = rs.getTimestamp("time")
+											.getTime();
+									String name = rs.getString("name");
+									Double number = rs
+											.getDouble("numeric_value");
+									String text = rs.getString("text_value");
+									if (currentEntryId != null
+											&& !currentEntryId.equals(entryId)) {
+										LogEntry entry = new LogEntry(
+												currentTime, properties);
+										properties = Maps.newHashMap();
+										currentEntryId = entryId;
+										currentTime = time;
+										return entry;
+									}
+									properties.put(name,
+											(text == null ? number.toString()
+													: text));
+									currentEntryId = entryId;
+									currentTime = time;
+								}
+								if (currentTime != null) {
+									LogEntry entry = new LogEntry(currentTime,
+											properties);
+									rs.close();
+									return entry;
+								} else
+									rs.close();
+							}
+						} catch (SQLException e) {
+							throw new RuntimeException(e);
+						}
+
+						return endOfData();
+					}
+				};
 			}
-			if (currentTime != null) {
-				list.add(new LogEntry(currentTime, properties));
-			}
-			rs.close();
-			return list;
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		}
+
+		};
+
 	}
 
 	@Override

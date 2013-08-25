@@ -91,4 +91,9 @@ public class Util {
 		w.print(value);
 		w.print(']');
 	}
+
+	public static void addDummyData(Data data) {
+		DataCore.Singleton.INSTANCE.instance().addRandomLogEntry(data, 100,
+				1000);
+	}
 }

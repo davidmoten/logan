@@ -14,11 +14,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.github.davidmoten.logan.Data;
-import com.github.davidmoten.logan.DataCore;
 import com.github.davidmoten.logan.DataMemory;
 import com.github.davidmoten.logan.LogEntry;
 import com.github.davidmoten.logan.LogFile;
 import com.github.davidmoten.logan.LogFile.SampleResult;
+import com.github.davidmoten.logan.Util;
 import com.github.davidmoten.logan.config.Configuration;
 import com.github.davidmoten.logan.config.Marshaller;
 import com.github.davidmoten.logan.util.PropertyReplacer;
@@ -54,8 +54,7 @@ public class ConfigurationServlet extends HttpServlet {
 				.replaceSystemProperties(new ByteArrayInputStream(xml
 						.getBytes())));
 		Data data = new DataMemory(configuration.maxSize);
-		DataCore.Singleton.INSTANCE.instance().addRandomLogEntry(data, 100,
-				1000);
+		Util.addDummyData(data);
 		FileTailerSampling sampler = FileTailerSampling.Singleton.INSTANCE
 				.instance();
 		Watcher watcher = new Watcher(data, configuration, sampler);
@@ -105,8 +104,7 @@ public class ConfigurationServlet extends HttpServlet {
 				.replaceSystemProperties(new ByteArrayInputStream(xml
 						.getBytes())));
 		Data data = new DataMemory(configuration.maxSize);
-		DataCore.Singleton.INSTANCE.instance().addRandomLogEntry(data, 100,
-				1000);
+		Util.addDummyData(data);
 		State.instance().getWatcher().stop();
 
 		Watcher watcher = new Watcher(data, configuration);
