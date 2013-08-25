@@ -200,14 +200,14 @@ public class DataCore {
 
 	public void addRandomLogEntry(Data data, int range, int n) {
 		for (int i = 1; i <= n; i++)
-			data.add(createRandomLogEntry(range));
+			data.add(createRandomLogEntry(i, range));
 	}
 
-	private static LogEntry createRandomLogEntry(int i) {
+	private static LogEntry createRandomLogEntry(int i, int range) {
 		Map<String, String> map = Maps.newHashMap();
-		String sp1 = Math.random() * 100 + "";
+		String sp1 = Math.random() * range + "";
 		map.put("specialNumber", sp1);
-		String sp2 = Math.random() * 50 + "";
+		String sp2 = Math.random() * range / 2 + "";
 		map.put("specialNumber2", sp2);
 		boolean processing = Math.random() > 0.5;
 		map.put("processing", processing + "");

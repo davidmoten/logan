@@ -7,7 +7,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.sql.Types;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -29,12 +28,13 @@ public class DataPersisted implements Data {
 
 	private final Connection connection;
 	private final PreparedStatement stmtInsertEntry;
-	private final PreparedStatement stmtInsertProperty;
 	private final PreparedStatement stmtCountEntries;
 	private PreparedStatement stmtFind;
 	private PreparedStatement stmtKeys;
 	private PreparedStatement stmtSources;
 	private PreparedStatement stmtOldestTime;
+	private PreparedStatement stmtInsertPropertyNumeric;
+	private PreparedStatement stmtInsertPropertyText;
 
 	private static Logger log = Logger.getLogger(DataPersisted.class.getName());
 
@@ -50,8 +50,10 @@ public class DataPersisted implements Data {
 			connection.setAutoCommit(false);
 			stmtInsertEntry = connection
 					.prepareStatement("insert into Entry(entry_id, time,text) values(?,?,?)");
-			stmtInsertProperty = connection
-					.prepareStatement("insert into Property(entry_id,name,numeric_Value,text_value) values(?,?,?,?)");
+			stmtInsertPropertyNumeric = connection
+					.prepareStatement("insert into Property(entry_id,name,numeric_Value) values(?,?,?)");
+			stmtInsertPropertyText = connection
+					.prepareStatement("insert into Property(entry_id,name,text_value) values(?,?,?)");
 			stmtCountEntries = connection
 					.prepareStatement("select count(entry_id) from Entry");
 			stmtFind = connection
@@ -102,10 +104,10 @@ public class DataPersisted implements Data {
 	}
 
 	@Override
-	public Data add(LogEntry entry) {
-		log.info("adding " + entry);
+	public synchronized Data add(LogEntry entry) {
 		try {
 			stmtInsertEntry.clearParameters();
+
 			String entryId = UUID.randomUUID().toString();
 			stmtInsertEntry.setString(1, entryId);
 			stmtInsertEntry.setTimestamp(2,
@@ -114,18 +116,21 @@ public class DataPersisted implements Data {
 			stmtInsertEntry.execute();
 			for (Entry<String, String> en : entry.getProperties().entrySet()) {
 				if (en.getValue() != null) {
-					stmtInsertProperty.clearParameters();
-					stmtInsertProperty.setString(1, entryId);
-					stmtInsertProperty.setString(2, en.getKey());
+
 					Optional<Double> d = getDouble(en.getValue());
 					if (d.isPresent()) {
-						stmtInsertProperty.setDouble(3, d.get());
-						stmtInsertProperty.setNull(4, Types.VARCHAR);
+						stmtInsertPropertyNumeric.clearParameters();
+						stmtInsertPropertyNumeric.setString(1, entryId);
+						stmtInsertPropertyNumeric.setString(2, en.getKey());
+						stmtInsertPropertyNumeric.setDouble(3, d.get());
+						stmtInsertPropertyNumeric.execute();
 					} else {
-						stmtInsertProperty.setNull(3, Types.DOUBLE);
-						stmtInsertProperty.setString(4, en.getValue());
+						stmtInsertPropertyText.clearParameters();
+						stmtInsertPropertyText.setString(1, entryId);
+						stmtInsertPropertyText.setString(2, en.getKey());
+						stmtInsertPropertyText.setString(3, en.getValue());
+						stmtInsertPropertyText.execute();
 					}
-					stmtInsertProperty.execute();
 				}
 			}
 			connection.commit();
