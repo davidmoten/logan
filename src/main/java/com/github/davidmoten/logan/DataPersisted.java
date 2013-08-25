@@ -103,7 +103,9 @@ public class DataPersisted implements Data {
 
 	@Override
 	public Data add(LogEntry entry) {
+		log.info("adding " + entry);
 		try {
+			stmtInsertEntry.clearParameters();
 			String entryId = UUID.randomUUID().toString();
 			stmtInsertEntry.setString(1, entryId);
 			stmtInsertEntry.setTimestamp(2,
@@ -111,17 +113,20 @@ public class DataPersisted implements Data {
 			stmtInsertEntry.setString(3, entry.getProperties().get(Field.MSG));
 			stmtInsertEntry.execute();
 			for (Entry<String, String> en : entry.getProperties().entrySet()) {
-				stmtInsertProperty.setString(1, entryId);
-				stmtInsertProperty.setString(2, en.getKey());
-				Optional<Double> d = getDouble(en.getValue());
-				if (d.isPresent()) {
-					stmtInsertProperty.setDouble(3, d.get());
-					stmtInsertProperty.setNull(4, Types.VARCHAR);
-				} else {
-					stmtInsertProperty.setDouble(3, Types.DOUBLE);
-					stmtInsertProperty.setString(4, en.getValue());
+				if (en.getValue() != null) {
+					stmtInsertProperty.clearParameters();
+					stmtInsertProperty.setString(1, entryId);
+					stmtInsertProperty.setString(2, en.getKey());
+					Optional<Double> d = getDouble(en.getValue());
+					if (d.isPresent()) {
+						stmtInsertProperty.setDouble(3, d.get());
+						stmtInsertProperty.setNull(4, Types.VARCHAR);
+					} else {
+						stmtInsertProperty.setNull(3, Types.DOUBLE);
+						stmtInsertProperty.setString(4, en.getValue());
+					}
+					stmtInsertProperty.execute();
 				}
-				stmtInsertProperty.execute();
 			}
 			connection.commit();
 		} catch (SQLException e) {
