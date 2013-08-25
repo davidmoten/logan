@@ -26,6 +26,7 @@ import com.google.common.collect.Sets;
 
 public class DataPersisted implements Data {
 
+	private static final int MAX_VALUE_LENGTH = 1000;
 	private final Connection connection;
 	private final PreparedStatement stmtInsertEntry;
 	private final PreparedStatement stmtCountEntries;
@@ -128,7 +129,10 @@ public class DataPersisted implements Data {
 						stmtInsertPropertyText.clearParameters();
 						stmtInsertPropertyText.setString(1, entryId);
 						stmtInsertPropertyText.setString(2, en.getKey());
-						stmtInsertPropertyText.setString(3, en.getValue());
+						String value = en.getValue();
+						if (value.length() > MAX_VALUE_LENGTH)
+							value = value.substring(0, MAX_VALUE_LENGTH);
+						stmtInsertPropertyText.setString(3, value);
 						stmtInsertPropertyText.execute();
 					}
 				}
