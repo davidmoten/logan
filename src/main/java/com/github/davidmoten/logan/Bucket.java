@@ -131,6 +131,11 @@ public class Bucket {
 		return last;
 	}
 
+	/**
+	 * Returns value corresponding to earliest timestamp.
+	 * 
+	 * @return
+	 */
 	public Double earliest() {
 		return earliest;
 	}
