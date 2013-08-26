@@ -7,9 +7,12 @@ import javax.servlet.http.HttpServletRequest;
 import com.github.davidmoten.logan.Data;
 import com.github.davidmoten.logan.DataMemory;
 import com.github.davidmoten.logan.DataPersisted;
+import com.github.davidmoten.logan.Util;
 import com.github.davidmoten.logan.config.Configuration;
 
 public class ServletUtil {
+
+	private static final int JDBC_BATCH_SIZE = 100;
 
 	public static double getMandatoryDouble(HttpServletRequest req, String name) {
 		if (req.getParameter(name) == null)
@@ -22,16 +25,16 @@ public class ServletUtil {
 						+ " parsing problem", e);
 			}
 	}
-	
-	public static  Data getData(Configuration configuration) {
+
+	public static Data getData(Configuration configuration) {
 		Data data;
 		if ("true".equalsIgnoreCase(System.getProperty("persist")))
-			data = new DataPersisted(new File("target/maindb"),100);
+			data = new DataPersisted(new File("target/maindb"), JDBC_BATCH_SIZE);
 		else
 			data = new DataMemory(configuration.maxSize);
+		Util.addDummyData(data);
 		return data;
 	}
-
 
 	public static long getMandatoryLong(HttpServletRequest req, String name) {
 		if (req.getParameter(name) == null)

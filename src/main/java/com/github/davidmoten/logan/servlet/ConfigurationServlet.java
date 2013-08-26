@@ -104,7 +104,6 @@ public class ConfigurationServlet extends HttpServlet {
 				.replaceSystemProperties(new ByteArrayInputStream(xml
 						.getBytes())));
 		Data data = ServletUtil.getData(configuration);
-		Util.addDummyData(data);
 
 		State.instance().getWatcher().stop();
 		State.instance().getData().close();

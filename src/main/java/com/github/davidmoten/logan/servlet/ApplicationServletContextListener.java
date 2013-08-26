@@ -8,7 +8,6 @@ import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
 import com.github.davidmoten.logan.Data;
-import com.github.davidmoten.logan.Util;
 import com.github.davidmoten.logan.config.Configuration;
 import com.github.davidmoten.logan.watcher.Watcher;
 
@@ -18,7 +17,7 @@ public class ApplicationServletContextListener implements
 
 	@Override
 	public void contextDestroyed(ServletContextEvent event) {
-
+		State.instance().getData().close();
 	}
 
 	@Override
@@ -26,13 +25,11 @@ public class ApplicationServletContextListener implements
 		setupLogging();
 		Configuration configuration = Configuration.getConfiguration();
 		Data data = ServletUtil.getData(configuration);
-		Util.addDummyData(data);
 		Watcher w = new Watcher(data, configuration);
 		w.start();
 		State.setInstance(new State(data, configuration, w));
 	}
 
-	
 	private static void setupLogging() {
 		try {
 			LogManager.getLogManager().readConfiguration(

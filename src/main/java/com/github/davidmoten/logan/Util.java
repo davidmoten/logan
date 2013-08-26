@@ -1,6 +1,7 @@
 package com.github.davidmoten.logan;
 
 import java.io.PrintWriter;
+import java.util.logging.Logger;
 
 /**
  * Utility methods for queries/buckets.
@@ -9,6 +10,8 @@ import java.io.PrintWriter;
  * 
  */
 public class Util {
+
+	private static Logger log = Logger.getLogger(Util.class.getName());
 
 	public static String toJson(Buckets buckets, Metric metric) {
 		StringBuilder s = new StringBuilder();
@@ -98,6 +101,10 @@ public class Util {
 			n = Integer.parseInt(System.getProperty("n"));
 		else
 			n = 1000;
-		DataCore.Singleton.INSTANCE.instance().addRandomLogEntry(data, 100, n);
+		long t = System.currentTimeMillis();
+		DataCore.Singleton.INSTANCE.instance().addRandomLogEntry(data, 1000, n);
+		double ratePerSecond = n * 1000.0 / (System.currentTimeMillis() - t);
+		log.info("added " + n + " records " + ", insertsPerSecond="
+				+ ratePerSecond + "");
 	}
 }
