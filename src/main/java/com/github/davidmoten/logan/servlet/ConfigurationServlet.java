@@ -103,7 +103,7 @@ public class ConfigurationServlet extends HttpServlet {
 		Configuration configuration = m.unmarshal(PropertyReplacer
 				.replaceSystemProperties(new ByteArrayInputStream(xml
 						.getBytes())));
-		Data data = new DataMemory(configuration.maxSize);
+		Data data = ServletUtil.getData(configuration);
 		Util.addDummyData(data);
 
 		State.instance().getWatcher().stop();

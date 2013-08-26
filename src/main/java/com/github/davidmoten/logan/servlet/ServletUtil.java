@@ -1,6 +1,13 @@
 package com.github.davidmoten.logan.servlet;
 
+import java.io.File;
+
 import javax.servlet.http.HttpServletRequest;
+
+import com.github.davidmoten.logan.Data;
+import com.github.davidmoten.logan.DataMemory;
+import com.github.davidmoten.logan.DataPersisted;
+import com.github.davidmoten.logan.config.Configuration;
 
 public class ServletUtil {
 
@@ -15,6 +22,16 @@ public class ServletUtil {
 						+ " parsing problem", e);
 			}
 	}
+	
+	public static  Data getData(Configuration configuration) {
+		Data data;
+		if ("true".equalsIgnoreCase(System.getProperty("persist")))
+			data = new DataPersisted(new File("target/maindb"),100);
+		else
+			data = new DataMemory(configuration.maxSize);
+		return data;
+	}
+
 
 	public static long getMandatoryLong(HttpServletRequest req, String name) {
 		if (req.getParameter(name) == null)

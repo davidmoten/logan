@@ -1,6 +1,5 @@
 package com.github.davidmoten.logan.servlet;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.logging.LogManager;
 
@@ -9,8 +8,6 @@ import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
 import com.github.davidmoten.logan.Data;
-import com.github.davidmoten.logan.DataMemory;
-import com.github.davidmoten.logan.DataPersisted;
 import com.github.davidmoten.logan.Util;
 import com.github.davidmoten.logan.config.Configuration;
 import com.github.davidmoten.logan.watcher.Watcher;
@@ -28,17 +25,14 @@ public class ApplicationServletContextListener implements
 	public void contextInitialized(ServletContextEvent event) {
 		setupLogging();
 		Configuration configuration = Configuration.getConfiguration();
-		Data data;
-		if ("true".equalsIgnoreCase(System.getProperty("persist")))
-			data = new DataPersisted(new File("target/maindb"));
-		else
-			data = new DataMemory(configuration.maxSize);
+		Data data = ServletUtil.getData(configuration);
 		Util.addDummyData(data);
 		Watcher w = new Watcher(data, configuration);
 		w.start();
 		State.setInstance(new State(data, configuration, w));
 	}
 
+	
 	private static void setupLogging() {
 		try {
 			LogManager.getLogManager().readConfiguration(

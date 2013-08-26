@@ -41,10 +41,13 @@ public class DataPersisted implements Data {
 	private final AtomicLong counter = new AtomicLong();
 	private PreparedStatement stmtAddPropertyName;
 	private PreparedStatement stmtAddSourceName;
+	private final int batchSize;
 
 	private static Logger log = Logger.getLogger(DataPersisted.class.getName());
 
-	public DataPersisted(String url, String username, String password) {
+	public DataPersisted(String url, String username, String password,
+			int batchSize) {
+		this.batchSize = batchSize;
 		try {
 			try {
 				Class.forName(Driver.class.getName());
@@ -82,7 +85,11 @@ public class DataPersisted implements Data {
 	}
 
 	public DataPersisted(File file) {
-		this("jdbc:h2:" + file.getAbsolutePath(), "", "");
+		this(file, 1);
+	}
+
+	public DataPersisted(File file, int batchSize) {
+		this("jdbc:h2:" + file.getAbsolutePath(), "", "", batchSize);
 	}
 
 	public static void createDatabase(Connection con) {
@@ -122,31 +129,27 @@ public class DataPersisted implements Data {
 	@Override
 	public synchronized Data add(LogEntry entry) {
 		try {
-			stmtInsertEntry.clearParameters();
-
 			String entryId = UUID.randomUUID().toString();
 			stmtInsertEntry.setString(1, entryId);
 			stmtInsertEntry.setTimestamp(2,
 					new java.sql.Timestamp(entry.getTime()));
 			stmtInsertEntry.setString(3, entry.getProperties().get(Field.MSG));
-			stmtInsertEntry.execute();
+			stmtInsertEntry.addBatch();
 			for (Entry<String, String> en : entry.getProperties().entrySet()) {
 				if (en.getValue() != null) {
 					stmtAddPropertyName.setString(1, en.getKey());
-					stmtAddPropertyName.execute();
+					stmtAddPropertyName.addBatch();
 					if (Field.SOURCE.equals(en.getKey())) {
 						stmtAddSourceName.setString(1, en.getValue());
-						stmtAddSourceName.execute();
+						stmtAddSourceName.addBatch();
 					}
 					Optional<Double> d = getDouble(en.getValue());
 					if (d.isPresent()) {
-						stmtInsertPropertyNumeric.clearParameters();
 						stmtInsertPropertyNumeric.setString(1, entryId);
 						stmtInsertPropertyNumeric.setString(2, en.getKey());
 						stmtInsertPropertyNumeric.setDouble(3, d.get());
 						stmtInsertPropertyNumeric.addBatch();
 					} else {
-						stmtInsertPropertyText.clearParameters();
 						stmtInsertPropertyText.setString(1, entryId);
 						stmtInsertPropertyText.setString(2, en.getKey());
 						String value = en.getValue();
@@ -157,9 +160,14 @@ public class DataPersisted implements Data {
 					}
 				}
 			}
-			stmtInsertPropertyNumeric.executeBatch();
-			stmtInsertPropertyText.executeBatch();
-			connection.commit();
+			if (counter.get() % batchSize == 0) {
+				stmtInsertEntry.executeBatch();
+				stmtAddSourceName.executeBatch();
+				stmtAddPropertyName.executeBatch();
+				stmtInsertPropertyNumeric.executeBatch();
+				stmtInsertPropertyText.executeBatch();
+				connection.commit();
+			}
 			if (counter.incrementAndGet() % 10000 == 0)
 				log.info("addedRecords=" + counter.get());
 		} catch (SQLException e) {
