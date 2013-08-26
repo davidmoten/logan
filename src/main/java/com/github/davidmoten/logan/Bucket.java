@@ -122,6 +122,11 @@ public class Bucket {
 			return sumSquares / count - mean() * mean();
 	}
 
+	/**
+	 * Returns last value entered.
+	 * 
+	 * @return
+	 */
 	public Double last() {
 		return last;
 	}
