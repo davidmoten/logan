@@ -105,7 +105,9 @@ public class ConfigurationServlet extends HttpServlet {
 						.getBytes())));
 		Data data = new DataMemory(configuration.maxSize);
 		Util.addDummyData(data);
+
 		State.instance().getWatcher().stop();
+		State.instance().getData().close();
 
 		Watcher watcher = new Watcher(data, configuration);
 		watcher.start();
