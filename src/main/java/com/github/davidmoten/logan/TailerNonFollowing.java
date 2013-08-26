@@ -9,14 +9,14 @@ import java.io.InputStreamReader;
 
 import org.apache.commons.io.input.TailerListener;
 
-public class MyTailer implements Runnable {
+public class TailerNonFollowing implements Runnable {
 
 	private volatile boolean keepGoing = true;
 	private final File file;
 	private final TailerListener listener;
 	private final int bufferSize;
 
-	public MyTailer(File file, TailerListener listener, int bufferSize) {
+	public TailerNonFollowing(File file, TailerListener listener, int bufferSize) {
 		this.file = file;
 		this.listener = listener;
 		this.bufferSize = bufferSize;
