@@ -73,7 +73,6 @@ public class DataPersisted implements Data {
 					.prepareStatement("select name source from source_name");
 			stmtOldestTime = connection
 					.prepareStatement("select min(time) min_time from entry");
-
 			stmtAddPropertyName = connection
 					.prepareStatement("merge into property_name(name) values(?)");
 			stmtAddSourceName = connection
