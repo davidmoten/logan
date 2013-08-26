@@ -39,6 +39,8 @@ public class DataPersisted implements Data {
 	private PreparedStatement stmtInsertPropertyText;
 
 	private final AtomicLong counter = new AtomicLong();
+	private PreparedStatement stmtAddPropertyName;
+	private PreparedStatement stmtAddSourceName;
 
 	private static Logger log = Logger.getLogger(DataPersisted.class.getName());
 
@@ -63,12 +65,16 @@ public class DataPersisted implements Data {
 			stmtFind = connection
 					.prepareStatement("select p.entry_id, time, name, numeric_value, text_value from property p inner join entry e on p.entry_id=e.entry_id where time between ? and ? order by time");
 			stmtKeys = connection
-					.prepareStatement("select distinct name from property");
+					.prepareStatement("select name from property_name");
 			stmtSources = connection
-					.prepareStatement("select distinct text_value source from property where name='"
-							+ Field.SOURCE + "'");
+					.prepareStatement("select name source from source");
 			stmtOldestTime = connection
 					.prepareStatement("select min(time) min_time from entry");
+
+			stmtAddPropertyName = connection
+					.prepareStatement("merge into property_name(name) values(?)");
+			stmtAddSourceName = connection
+					.prepareStatement("merge into source_name(name) values(?)");
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -95,6 +101,12 @@ public class DataPersisted implements Data {
 						+ ", constraint fk_property_entry_id foreign key (entry_id) references entry(entry_id) "
 						+ ")");
 
+		execute(con,
+				"create table if not exists property_name(name varchar2(255) primary key)");
+
+		execute(con,
+				"create table if not exists source_name(name varchar2(255) primary key)");
+
 		// execute(con,
 		// "create index if not exists idx_prop_entry_id_name on property(entry_id,name)");
 	}
@@ -120,7 +132,12 @@ public class DataPersisted implements Data {
 			stmtInsertEntry.execute();
 			for (Entry<String, String> en : entry.getProperties().entrySet()) {
 				if (en.getValue() != null) {
-
+					stmtAddPropertyName.setString(1, en.getKey());
+					stmtAddPropertyName.execute();
+					if (Field.SOURCE.equals(en.getKey())) {
+						stmtAddSourceName.setString(1, en.getValue());
+						stmtAddSourceName.execute();
+					}
 					Optional<Double> d = getDouble(en.getValue());
 					if (d.isPresent()) {
 						stmtInsertPropertyNumeric.clearParameters();
