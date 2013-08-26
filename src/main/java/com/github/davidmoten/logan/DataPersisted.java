@@ -144,7 +144,7 @@ public class DataPersisted implements Data {
 						stmtInsertPropertyNumeric.setString(1, entryId);
 						stmtInsertPropertyNumeric.setString(2, en.getKey());
 						stmtInsertPropertyNumeric.setDouble(3, d.get());
-						stmtInsertPropertyNumeric.execute();
+						stmtInsertPropertyNumeric.addBatch();
 					} else {
 						stmtInsertPropertyText.clearParameters();
 						stmtInsertPropertyText.setString(1, entryId);
@@ -153,10 +153,12 @@ public class DataPersisted implements Data {
 						if (value.length() > MAX_VALUE_LENGTH)
 							value = value.substring(0, MAX_VALUE_LENGTH);
 						stmtInsertPropertyText.setString(3, value);
-						stmtInsertPropertyText.execute();
+						stmtInsertPropertyText.addBatch();
 					}
 				}
 			}
+			stmtInsertPropertyNumeric.executeBatch();
+			stmtInsertPropertyText.executeBatch();
 			connection.commit();
 			if (counter.incrementAndGet() % 10000 == 0)
 				log.info("addedRecords=" + counter.get());

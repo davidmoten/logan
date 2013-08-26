@@ -93,7 +93,11 @@ public class Util {
 	}
 
 	public static void addDummyData(Data data) {
-		DataCore.Singleton.INSTANCE.instance().addRandomLogEntry(data, 100,
-				1000);
+		int n;
+		if (System.getProperty("n") != null)
+			n = Integer.parseInt(System.getProperty("n"));
+		else
+			n = 1000;
+		DataCore.Singleton.INSTANCE.instance().addRandomLogEntry(data, 100, n);
 	}
 }
