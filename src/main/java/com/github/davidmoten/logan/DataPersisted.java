@@ -67,7 +67,7 @@ public class DataPersisted implements Data {
 			stmtKeys = connection
 					.prepareStatement("select name from property_name");
 			stmtSources = connection
-					.prepareStatement("select name source from source");
+					.prepareStatement("select name source from source_name");
 			stmtOldestTime = connection
 					.prepareStatement("select min(time) min_time from entry");
 
