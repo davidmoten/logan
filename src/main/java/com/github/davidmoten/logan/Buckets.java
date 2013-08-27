@@ -24,10 +24,10 @@ public class Buckets {
 	public Buckets(BucketQuery query) {
 		this.query = query;
 		for (int i = 0; i < query.getNumIntervals(); i++)
-			buckets.add(new Bucket(query.getStartTime().getTime() + i
+			buckets.add(new Bucket(query.getStartTime() + i
 					* query.getIntervalSizeMs(), query.getIntervalSizeMs()));
-		allBucket = new Bucket(query.getStartTime().getTime(),
-				query.getIntervalSizeMs() * query.getNumIntervals());
+		allBucket = new Bucket(query.getStartTime(), query.getIntervalSizeMs()
+				* query.getNumIntervals());
 	}
 
 	/**
@@ -39,8 +39,8 @@ public class Buckets {
 	 */
 	public void add(long timestamp, double value) {
 		if (query.performAggregation()) {
-			int bucketIndex = (int) ((timestamp - query.getStartTime()
-					.getTime()) / query.getIntervalSizeMs());
+			int bucketIndex = (int) ((timestamp - query.getStartTime()) / query
+					.getIntervalSizeMs());
 			if (bucketIndex < buckets.size()) {
 				buckets.get(bucketIndex).add(timestamp, value);
 				allBucket.add(timestamp, value);
