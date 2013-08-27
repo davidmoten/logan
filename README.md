@@ -1,10 +1,14 @@
 logan
 =====
-Web application project for analysing logs using time-series analysis. Loaded data kept in memory. Server side is java, client side is JQuery javascript.
+Web application project for analysing logs using time-series analysis. Loaded data kept in memory (h2 persistence option available but is pretty slow compared to in memory). Server side is java, client side is JQuery javascript.
+
+
+Configure to load and tail local files then start a local jetty web server to serve interactive graphs (charts in US speak).
+
 
 This project was created to perform log-analysis selectively and locally only without the headache and cost (sometimes worth it) of setting up a distributed log gathering system like Splunk. All data is loaded into memory and when more log lines are read than is memory available then the eldest lines are trimmed. Queries are fast (1 second refresh time for many graphs that involve 1 million records).
 
-Configure to load and tail local files then start a local jetty web server to serve interactive graphs (charts in US speak).
+Ideal for ad-hoc investigations. Edit the configuration on the admin page to narrow your investigation (maximizing history in the area you are interested in) and hit the reload button. Then view graphs generated lightning fast.
 
 Status: pre-alpha
 
