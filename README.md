@@ -8,7 +8,7 @@ This project was created to perform log-analysis selectively and locally only wi
 
 Ideal for ad-hoc investigations. Edit the configuration on the admin page to narrow your investigation (maximizing history in the area you are interested in) and hit the reload button. Then view graphs generated lightning fast.
 
-Status: pre-alpha
+Status: alpha
 
 Non-aggregated:
 <img src="https://raw.github.com/davidmoten/logan/master/docs/screen1.png"/>
