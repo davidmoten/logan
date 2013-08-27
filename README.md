@@ -2,9 +2,7 @@ logan
 =====
 Web application project for analysing logs using time-series analysis. Loaded data kept in memory (h2 persistence option available but is pretty slow compared to in memory). Server side is java, client side is JQuery javascript.
 
-
 Configure to load and tail local files then start a local jetty web server to serve interactive graphs (charts in US speak).
-
 
 This project was created to perform log-analysis selectively and locally only without the headache and cost (sometimes worth it) of setting up a distributed log gathering system like Splunk. All data is loaded into memory and when more log lines are read than is memory available then the eldest lines are trimmed. Queries are fast (1 second refresh time for many graphs that involve 1 million records).
 
@@ -21,13 +19,17 @@ Continuous integration with Jenkins for this project is [here](https://xuml-tool
 
 Features
 ---------------
+* in-memory database
 * pattern based log parsing
 * fast parsing and query
 * simplified datetime input (last day,last hour etc)
 * parses single line and two line logging (e.g. java.util.Logging)
 * tails log files, handles rollover, deletion (using [Apache commons-io Tailer](http://commons.apache.org/io/apidocs/org/apache/commons/io/input/Tailer.html))
 * aggregated or non-aggregated graphs
-* single field queries currently
+* search by field (key=value patterns in the log lines)
+* search by source
+* search by text fragment
+* extract nth decimal number from line
 * zoom in/out and pan
 * multiple graphs to a page defined by url parameters
 * click on data points shows logs around that time (+/-5min)
