@@ -109,9 +109,4 @@ public class WatcherTest {
 		}
 		System.out.println(calendar.getTime());
 	}
-
-	private Object SimpleDateFormat(String string) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }
