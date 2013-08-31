@@ -6,7 +6,6 @@ import static com.github.davidmoten.logan.servlet.ServletUtil.getMandatoryParame
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Date;
 import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
@@ -66,10 +65,9 @@ public class DataServlet extends HttpServlet {
 			String text, Integer scan, long startTime, double interval,
 			long numBuckets, Metric metric, PrintWriter writer,
 			String scanDelimiterPattern) {
-		BucketQuery q = new BucketQuery(new Date(startTime), interval,
-				numBuckets, Optional.fromNullable(field),
-				Optional.fromNullable(source), Optional.fromNullable(text),
-				Optional.fromNullable(scan),
+		BucketQuery q = new BucketQuery(startTime, interval, numBuckets,
+				Optional.fromNullable(field), Optional.fromNullable(source),
+				Optional.fromNullable(text), Optional.fromNullable(scan),
 				Optional.<String> fromNullable(scanDelimiterPattern));
 		Buckets buckets = data.execute(q);
 		log.info("building json");

@@ -32,7 +32,7 @@ public class DataCore {
 
 	public Buckets execute(Data data, BucketQuery query) {
 		// get the time range of entries
-		Iterable<LogEntry> entries = data.find(query.getStartTime().getTime(),
+		Iterable<LogEntry> entries = data.find(query.getStartTime(),
 				query.getFinishTime());
 
 		// filter by field, source, text

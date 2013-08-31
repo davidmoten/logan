@@ -90,10 +90,9 @@ public class DataMemoryTest {
 		map.put("n", "123");
 		map.put(Field.MSG, "n=123, aborted 5 of 10 attempts");
 		d.add(new LogEntry(100L, map));
-		BucketQuery q = new BucketQuery(new java.util.Date(0), 101, 0,
+		BucketQuery q = new BucketQuery(0, 101, 0, Optional.<String> absent(),
 				Optional.<String> absent(), Optional.<String> absent(),
-				Optional.<String> absent(), Optional.of(3),
-				Optional.of("(\\s|=|,)+"));
+				Optional.of(3), Optional.of("(\\s|=|,)+"));
 		Buckets buckets = d.execute(q);
 		assertEquals(1, buckets.getBuckets().size());
 		assertEquals(10.0, buckets.getBucketForAll().sum(), PRECISION);

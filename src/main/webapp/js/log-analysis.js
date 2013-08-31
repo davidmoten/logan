@@ -255,6 +255,13 @@ function endsWith(str, suffix) {
 	return str.indexOf(suffix, str.length - suffix.length) !== -1;
 }
 
+function submitOnEnter(graphId) {
+	return function(e) {
+	    if (e.keyCode==13)
+		    $("#update" + graphId).click();
+	};
+}
+
 function addGraph(main, graphId) {
 	var field = getURLParameter("field" + graphId);
 	if (field == "null")
@@ -273,7 +280,7 @@ function addGraph(main, graphId) {
 		$("#edit"+graphId).toggle();
 	});
 	$("#edit"+graphId).hide();
-
+	
 	// parse parameters from the url
 	var now = new Date().getTime();
 	var tablename = getURLParameter("table");
@@ -386,6 +393,15 @@ function addGraph(main, graphId) {
 	});
 	loadKeys(graphId);
 	loadSources(graphId);
+	$("#buckets"+ graphId).keyup(submitOnEnter(graphId));
+	$("#interval"+ graphId).keyup(submitOnEnter(graphId));
+	$("#finish"+ graphId).keyup(submitOnEnter(graphId));
+	$("#field"+ graphId).keyup(submitOnEnter(graphId));
+	$("#metric"+ graphId).keyup(submitOnEnter(graphId));
+	$("#extraMetric"+ graphId).keyup(submitOnEnter(graphId));
+	$("#source"+ graphId).keyup(submitOnEnter(graphId));
+	$("#text"+ graphId).keyup(submitOnEnter(graphId));
+	$("#scan"+ graphId).keyup(submitOnEnter(graphId));
    
 	// draw the graphs
 	drawGraph(field, tablename, buckets, interval, startTime, metric,

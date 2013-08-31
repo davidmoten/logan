@@ -31,7 +31,6 @@ public class DataPersisted implements Data {
 	private final Connection connection;
 	private final PreparedStatement stmtInsertEntry;
 	private final PreparedStatement stmtCountEntries;
-	private PreparedStatement stmtFind;
 	private PreparedStatement stmtKeys;
 	private PreparedStatement stmtSources;
 	private PreparedStatement stmtOldestTime;
@@ -65,15 +64,12 @@ public class DataPersisted implements Data {
 					.prepareStatement("insert into Property(entry_id,name,text_value) values(?,?,?)");
 			stmtCountEntries = connection
 					.prepareStatement("select count(entry_id) from Entry");
-			stmtFind = connection
-					.prepareStatement("select p.entry_id, time, name, numeric_value, text_value from property p inner join entry e on p.entry_id=e.entry_id where time between ? and ? order by time");
 			stmtKeys = connection
 					.prepareStatement("select name from property_name");
 			stmtSources = connection
 					.prepareStatement("select name source from source_name");
 			stmtOldestTime = connection
 					.prepareStatement("select min(time) min_time from entry");
-
 			stmtAddPropertyName = connection
 					.prepareStatement("merge into property_name(name) values(?)");
 			stmtAddSourceName = connection
@@ -197,17 +193,22 @@ public class DataPersisted implements Data {
 			@Override
 			public Iterator<LogEntry> iterator() {
 
-				try {
-					stmtFind.setTimestamp(1, new Timestamp(startTime));
-					stmtFind.setTimestamp(2, new Timestamp(finishTime));
-				} catch (SQLException e) {
-					throw new RuntimeException(e);
-				}
+				return createIterator(startTime, finishTime);
+			}
+
+			private Iterator<LogEntry> createIterator(final long startTime,
+					final long finishTime) {
 
 				return new AbstractIterator<LogEntry>() {
+					final PreparedStatement stmtFind;
 					final ResultSet rs;
 					{
 						try {
+							stmtFind = connection
+									.prepareStatement("select p.entry_id, time, name, numeric_value, text_value from property p inner join entry e on p.entry_id=e.entry_id where time between ? and ? order by time");
+
+							stmtFind.setTimestamp(1, new Timestamp(startTime));
+							stmtFind.setTimestamp(2, new Timestamp(finishTime));
 							rs = stmtFind.executeQuery();
 						} catch (SQLException e) {
 							throw new RuntimeException(e);
@@ -250,9 +251,12 @@ public class DataPersisted implements Data {
 									LogEntry entry = new LogEntry(currentTime,
 											properties);
 									rs.close();
+									stmtFind.close();
 									return entry;
-								} else
+								} else {
 									rs.close();
+									stmtFind.close();
+								}
 							}
 						} catch (SQLException e) {
 							throw new RuntimeException(e);

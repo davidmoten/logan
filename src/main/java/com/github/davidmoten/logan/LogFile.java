@@ -83,7 +83,7 @@ public class LogFile {
 					BUFFER_SIZE);
 
 		else
-			tailer = new MyTailer(file, listener, BUFFER_SIZE);
+			tailer = new TailerNonFollowing(file, listener, BUFFER_SIZE);
 
 		// start in separate thread
 		log.info("starting tailer thread");
@@ -144,8 +144,8 @@ public class LogFile {
 		if (tailer != null)
 			if (tailer instanceof Tailer)
 				((Tailer) tailer).stop();
-			else if (tailer instanceof MyTailer)
-				((MyTailer) tailer).stop();
+			else if (tailer instanceof TailerNonFollowing)
+				((TailerNonFollowing) tailer).stop();
 	}
 
 	private TailerListener createListener(final Data data) {
