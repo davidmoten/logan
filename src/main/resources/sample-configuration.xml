@@ -68,7 +68,7 @@
             <path>/aus${mode}/registrar/logs/2.*</path>
         </log>
 	</group>
-	<group>
+	<group enabled="false">
         <!--  this group is for solaris syslog -->
         <parser>
             <sourcePattern>^[a-zA-Z][^\.]*</sourcePattern>
