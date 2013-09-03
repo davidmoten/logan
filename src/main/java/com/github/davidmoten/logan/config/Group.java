@@ -2,6 +2,7 @@ package com.github.davidmoten.logan.config;
 
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 
 import com.google.common.collect.Lists;
@@ -13,6 +14,9 @@ import com.google.common.collect.Lists;
  * 
  */
 public class Group {
+
+	@XmlAttribute(required = false)
+	public boolean enabled = true;
 
 	@XmlElement(required = false)
 	public Parser parser;

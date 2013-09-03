@@ -81,14 +81,15 @@ public class Watcher {
 
 		int tailers = 0;
 		for (Group group : configuration.group) {
-			for (Log lg : group.log) {
-				List<File> files = Util
-						.getFilesFromPathWithRegexFilename(lg.path);
-				if (lg.watch)
-					tailers += files.size();
-				if (lg.watchLatest)
-					tailers += 1;
-			}
+			if (group.enabled)
+				for (Log lg : group.log) {
+					List<File> files = Util
+							.getFilesFromPathWithRegexFilename(lg.path);
+					if (lg.watch)
+						tailers += files.size();
+					if (lg.watchLatest)
+						tailers += 1;
+				}
 		}
 		return tailers;
 	}
@@ -110,32 +111,33 @@ public class Watcher {
 	public void start() {
 		log.info("starting watcher");
 		List<LogFileInfo> list = Lists.newArrayList();
-		for (Group group : configuration.group) {
-			log.info("starting group " + group);
-			for (Log lg : group.log) {
-				for (File file : Util
-						.getFilesFromPathWithRegexFilename(lg.path)) {
-					LogParserOptions options = LogParserOptions.load(
-							configuration.parser, group);
-					String source;
-					if (lg.source == null
-							&& configuration.parser.sourcePattern != null)
-						source = extractSource(
-								configuration.parser.sourcePattern,
-								file.getName());
-					else
-						source = lg.source;
-					if (source == null)
-						throw new RuntimeException(
-								"source not specified or could not be extracted using sourcePattern for log:"
-										+ lg);
-					LogFile logFile = new LogFile(file, source,
-							DELAY_BETWEEN_CHECKS_FOR_NEW_CONTENT_MS,
-							new LogParser(options), executor);
-					list.add(new LogFileInfo(logFile, lg));
+		for (Group group : configuration.group)
+			if (group.enabled) {
+				log.info("starting group " + group);
+				for (Log lg : group.log) {
+					for (File file : Util
+							.getFilesFromPathWithRegexFilename(lg.path)) {
+						LogParserOptions options = LogParserOptions.load(
+								configuration.parser, group);
+						String source;
+						if (lg.source == null
+								&& configuration.parser.sourcePattern != null)
+							source = extractSource(
+									configuration.parser.sourcePattern,
+									file.getName());
+						else
+							source = lg.source;
+						if (source == null)
+							throw new RuntimeException(
+									"source not specified or could not be extracted using sourcePattern for log:"
+											+ lg);
+						LogFile logFile = new LogFile(file, source,
+								DELAY_BETWEEN_CHECKS_FOR_NEW_CONTENT_MS,
+								new LogParser(options), executor);
+						list.add(new LogFileInfo(logFile, lg));
+					}
 				}
 			}
-		}
 
 		// tail oldest files first so that we are less likely to trim recent
 		// records using Data.maxSize
