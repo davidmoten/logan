@@ -42,14 +42,14 @@
 		<!--  default for any log matching the path is to be completely scanned and then tailed -->		
 		<log>
 			<!--  path uses ant-style wildcards for the base and regex matching for the filename -->
-			<path>${log.base}/**/cts.log</path>
+			<path>/aus$mode/container/logs/**/cts.log</path>
 		</log>
 		<!--  don't want to watch rolled over logs, they are scanned then closed -->
 		<log watch="false">
-			<path>${log.base}/**/cts.log.2.*</path>
+			<path>/aus$mode/container/logs/**/cts.log.2.*</path>
 		</log>
 	</group>
-	<group>
+	<group enabled="false">
 		<!--  this group is for some perl logs and thus has its own parser -->
 		<parser>
             <!--  2013/08/22:04.41.00:/usr/local/aussar/prod/bin/inwardsRouter.pl:20039:DOCKET:RX:m1440580.000:email:Position report for mvquest:b1440581.000 -->
