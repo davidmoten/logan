@@ -1,5 +1,5 @@
 //
-// log-analysis javascript library supporting log-ui component.
+// log-analysis javascript library supporting logan project.
 //
 // Author: Dave Moten Dec 2012.
 //
@@ -382,13 +382,12 @@ function addGraph(main, graphId) {
 		url = updateURLParameter(url,'buckets',$("#buckets"+ graphId).val());
 		url = updateURLParameter(url,'interval',$("#interval"+ graphId).val());
 		url = updateURLParameter(url,'finish',$("#finish"+ graphId).val());
-		url = updateURLParameter(url,'field'+graphId,$("#field"+ graphId).val());
 		url = updateURLParameter(url,'metric',$("#metric"+ graphId).val());
 		url = updateURLParameter(url,'extraMetric',$("#extraMetric"+ graphId).val());
-		url = updateURLParameter(url,'source'+graphId,$("#source"+ graphId).val());
 		url = updateURLParameter(url,'text',$("#text"+ graphId).val());
 		url = updateURLParameter(url,'scan',$("#scan"+ graphId).val());
-			
+		url = updateURLParameter(url,'field'+graphId,$("#field"+ graphId).val());
+		url = updateURLParameter(url,'source'+graphId,$("#source"+ graphId).val());	
 		window.location.href=url;
 	});
 	loadKeys(graphId);
