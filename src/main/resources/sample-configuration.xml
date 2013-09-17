@@ -42,11 +42,11 @@
 		<!--  default for any log matching the path is to be completely scanned and then tailed -->		
 		<log>
 			<!--  path uses ant-style wildcards for the base and regex matching for the filename -->
-			<path>/aus${mode}/container/logs/**/cts.log</path>
+			<path>/aus${mode}/container/logs/**/(cts)|(miscellaneous).log</path>
 		</log>
 		<!--  don't want to watch rolled over logs, they are scanned then closed -->
 		<log watch="false">
-			<path>/aus${mode}/container/logs/**/cts.log.2.*</path>
+			<path>/aus${mode}/container/logs/**/(cts)|(miscellaneous).log.2.*</path>
 		</log>
 	</group>
 	<group enabled="false">
