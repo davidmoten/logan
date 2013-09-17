@@ -264,8 +264,18 @@ function submitOnEnter(graphId) {
 
 function addGraph(main, graphId) {
 	var field = getURLParameter("field" + graphId);
-	if (field == "null")
-		return;
+	if (field == "null") {
+	    var s = getURLParameter("fields");
+	    if (s == "null") 
+	        return;
+	    else {
+	        var fields = s.split(",");
+	        if (graphId <= fields.length)
+	            field = fields[graphId-1];
+	        else 
+	            return;
+	    }
+	}
 
 	main.append('<div class="graphParent"><div id="title' + graphId
 			+ '" class="graphTitle"></div><div id="edit' + graphId + '"></div><div id="graph' + graphId
