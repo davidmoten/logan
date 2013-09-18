@@ -13,8 +13,10 @@
 <script src="js/jquery-ui/jquery-ui.js"></script>
 </head>
 <body>
+	
 	<div id="title" class="title"></div>
 	<div id="main"></div>
+	<p><a href="/">Home</a></p>
 	<script type="text/javascript">
 		setTitle($("#title"));
 
