@@ -2,6 +2,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>log-analysis</title>
+<link rel="shortcut icon" href="/images/favicon.png" type="image/png">
 <link href="layout.css" rel="stylesheet" type="text/css">
 <!--[if lte IE 8]><script language="javascript" type="text/javascript" src="../excanvas.min.js"></script><![endif]-->
 <script type="text/javascript" src="js/flot/jquery.js"></script>
