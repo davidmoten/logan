@@ -263,19 +263,18 @@ function submitOnEnter(graphId) {
 }
 
 function addGraph(main, graphId) {
-	var field = getURLParameter("field" + graphId);
-	if (field == "null") {
-	    var s = getURLParameter("fields");
-	    if (s == "null") 
-	        return;
-	    else {
-	        var fields = s.split(",");
-	        if (graphId <= fields.length)
-	            field = fields[graphId-1];
-	        else 
-	            return;
-	    }
-	}
+	var field;
+	var fields;
+    var s = getURLParameter("fields");
+    if (s == "null") 
+        return;
+    else {
+        fields = s.split(",");
+        if (graphId <= fields.length)
+            field = fields[graphId-1];
+        else 
+            return;
+    }
 
 	main.append('<div class="graphParent"><div id="title' + graphId
 			+ '" class="graphTitle"></div><div id="edit' + graphId + '"></div><div id="graph' + graphId
@@ -382,6 +381,8 @@ function addGraph(main, graphId) {
     Text: <input type="text" id="text'+ graphId+'" style="width:8em" value="'+findString+'"></input>&nbsp; \
 	Scan: <input type="text" id="scan'+graphId+'" style="width:2em" value="'+scanString+'"></input>&nbsp; \
 	<input type="submit" value="Update" style="margin-left:20px" id="update'+graphId+'"></input> \
+	<input type="submit" value="Add" style="margin-left:20px" id="add'+graphId+'"></input> \
+	<input type="submit" value="Remove" style="margin-left:20px" id="delete'+graphId+'"></input> \
 	</div>';
 	
 	$("#edit" + graphId).html(h);
@@ -396,11 +397,32 @@ function addGraph(main, graphId) {
 		url = updateURLParameter(url,'extraMetric',$("#extraMetric"+ graphId).val());
 		url = updateURLParameter(url,'text',$("#text"+ graphId).val());
 		url = updateURLParameter(url,'scan',$("#scan"+ graphId).val());
-		url = updateURLParameter(url,'field'+graphId,$("#field"+ graphId).val());
+		fields[graphId-1]=$("#field"+ graphId).val();
+		url = updateURLParameter(url,'fields', concatenateFields(fields));
 		url = updateURLParameter(url,'source'+graphId,$("#source"+ graphId).val());	
 		window.location.href=url;
 	});
-	loadKeys(graphId);
+	$("#add"+graphId).click(function() {
+		var url = window.location.href;
+		url = updateURLParameter(url,'buckets',$("#buckets"+ graphId).val());
+		url = updateURLParameter(url,'interval',$("#interval"+ graphId).val());
+		url = updateURLParameter(url,'finish',$("#finish"+ graphId).val());
+		url = updateURLParameter(url,'metric',$("#metric"+ graphId).val());
+		url = updateURLParameter(url,'extraMetric',$("#extraMetric"+ graphId).val());
+		url = updateURLParameter(url,'text',$("#text"+ graphId).val());
+		url = updateURLParameter(url,'scan',$("#scan"+ graphId).val());
+		fields.push($("#field"+ graphId).val());
+		url = updateURLParameter(url,'fields',concatenateFields(fields));
+		url = updateURLParameter(url,'source'+graphId,$("#source"+ graphId).val());	
+		window.location.href=url;
+	});
+	$("#delete"+graphId).click(function() {
+		var url = window.location.href;
+		fields.splice(graphId-1,1);
+		url = updateURLParameter(url,'fields',concatenateFields(fields));
+		window.location.href=url;
+	});
+	loadKeys(graphId,fields);
 	loadSources(graphId);
 	$("#buckets"+ graphId).keyup(submitOnEnter(graphId));
 	$("#interval"+ graphId).keyup(submitOnEnter(graphId));
@@ -418,18 +440,27 @@ function addGraph(main, graphId) {
 			source, scan, $("#sql" + graphId));
 }
 
+function concatenateFields(fields) {
+    var s = "";
+	for (var i=0;i<fields.length;i++) { 
+	    if (s.length>0) s += ",";
+	    s+= fields[i];
+	}
+	return s;
+}
+
 function getURLParameter(name) {
 	return decodeURIComponent((RegExp(name + '=' + '([^&]*)(&|$)').exec(
 			location.search) || [ , null ])[1]);
 }
 
-function loadKeys(graphId) {
+function loadKeys(graphId,fields) {
 	$.ajax({
 	      type: "GET",
 	      url: "keys",
 	      dataType: "json",
 	      success: function(data, textStatus, error){
-	           receivedKeys(data,graphId);
+	           receivedKeys(data,graphId,fields);
 	      }
 	    });
 }
@@ -445,7 +476,7 @@ function loadSources(graphId) {
 	    });
 }
 
-function receivedKeys(data, graphId) {
+function receivedKeys(data, graphId,fields) {
     console.log("received " + data + " for " + graphId);
     var fld = $("#field"+ graphId);
 	fld.append(
@@ -455,7 +486,7 @@ function receivedKeys(data, graphId) {
 		fld.append(
 				"<option value='"+ key + "'>" + key + "</option>");
 	}
-	fld.val(getURLParameter("field"+ graphId));
+	fld.val(fields[graphId-1]);
 }
 			
 function receivedSources(data,graphId) {

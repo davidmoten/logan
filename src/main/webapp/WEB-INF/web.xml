@@ -51,11 +51,6 @@
 		<jsp-file>/create.jsp</jsp-file>
 	</servlet>
 
-	<servlet-mapping>
-		<servlet-name>Create</servlet-name>
-		<url-pattern>/create</url-pattern>
-	</servlet-mapping>
-
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>
 		<welcome-file>index.html</welcome-file>

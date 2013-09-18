@@ -3,22 +3,22 @@
 
 <p>One graph to a page:</p>
 <ul>
-<li><a href="graph?title1=Records%20by%20day&finish=now&buckets=24&interval=1d&metric=COUNT&extraMetric=MAX&field1=*&source1=*&text=&width=1000px&height=500px">Record counts by day</a></li>
-<li><a href="graph?title1=Errors%20by%20day&finish=now&buckets=24&interval=1d&metric=COUNT&extraMetric=MAX&field1=*&source1=*&text=ERROR&width=1000px&height=500px">Error counts by day</a></li>
-<li><a href="graph?title1=Warnings%20by%20day&finish=now&buckets=24&interval=1d&metric=COUNT&extraMetric=MAX&field1=*&source1=*&text=WARN&width=1000px&height=500px">Warning counts by day</a></li>
-<li><a href="graph?width=1000px&height=500px&buckets=14&interval=1d&finish=now&field1=persisting%20fixes&metric=SUM&extraMetric=MAX&source1=*&text=&scan=">Fixes into cts by day</a></li>
-<li><a href="graph?buckets=0&finish=now&interval=1d&metric=MAX&extraMetric=MAX&field1=fixes%20arrived%20from%20FIS&width=1000px&height=500px">Last day, fixesArrivedFromFIS</a></li>
-<li><a href="graph?buckets=24&finish=now&interval=1h&metric=MAX&extraMetric=MAX&field1=fixes%20arrived%20from%20FIS&width=1000px&height=500px">Last day, fixesArrivedFromFIS by hour</a></li>
-<li><a href="graph?buckets=0&finish=now&interval=1d&metric=MAX&extraMetric=MAX&field1=fixes%20arrived%20from%20AIS&width=1000px&height=500px">Last day, fixesArrivedFromAIS</a></li>
-<li><a href="graph?buckets=0&finish=now&interval=1d&metric=MAX&extraMetric=MAX&field1=rateMsgPerSecond&width=1000px&height=500px">Last day, rate msgs/second persisted to CTS</a></li>
-<li><a href="graph?buckets=0&finish=now&interval=1d&metric=MAX&extraMetric=MAX&field1=elapsedTimeSeconds&width=1000px&height=500px">Last day, CTS craftpic preparal time</a></li>
-<li><a href="graph?buckets=0&finish=now&interval=1d&metric=MAX&extraMetric=MAX&field1=fixes%20queue%20size&width=1000px&height=500px">Last day, CTS actor queue size</a></li>
+<li><a href="graph?title1=Records%20by%20day&finish=now&buckets=24&interval=1d&metric=COUNT&extraMetric=MAX&fields=*&source1=*&text=&width=1000px&height=500px">Record counts by day</a></li>
+<li><a href="graph?title1=Errors%20by%20day&finish=now&buckets=24&interval=1d&metric=COUNT&extraMetric=MAX&fields=*&source1=*&text=ERROR&width=1000px&height=500px">Error counts by day</a></li>
+<li><a href="graph?title1=Warnings%20by%20day&finish=now&buckets=24&interval=1d&metric=COUNT&extraMetric=MAX&fields=*&source1=*&text=WARN&width=1000px&height=500px">Warning counts by day</a></li>
+<li><a href="graph?width=1000px&height=500px&buckets=14&interval=1d&finish=now&fields=persisting%20fixes&metric=SUM&extraMetric=MAX&source1=*&text=&scan=">Fixes into cts by day</a></li>
+<li><a href="graph?buckets=0&finish=now&interval=1d&metric=MAX&extraMetric=MAX&fields=fixes%20arrived%20from%20FIS&width=1000px&height=500px">Last day, fixesArrivedFromFIS</a></li>
+<li><a href="graph?buckets=24&finish=now&interval=1h&metric=MAX&extraMetric=MAX&fields=fixes%20arrived%20from%20FIS&width=1000px&height=500px">Last day, fixesArrivedFromFIS by hour</a></li>
+<li><a href="graph?buckets=0&finish=now&interval=1d&metric=MAX&extraMetric=MAX&fields=fixes%20arrived%20from%20AIS&width=1000px&height=500px">Last day, fixesArrivedFromAIS</a></li>
+<li><a href="graph?buckets=0&finish=now&interval=1d&metric=MAX&extraMetric=MAX&fields=rateMsgPerSecond&width=1000px&height=500px">Last day, rate msgs/second persisted to CTS</a></li>
+<li><a href="graph?buckets=0&finish=now&interval=1d&metric=MAX&extraMetric=MAX&fields=elapsedTimeSeconds&width=1000px&height=500px">Last day, CTS craftpic preparal time</a></li>
+<li><a href="graph?buckets=0&finish=now&interval=1d&metric=MAX&extraMetric=MAX&fields=fixes%20queue%20size&width=1000px&height=500px">Last day, CTS actor queue size</a></li>
 </ul>
 
 <p>Many graphs to a page</p>
 <ul>
-<li><a href="graph?buckets=0&finish=now&interval=4d&metric=MAX&extraMetric=MAX&field1=elapsedTimeSeconds&field2=rateMsgPerSecond&field6=fixes%20arrived%20from%20FIS&field4=fixes%20arrived%20from%20AIS&field5=fixes%20arrived%20from%20SPIDERTRACKS&field3=fixes%20queue%20size&field7=fixes%20arrived%20from%20DAESTRA&field8=fixes%20arrived%20from%20COMNAP&field9=fixes%20arrived%20from%20IAATO&field10=fixes%20arrived%20from%20LRIT&field11=fixes%20arrived%20from%20QFS&field12=fixes%20arrived%20from%20QFS&width=1000px&height=500px">All in one</a></li>
-<li><a href="graph?buckets=96&finish=now&interval=1h&metric=MAX&extraMetric=MAX&field1=elapsedTimeSeconds&field2=rateMsgPerSecond&field6=fixes%20arrived%20from%20FIS&field4=fixes%20arrived%20from%20AIS&field5=fixes%20arrived%20from%20SPIDERTRACKS&field3=fixes%20queue%20size&field7=fixes%20arrived%20from%20DAESTRA&field8=fixes%20arrived%20from%20COMNAP&field9=fixes%20arrived%20from%20IAATO&field10=fixes%20arrived%20from%20LRIT&field11=fixes%20arrived%20from%20QFS&field12=fixes%20arrived%20from%20QFS&width=1000px&height=500px">All in one aggregated</a></li>
+<li><a href="graph?buckets=0&finish=now&interval=4d&metric=MAX&extraMetric=MAX&fields=elapsedTimeSeconds,rateMsgPerSecond,fixes%20queue%20size,fixes%20arrived%20from%20FIS,fixes%20arrived%20from%20AIS&,fixes%20arrived%20from%20SPIDERTRACKS,fixes%20arrived%20from%20DAESTRA&,fixes%20arrived%20from%20COMNAP,fixes%20arrived%20from%20IAATO,fixes%20arrived%20from%20LRIT,fixes%20arrived%20from%20QFS,fixes%20arrived%20from%20QFS&width=1000px&height=500px">All in one</a></li>
+<li><a href="graph?buckets=96&finish=now&interval=1h&metric=MAX&extraMetric=MAX&fields=elapsedTimeSeconds,rateMsgPerSecond,fixes%20queue%20size,fixes%20arrived%20from%20FIS,fixes%20arrived%20from%20AIS&,fixes%20arrived%20from%20SPIDERTRACKS,fixes%20arrived%20from%20DAESTRA&,fixes%20arrived%20from%20COMNAP,fixes%20arrived%20from%20IAATO,fixes%20arrived%20from%20LRIT,fixes%20arrived%20from%20QFS,fixes%20arrived%20from%20QFS&width=1000px&height=500px">All in one aggregated</a></li>
 </ul>
 </html>
 
