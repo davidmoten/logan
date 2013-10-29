@@ -32,6 +32,8 @@ public class DataMemory implements Data {
 	private final AtomicLong counter = new AtomicLong();
 	private int numEntries;
 
+	private final Object changeLock = new Object();
+
 	public DataMemory() {
 		this(DEFAULT_MAX_SIZE);
 	}
@@ -47,34 +49,30 @@ public class DataMemory implements Data {
 		});
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.github.davidmoten.logan.Data#add(com.github.davidmoten.logan.LogEntry
-	 * )
-	 */
 	@Override
-	public synchronized Data add(LogEntry entry) {
-		facade.put(entry.getTime(), entry);
-		for (Entry<String, String> pair : entry.getProperties().entrySet())
-			if (isNumeric(pair.getValue()))
-				keys.add(pair.getKey());
-		if (numEntries % 10000 == 0 && numEntries < maxSize)
-			log.info("numEntries=" + numEntries);
+	public Data add(LogEntry entry) {
+		synchronized (changeLock) {
+			facade.put(entry.getTime(), entry);
+			for (Entry<String, String> pair : entry.getProperties().entrySet())
+				if (isNumeric(pair.getValue()))
+					keys.add(pair.getKey());
+			if (numEntries % 10000 == 0 && numEntries < maxSize)
+				log.info("numEntries=" + numEntries);
 
-		// note that for ConcurrentSkipListMap the size method is not a
-		// constant-time operation so don't call facade.size()
-		numEntries++;
-		if (numEntries > maxSize) {
-			List<LogEntry> list = facade.removeAll(asSortedMap().firstKey());
-			numEntries -= list.size();
+			// note that for ConcurrentSkipListMap the size method is not a
+			// constant-time operation so don't call facade.size()
+			numEntries++;
+			if (numEntries > maxSize) {
+				List<LogEntry> list = facade
+						.removeAll(asSortedMap().firstKey());
+				numEntries -= list.size();
+			}
+			String source = entry.getSource();
+			if (source != null)
+				sources.add(source);
+			incrementCounter();
+			return this;
 		}
-		String source = entry.getSource();
-		if (source != null)
-			sources.add(source);
-		incrementCounter();
-		return this;
 	}
 
 	private SortedMap<Long, Collection<LogEntry>> asSortedMap() {
@@ -91,27 +89,34 @@ public class DataMemory implements Data {
 	}
 
 	@Override
-	public synchronized Iterable<LogEntry> find(final long startTime,
-			final long finishTime) {
+	public Iterable<LogEntry> find(final long startTime, final long finishTime) {
 
-		return Iterables.concat(asSortedMap().subMap(startTime, finishTime)
-				.values());
+		synchronized (changeLock) {
+			return Iterables.concat(asSortedMap().subMap(startTime, finishTime)
+					.values());
+		}
 	}
 
 	@Override
-	public synchronized Buckets execute(final BucketQuery query) {
+	public Buckets execute(final BucketQuery query) {
 
-		return DataCore.Singleton.INSTANCE.instance().execute(this, query);
+		synchronized (changeLock) {
+			return DataCore.Singleton.INSTANCE.instance().execute(this, query);
+		}
 	}
 
 	@Override
-	public synchronized long getNumEntries() {
-		return numEntries;
+	public long getNumEntries() {
+		synchronized (changeLock) {
+			return numEntries;
+		}
 	}
 
 	@Override
-	public synchronized long getNumEntriesAdded() {
-		return counter.get();
+	public long getNumEntriesAdded() {
+		synchronized (changeLock) {
+			return counter.get();
+		}
 	}
 
 	@Override
