@@ -10,6 +10,8 @@ This project was created to perform log-analysis selectively and locally only wi
 
 Ideal for ad-hoc investigations. Edit the configuration on the admin page to narrow your investigation (maximizing history in the area you are interested in) and hit the reload button. Then view graphs generated lightning fast.
 
+Logan is used to visualize performance of production java applications at the Australian Maritime Safety Authority and has been a fantastic addition to our stack. We run logan with about 1.7GB of heap and configure it to load the last million lines of our critical log files. Loads all files ready for graphing in about 1 minute.
+
 Non-aggregated:
 <img src="https://raw.github.com/davidmoten/logan/master/docs/screen1.png"/>
 Aggregated:
