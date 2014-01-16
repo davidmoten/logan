@@ -2,7 +2,7 @@ logan
 =====
 Web application project for analysing logs using time-series analysis. Loaded data kept in memory (h2 persistence option available but is pretty slow compared to in memory). Server side is java, client side is JQuery javascript.
 
-Status: *alpha*
+Status: *beta*
 
 Configure to load and tail local files then start a local jetty web server to serve interactive graphs (charts in US speak).
 
