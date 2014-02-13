@@ -68,7 +68,7 @@ On host where logs are:
     cd logan
 	mvn jetty:run
 		
-Go to http://localhost:8080
+Go to [http://localhost:8080](http://localhost:8080).
 
 To customize with your own configuration and say port 9292:
 
