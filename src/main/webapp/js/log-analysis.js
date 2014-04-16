@@ -5,7 +5,7 @@
 //
 
 function drawGraph(field, tablename, buckets, interval, startTime, metric,
-		extraMetric,find, plot, refresh, source,scan, sqlElement) {
+		extraMetric,find, plot, refresh, source,scan, sqlElement,showLegend) {
 
 	var barOptions = {
 		show : true,
@@ -52,6 +52,9 @@ function drawGraph(field, tablename, buckets, interval, startTime, metric,
 			},
 			pan : {
 				interactive : true
+			},
+			legend: {
+			    show: showLegend
 			}
 		// ,colors: ["#d18b2c", "#dba255","#dba255", "#919733","#919733"]
 		};
@@ -275,6 +278,7 @@ function addGraph(main, graphId) {
         else 
             return;
     }
+    var showLegend = getURLParameter("legend") != "false";
 
 	main.append('<div class="graphParent"><div id="title' + graphId
 			+ '" class="graphTitle"></div><div id="edit' + graphId + '"></div><div id="graph' + graphId
@@ -437,7 +441,7 @@ function addGraph(main, graphId) {
 	// draw the graphs
 	drawGraph(field, tablename, buckets, interval, startTime, metric,
 			extraMetric, find, $("#graph" + graphId), $("#refresh" + graphId),
-			source, scan, $("#sql" + graphId));
+			source, scan, $("#sql" + graphId),showLegend);
 }
 
 function concatenateFields(fields) {
