@@ -19,7 +19,7 @@ Non-aggregated:
 Aggregated:
 <img src="https://raw.github.com/davidmoten/logan/master/docs/screen2.png"/>
 
-Continuous integration with Jenkins for this project is [here](https://xuml-tools.ci.cloudbees.com/). <a href="https://xuml-tools.ci.cloudbees.com/"><img  src="http://web-static-cloudfront.s3.amazonaws.com/images/badges/BuiltOnDEV.png"/></a>
+Continuous integration with Jenkins: <a href="https://xuml-tools.ci.cloudbees.com/"><img src="https://xuml-tools.ci.cloudbees.com/job/logan/badge/icon"/></a>
 
 Features
 ---------------
