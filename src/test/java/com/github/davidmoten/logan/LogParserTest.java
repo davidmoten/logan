@@ -161,6 +161,40 @@ public class LogParserTest {
 		LogEntry entry = p.parse("syslog", line);
 		assertNotNull(entry);
 		System.out.println(entry);
+		assertEquals("sendmail", entry.getProperties().get("logLogger"));
 
+	}
+
+	@Test
+	public void testParseGlassfishLog() {
+		String line = "[2014-11-20T22:37:30.319+0000] [glassfish 4.0] [INFO] [] [au.gov.amsa.util.messaging.jms.HistoryUtil] [tid: _ThreadID=524 _ThreadName=p: thread-pool-1; w: 7] [timeMillis: 1416523050319] [levelValue: 800] contentHash=ed852bd0~file moved to history directory n0937270.002";
+
+		String regex = "^\\[(\\d\\d\\d\\d-\\d\\d-\\d\\dT\\d\\d:\\d\\d:\\d\\d[\\.,]\\d\\d\\d)\\+\\d\\d\\d\\d\\] +\\[[^\\]]*\\] +\\[(\\S+)\\] +\\[[^\\]]*\\] +\\[([^\\]]*)\\] +\\[tid: (\\S+)[^\\]]*\\] \\[[^\\]]*\\] \\[[^\\]]*\\] (.*)$";
+		Pattern pattern = Pattern.compile(regex);
+		System.out.println("glassfish pattern=" + regex);
+
+		assertTrue(pattern.matcher(line).matches());
+
+		Pattern messagePattern = Pattern
+				.compile(MessageSplitter.MESSAGE_PATTERN_DEFAULT);
+		String format = "yyyy-MM-dd'T'HH:mm:ss.SSS";
+		BiMap<String, Integer> map = HashBiMap.create(5);
+		map.put(Field.TIMESTAMP, 1);
+		map.put(Field.LEVEL, 2);
+		map.put(Field.LOGGER, 3);
+		map.put(Field.THREAD_NAME, 4);
+		map.put(Field.MSG, 5);
+
+		LogParserOptions options = new LogParserOptions(pattern, map,
+				messagePattern, format, "UTC", false);
+		LogParser p = new LogParser(options);
+		LogEntry entry = p.parse("glassfish", line);
+		assertNotNull(entry);
+		System.out.println(entry);
+		assertEquals("INFO", entry.getProperties().get("logLevel"));
+		assertEquals("glassfish", entry.getProperties().get("logSource"));
+		assertEquals("au.gov.amsa.util.messaging.jms.HistoryUtil", entry
+				.getProperties().get("logLogger"));
+		assertEquals("_ThreadID=524", entry.getProperties().get("threadName"));
 	}
 }
