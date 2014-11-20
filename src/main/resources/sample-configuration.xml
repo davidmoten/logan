@@ -4,7 +4,7 @@
 	
 	<!--  the maximum number of log entries to hold in memory (eldest are trimmed first) -->
 	<!--  set your heap size to match this approximately. Say 100MB + maxSize/1000 MB -->
-	<maxSize>1000000</maxSize>
+	<maxSize>2000000</maxSize>
 	
 	<!--  token delimiters when using scan parameter to find the nth double in a log message  -->
 	<scanDelimiterPattern>(\s|,|:|\|;|=)+</scanDelimiterPattern>
@@ -49,6 +49,24 @@
 			<path>/aus${mode}/container/logs/**/((cts)|(miscellaneous)).log.2.*</path>
 		</log>
 	</group>
+     <group enabled="true">
+        <parser>
+            <sourcePattern>^[a-zA-Z][^\.]*</sourcePattern>
+            <pattern>^\[(\d\d\d\d-\d\d-\d\dT\d\d:\d\d:\d\d[\.,]\d\d\d)\+\d\d\d\d\] +\[[^\]]*\] +\[(\S+)\] +\[[^\]]*\] +\[([^\]]*)\] +\[tid: (\S+)[^\]]*\] \[[^\]]*\] \[[^\]]*\] (.*)$</pattern>
+            <patternGroups>logTimestamp,logLevel,logLogger,threadName,logMsg</patternGroups>
+            <messagePattern>~?(\b[a-zA-Z](?:\w| )*)=([^;|,~]*)(;|\||,|$|~)</messagePattern>
+            <timestampFormat>yyyy-MM-dd'T'HH:mm:ss.SSS</timestampFormat>
+            <timestampFormat>yyyy-MM-dd'T'HH:mm:ss,SSS</timestampFormat>
+            <timezone>UTC</timezone>
+            <multiline>false</multiline>
+        </parser>
+        <log watch="true" watchLatest="false">
+            <path>/aus${mode}/messaging/logs/server.log</path>
+        </log>
+        <log watch="false" watchLatest="false">
+            <path>/aus${mode}/messaging/logs/server.log_.*</path>
+        </log>
+    </group>
 	<group enabled="false">
 		<!--  this group is for some perl logs and thus has its own parser -->
 		<parser>

@@ -3,6 +3,7 @@ package com.github.davidmoten.logan;
 import static org.junit.Assert.assertEquals;
 
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import org.junit.Test;
 
@@ -102,5 +103,13 @@ public class MessageSplitterTest {
 		Map<String, String> map = m.split("SKY-CONNECT= 200");
 		assertEquals("200", map.get("CONNECT"));
 		assertEquals(1, map.size());
+	}
+	
+	@Test
+	public void testGlassfishPattern() {
+		MessageSplitter m = new MessageSplitter(Pattern.compile("(\\b[a-zA-Z](?:\\w| )*)=([^;|,~]*)(;|\\||,|$|~)"));
+		Map<String, String> map = m.split("contentHash=9a9d4311~messagePersistTimeMs=124");
+		assertEquals("9a9d4311", map.get("contentHash"));
+		assertEquals("124", map.get("messagePersistTimeMs"));
 	}
 }
