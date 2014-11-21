@@ -4,7 +4,7 @@
 	
 	<!--  the maximum number of log entries to hold in memory (eldest are trimmed first) -->
 	<!--  set your heap size to match this approximately. Say 100MB + maxSize/1000 MB -->
-	<maxSize>2000000</maxSize>
+	<maxSize>1000000</maxSize>
 	
 	<!--  token delimiters when using scan parameter to find the nth double in a log message  -->
 	<scanDelimiterPattern>(\s|,|:|\|;|=)+</scanDelimiterPattern>
