@@ -152,7 +152,7 @@
 				<configuration>
 					<scanIntervalSeconds>10</scanIntervalSeconds>
 					<stopKey>foo</stopKey>
-					<stopPort>9998</stopPort>
+					<stopPort>${jetty.stop.port}</stopPort>
 					
 					<webAppConfig>
 						<contextPath>/</contextPath>
