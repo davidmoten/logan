@@ -19,6 +19,8 @@
     <url>http://github.com/davidmoten/logan</url>
 
     <properties>
+        <scm.url>scm:git:https://github.com/davidmoten/logan.git</scm.url>
+
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <cobertura.version>2.5.2</cobertura.version>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -53,9 +55,9 @@
         </license>
     </licenses>
 
-    <ciManagement>
-        <system>CloudBees</system>
-        <url>https://xuml-tools.ci.cloudbees.com</url>
+   <ciManagement>
+        <system>Travis</system>
+        <url>https://travis-ci.org/davidmoten/logan</url>
     </ciManagement>
 
     <issueManagement>
@@ -78,9 +80,9 @@
     </developers>
 
     <scm>
-        <connection>scm:git:git@github.com:davidmoten/logan.git</connection>
-        <developerConnection>scm:git:git@github.com:davidmoten/logan.git</developerConnection>
-        <url>scm:git:git@github.com:davidmoten/logan.git</url>
+        <connection>${scm.url}</connection>
+        <developerConnection>${scm.url}</developerConnection>
+        <url>${scm.url}</url>
     </scm>
 
     <dependencies>
