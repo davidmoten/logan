@@ -77,6 +77,31 @@ Go to [http://localhost:8080](http://localhost:8080).
 To customize with your own configuration and say port 9292:
 
     mvn jetty:run -Djetty.port=9292 -Dlogan.config=<YOUR_CONFIGURATION_XML>
+
+Deploying
+--------------
+Distribution zip is deployed to Maven Central at TODO.
+
+Unzip this file to a directory and create a configuration.xml in the unzipped `logan` directory.
+
+Edit `logan/start.sh` and `logan/stop.sh` with your desired ports.
+
+To start:
+
+```bash
+./start.sh &
+```
+
+To stop:
+
+```bash
+./stop.sh
+```
+
+To update the distribution you can replace all but your customized `start.sh` and `stop.sh` scripts and your `configuration.xml` file.
+
+Logs are written to daily rolled-over files of the format *logan-yyyy-mm-dd.log* in the same directory as the start and stop scripts.
+
     
     
 Configuration
