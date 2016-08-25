@@ -11,33 +11,33 @@ import com.github.davidmoten.logan.config.Configuration;
  * Reads persister-configuration.xml then starts threads to read/tail log files
  * and report log lines to <i>log-database</i>.
  * 
- * @author dave
- * 
  */
 public class Main {
 
-	private static Logger log = Logger.getLogger(Main.class.getName());
+    private static Logger log = Logger.getLogger(Main.class.getName());
 
-	/**
-	 * Main method to start the persister.
-	 * 
-	 * @param args
-	 * @throws IOException
-	 */
-	public static void main(String[] args) throws IOException {
+    /**
+     * Main method to start the persister.
+     * 
+     * @param args
+     *            args
+     * @throws IOException
+     *             exception
+     */
+    public static void main(String[] args) throws IOException {
 
-		Configuration configuration = Configuration.getConfiguration();
-		setupLogging();
+        Configuration configuration = Configuration.getConfiguration();
+        setupLogging();
 
-		Watcher w = new Watcher(new DataMemory(), configuration);
-		log.info("starting watcher");
-		w.start();
-		log.info("started");
-	}
+        Watcher w = new Watcher(new DataMemory(), configuration);
+        log.info("starting watcher");
+        w.start();
+        log.info("started");
+    }
 
-	private static void setupLogging() throws IOException {
-		LogManager.getLogManager().readConfiguration(
-				Main.class.getResourceAsStream("/my-logging.properties"));
-	}
+    private static void setupLogging() throws IOException {
+        LogManager.getLogManager()
+                .readConfiguration(Main.class.getResourceAsStream("/my-logging.properties"));
+    }
 
 }

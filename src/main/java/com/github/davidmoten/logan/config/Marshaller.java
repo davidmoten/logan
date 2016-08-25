@@ -16,73 +16,71 @@ import org.apache.commons.io.output.ByteArrayOutputStream;
 /**
  * Marshaller for {@link Configuration}.
  * 
- * @author dave
- * 
  */
 public class Marshaller {
 
-	public static final String NAMESPACE = "http://github.com/davidmoten/logan/configuration";
+    public static final String NAMESPACE = "http://github.com/davidmoten/logan/configuration";
 
-	private final javax.xml.bind.Marshaller marshaller;
+    private final javax.xml.bind.Marshaller marshaller;
 
-	private final Unmarshaller unmarshaller;
+    private final Unmarshaller unmarshaller;
 
-	/**
-	 * Constructor.
-	 */
-	public Marshaller() {
-		try {
-			JAXBContext jc = JAXBContext.newInstance(Configuration.class);
-			marshaller = jc.createMarshaller();
-			marshaller.setProperty(
-					javax.xml.bind.Marshaller.JAXB_FORMATTED_OUTPUT, true);
-			unmarshaller = jc.createUnmarshaller();
-		} catch (PropertyException e) {
-			throw new RuntimeException(e);
-		} catch (JAXBException e) {
-			throw new RuntimeException(e);
-		}
-	}
+    /**
+     * Constructor.
+     */
+    public Marshaller() {
+        try {
+            JAXBContext jc = JAXBContext.newInstance(Configuration.class);
+            marshaller = jc.createMarshaller();
+            marshaller.setProperty(javax.xml.bind.Marshaller.JAXB_FORMATTED_OUTPUT, true);
+            unmarshaller = jc.createUnmarshaller();
+        } catch (PropertyException e) {
+            throw new RuntimeException(e);
+        } catch (JAXBException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
-	/**
-	 * Marshals {@link Configuration} to xml.
-	 * 
-	 * @param configuration
-	 * @param os
-	 */
-	public synchronized void marshal(Configuration configuration,
-			OutputStream os) {
-		try {
-			JAXBElement<Configuration> element = new JAXBElement<Configuration>(
-					new QName(NAMESPACE, "configuration"), Configuration.class,
-					configuration);
-			marshaller.marshal(element, os);
-		} catch (JAXBException e) {
-			throw new RuntimeException(e);
-		}
-	}
+    /**
+     * Marshals {@link Configuration} to xml.
+     * 
+     * @param configuration
+     *            configuration
+     * @param os
+     *            output stream
+     */
+    public synchronized void marshal(Configuration configuration, OutputStream os) {
+        try {
+            JAXBElement<Configuration> element = new JAXBElement<Configuration>(
+                    new QName(NAMESPACE, "configuration"), Configuration.class, configuration);
+            marshaller.marshal(element, os);
+        } catch (JAXBException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
-	public synchronized String marshal(Configuration configuration) {
-		ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-		marshal(configuration, bytes);
-		return bytes.toString();
-	}
+    public synchronized String marshal(Configuration configuration) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        marshal(configuration, bytes);
+        return bytes.toString();
+    }
 
-	/**
-	 * Unmarshals xml to {@link Configuration}.
-	 * 
-	 * @param is
-	 * @return
-	 */
-	public synchronized Configuration unmarshal(InputStream is) {
-		StreamSource xml = new StreamSource(is);
-		JAXBElement<Configuration> element;
-		try {
-			element = unmarshaller.unmarshal(xml, Configuration.class);
-		} catch (JAXBException e) {
-			throw new RuntimeException(e);
-		}
-		return element.getValue();
-	}
+    /**
+     * Unmarshals xml to {@link Configuration}.
+     * 
+     * @param is
+     *            input stream
+     * @return configuration
+     */
+    public synchronized Configuration unmarshal(InputStream is) {
+        StreamSource xml = new StreamSource(is);
+        JAXBElement<Configuration> element;
+        try {
+            element = unmarshaller.unmarshal(xml, Configuration.class);
+        } catch (JAXBException e) {
+            throw new RuntimeException(e);
+        }
+        return element.getValue();
+    }
 
 }

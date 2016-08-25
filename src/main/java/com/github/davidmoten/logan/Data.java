@@ -5,30 +5,31 @@ import java.util.NavigableSet;
 
 public interface Data {
 
-	Buckets execute(BucketQuery query);
+    Buckets execute(BucketQuery query);
 
-	Iterable<String> getLogs(long startTime, long finishTime);
+    Iterable<String> getLogs(long startTime, long finishTime);
 
-	Iterable<LogEntry> find(long startTime, long finishTime);
+    Iterable<LogEntry> find(long startTime, long finishTime);
 
-	/**
-	 * Adds a {@link LogEntry} to the data.
-	 * 
-	 * @param entry
-	 * @return this
-	 */
-	Data add(LogEntry entry);
+    /**
+     * Adds a {@link LogEntry} to the data.
+     * 
+     * @param entry
+     *            entry
+     * @return this this
+     */
+    Data add(LogEntry entry);
 
-	long getNumEntries();
+    long getNumEntries();
 
-	long getNumEntriesAdded();
+    long getNumEntriesAdded();
 
-	NavigableSet<String> getKeys();
+    NavigableSet<String> getKeys();
 
-	NavigableSet<String> getSources();
+    NavigableSet<String> getSources();
 
-	void close();
+    void close();
 
-	Date oldestTime();
+    Date oldestTime();
 
 }

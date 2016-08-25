@@ -9,47 +9,49 @@ import javax.xml.bind.annotation.XmlAttribute;
  * 
  */
 public class Log {
-	public String path;
+    public String path;
 
-	@XmlAttribute(required = false)
-	public String source;
+    @XmlAttribute(required = false)
+    public String source;
 
-	@XmlAttribute(required = false)
-	public boolean watch = true;
+    @XmlAttribute(required = false)
+    public boolean watch = true;
 
-	@XmlAttribute(required = false)
-	public boolean watchLatest = false;
+    @XmlAttribute(required = false)
+    public boolean watchLatest = false;
 
-	/**
-	 * Constructor.
-	 * 
-	 * @param path
-	 * @param watch
-	 */
-	public Log(String path, boolean watch) {
-		super();
-		this.path = path;
-		this.watch = watch;
-	}
+    /**
+     * Constructor.
+     * 
+     * @param path
+     *            path
+     * @param watch
+     *            watch
+     */
+    public Log(String path, boolean watch) {
+        super();
+        this.path = path;
+        this.watch = watch;
+    }
 
-	/**
-	 * Constructor.
-	 */
-	public Log() {
-		// no-args constructor required by jaxb
-	}
+    /**
+     * Constructor.
+     */
+    public Log() {
+        // no-args constructor required by jaxb
+    }
 
-	@Override
-	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("Log [path=");
-		builder.append(path);
-		builder.append(", source=");
-		builder.append(source);
-		builder.append(", watch=");
-		builder.append(watch);
-		builder.append("]");
-		return builder.toString();
-	}
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("Log [path=");
+        builder.append(path);
+        builder.append(", source=");
+        builder.append(source);
+        builder.append(", watch=");
+        builder.append(watch);
+        builder.append("]");
+        return builder.toString();
+    }
 
 }

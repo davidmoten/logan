@@ -25,7 +25,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <checkstyle.version>2.7</checkstyle.version>
         <findbugs.version>2.3.2</findbugs.version>
-        <javadoc.version>2.8.1</javadoc.version>
+        <javadoc.version>2.10.4</javadoc.version>
         <pmd.version>2.5</pmd.version>
         <jdepend.version>2.0-beta-2</jdepend.version>
         <javancss.version>2.0</javancss.version>
@@ -36,7 +36,7 @@
         <m3.site.version>3.0</m3.site.version>
         <changelog.version>2.2</changelog.version>
         <coverage.reports.dir>${project.build.directory}/target/coverage-reports</coverage.reports.dir>
-        <maven.compiler.target>1.6</maven.compiler.target>
+        <maven.compiler.target>1.8</maven.compiler.target>
         <jetty.plugin.version>8.1.12.v20130726</jetty.plugin.version>
         <jetty.runner.version>9.3.11.v20160721</jetty.runner.version>
         <jetty.stop.port>9998</jetty.stop.port>
@@ -204,6 +204,23 @@
                 </executions>
             </plugin>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>${javadoc.version}</version>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                        <configuration>
+                            <failOnError>false</failOnError>
+                            <additionalparam>-Xdoclint:none</additionalparam>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
                 <groupId>org.mortbay.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
                 <version>${jetty.plugin.version}</version>
@@ -309,18 +326,6 @@
                             <artifactId>taglist-maven-plugin</artifactId>
                             <version>${taglist.version}</version>
                         </plugin>
-                        <plugin>
-                            <groupId>org.apache.maven.plugins</groupId>
-                            <artifactId>maven-javadoc-plugin</artifactId>
-                            <version>${javadoc.version}</version>
-                            <configuration>
-                                <aggregate>true</aggregate>
-                            </configuration>
-                        </plugin>
-                        <!-- commented this plugin out because cannot run offline (e.g. at home) -->
-                        <!-- <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-changelog-plugin</artifactId> 
-                            <version>${changelog.version}</version> <configuration> <username>${svn.username}</username> <password>${svn.password}</password> 
-                            </configuration> </plugin> -->
                     </reportPlugins>
                 </configuration>
             </plugin>
