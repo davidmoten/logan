@@ -47,14 +47,6 @@ public class Watcher {
 
     private final FileTailer fileTailer;
 
-    /**
-     * Constructor.
-     * 
-     * @param factory
-     *            factory
-     * @param configuration
-     *            configuration
-     */
     public Watcher(Data data, Configuration configuration, FileTailer fileTailer) {
         this.data = data;
         this.configuration = configuration;
