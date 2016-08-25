@@ -28,22 +28,6 @@ public class Parser {
     @XmlElement(required = false, defaultValue = "false")
     public boolean multiline;
 
-    /**
-     * Parser configuration.
-     * 
-     * @param pattern
-     *            pattern
-     * @param patternGroups
-     *            pattern groups
-     * @param timestampFormat
-     *            timestamp format
-     * @param timezone
-     *            timezone
-     * @param multiline
-     *            multiline
-     * @param sourcePattern
-     *            source pattern
-     */
     public Parser(String pattern, String patternGroups, String messagePattern,
             List<String> timestampFormat, String timezone, boolean multiline,
             String sourcePattern) {
