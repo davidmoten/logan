@@ -65,24 +65,11 @@ Comprises the following internal components:
 
 Getting started
 ---------------
-On host where logs are:
 
-    cd <YOUR_WORKSPACE>
-    git clone https://github.com/davidmoten/logan.git
-    cd logan
-	mvn jetty:run
-		
-Go to [http://localhost:8080](http://localhost:8080).
+##From binaries
+Distribution tar.gz is [here](http://repo1.maven.org/maven2/com/github/davidmoten/logan/0.3/logan-0.3.tar.gz) on Maven Central.
 
-To customize with your own configuration and say port 9292:
-
-    mvn jetty:run -Djetty.port=9292 -Dlogan.config=<YOUR_CONFIGURATION_XML>
-
-Deploying
---------------
-Distribution zip is deployed to Maven Central at TODO.
-
-Unzip this file to a directory and create a configuration.xml in the unzipped `logan` directory.
+Untar this file to a directory and create a configuration.xml in the unzipped `logan` directory.
 
 Edit `logan/start.sh` and `logan/stop.sh` with your desired ports.
 
@@ -102,8 +89,22 @@ To update the distribution you can replace all but your customized `start.sh` an
 
 Logs are written to daily rolled-over files of the format *logan-yyyy-mm-dd.log* in the same directory as the start and stop scripts.
 
-    
-    
+##From source
+On host where logs are:
+
+    cd <YOUR_WORKSPACE>
+    git clone https://github.com/davidmoten/logan.git
+    cd logan
+	mvn jetty:run
+		
+Go to [http://localhost:8080](http://localhost:8080).
+
+To customize with your own configuration and say port 9292:
+
+    mvn jetty:run -Djetty.port=9292 -Dlogan.config=<YOUR_CONFIGURATION_XML>
+
+
+
 Configuration
 ===============
 
