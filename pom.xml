@@ -9,7 +9,7 @@
     </parent>
     
     <artifactId>logan</artifactId>
-    <version>0.3-SNAPSHOT</version>
+    <version>0.3</version>
 
     <name>${project.artifactId}</name>
     <description>Log analysis</description>
@@ -82,7 +82,7 @@
         <connection>${scm.url}</connection>
         <developerConnection>${scm.url}</developerConnection>
         <url>${scm.url}</url>
-      <tag>HEAD</tag>
+      <tag>0.3</tag>
   </scm>
 
     <dependencies>
