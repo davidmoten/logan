@@ -1,6 +1,6 @@
 logan
 =====
-<a href="https://travis-ci.org/davidmoten/rtree"><img src="https://travis-ci.org/davidmoten/logan.svg"/></a>
+<a href="https://travis-ci.org/davidmoten/logan"><img src="https://travis-ci.org/davidmoten/logan.svg"/></a>
 
 Web application project for analysing logs using time-series analysis. Loaded data kept in memory (h2 persistence option available but is pretty slow compared to in memory). Server side is java, client side is JQuery javascript.
 
