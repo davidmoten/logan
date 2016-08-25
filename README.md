@@ -69,9 +69,14 @@ Getting started
 ##From binaries
 Distribution tar.gz is [here](http://repo1.maven.org/maven2/com/github/davidmoten/logan/0.3/logan-0.3.tar.gz) on Maven Central.
 
-Untar this file to a directory and create a configuration.xml in the unzipped `logan` directory.
+```bash
+tar -xvzf logan-0.3.tar.gz
+cd logan
+touch configuration.xml
+```
+Edit `start.sh` and `stop.sh` with your desired ports (make sure the stop ports match).
 
-Edit `logan/start.sh` and `logan/stop.sh` with your desired ports.
+Edit `configuration.xml` with your log file names and extraction patterns (see [sample-configuration.xml](src/main/resources/sample-configuration.xml)).
 
 To start:
 
