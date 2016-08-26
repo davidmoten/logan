@@ -1,6 +1,6 @@
 logan
 =====
-<a href="https://travis-ci.org/davidmoten/rtree"><img src="https://travis-ci.org/davidmoten/logan.svg"/></a>
+<a href="https://travis-ci.org/davidmoten/logan"><img src="https://travis-ci.org/davidmoten/logan.svg"/></a>
 
 Web application project for analysing logs using time-series analysis. Loaded data kept in memory (h2 persistence option available but is pretty slow compared to in memory). Server side is java, client side is JQuery javascript.
 
@@ -65,26 +65,18 @@ Comprises the following internal components:
 
 Getting started
 ---------------
-On host where logs are:
 
-    cd <YOUR_WORKSPACE>
-    git clone https://github.com/davidmoten/logan.git
-    cd logan
-	mvn jetty:run
-		
-Go to [http://localhost:8080](http://localhost:8080).
+##From binaries
+Distribution tar.gz is [here](http://repo1.maven.org/maven2/com/github/davidmoten/logan/0.3/logan-0.3.tar.gz) on Maven Central.
 
-To customize with your own configuration and say port 9292:
+```bash
+tar -xvzf logan-0.3.tar.gz
+cd logan
+touch configuration.xml
+```
+Edit `start.sh` and `stop.sh` with your desired ports (make sure the stop ports match).
 
-    mvn jetty:run -Djetty.port=9292 -Dlogan.config=<YOUR_CONFIGURATION_XML>
-
-Deploying
---------------
-Distribution zip is deployed to Maven Central at TODO.
-
-Unzip this file to a directory and create a configuration.xml in the unzipped `logan` directory.
-
-Edit `logan/start.sh` and `logan/stop.sh` with your desired ports.
+Edit `configuration.xml` with your log file names and extraction patterns (see [sample-configuration.xml](src/main/resources/sample-configuration.xml)).
 
 To start:
 
@@ -102,8 +94,22 @@ To update the distribution you can replace all but your customized `start.sh` an
 
 Logs are written to daily rolled-over files of the format *logan-yyyy-mm-dd.log* in the same directory as the start and stop scripts.
 
-    
-    
+##From source
+On host where logs are:
+
+    cd <YOUR_WORKSPACE>
+    git clone https://github.com/davidmoten/logan.git
+    cd logan
+	mvn jetty:run
+		
+Go to [http://localhost:8080](http://localhost:8080).
+
+To customize with your own configuration and say port 9292:
+
+    mvn jetty:run -Djetty.port=9292 -Dlogan.config=<YOUR_CONFIGURATION_XML>
+
+
+
 Configuration
 ===============
 
