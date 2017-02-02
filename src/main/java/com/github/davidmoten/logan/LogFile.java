@@ -12,7 +12,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.apache.commons.io.input.Tailer;
-import org.apache.commons.io.input.TailerListener;
+import org.apache.commons.io.input.Tailer2;
+import org.apache.commons.io.input.TailerListener2;
 
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.Lists;
@@ -68,11 +69,11 @@ public class LogFile {
      */
     public void tail(Data data, boolean follow) {
 
-        TailerListener listener = createListener(data);
+        TailerListener2 listener = createListener(data);
 
         if (follow)
             // tail from the start of the file and watch for future changes
-            tailer = new Tailer(file, listener, checkIntervalMs, false, BUFFER_SIZE);
+            tailer = new Tailer2(file, listener, checkIntervalMs, false, BUFFER_SIZE);
 
         else
             tailer = new TailerNonFollowing(file, listener, BUFFER_SIZE);
@@ -140,8 +141,8 @@ public class LogFile {
                 ((TailerNonFollowing) tailer).stop();
     }
 
-    private TailerListener createListener(final Data data) {
-        return new TailerListener() {
+    private TailerListener2 createListener(final Data data) {
+        return new TailerListener2() {
             private final Data db = data;
 
             @Override
@@ -174,7 +175,7 @@ public class LogFile {
             }
 
             @Override
-            public void init(Tailer tailer) {
+            public void init(Tailer2 tailer) {
                 log.info("init");
             }
         };

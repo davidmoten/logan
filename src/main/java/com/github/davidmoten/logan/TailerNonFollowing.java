@@ -7,16 +7,16 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-import org.apache.commons.io.input.TailerListener;
+import org.apache.commons.io.input.TailerListener2;
 
 public class TailerNonFollowing implements Runnable {
 
 	private volatile boolean keepGoing = true;
 	private final File file;
-	private final TailerListener listener;
+	private final TailerListener2 listener;
 	private final int bufferSize;
 
-	public TailerNonFollowing(File file, TailerListener listener, int bufferSize) {
+	public TailerNonFollowing(File file, TailerListener2 listener, int bufferSize) {
 		this.file = file;
 		this.listener = listener;
 		this.bufferSize = bufferSize;
