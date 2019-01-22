@@ -19,6 +19,9 @@ public class Log {
 
     @XmlAttribute(required = false)
     public boolean watchLatest = false;
+    
+    @XmlAttribute(required = false)
+    public double maxFileLastModifiedAgeDays = 1000000;
 
     /**
      * Constructor.

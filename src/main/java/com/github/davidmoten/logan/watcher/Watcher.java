@@ -11,6 +11,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 import com.github.davidmoten.logan.Data;
 import com.github.davidmoten.logan.LogFile;
@@ -105,7 +106,10 @@ public class Watcher {
             if (group.enabled) {
                 log.info("starting group " + group);
                 for (Log lg : group.log) {
-                    for (File file : Util.getFilesFromPathWithRegexFilename(lg.path)) {
+                    for (File file : Util.getFilesFromPathWithRegexFilename(lg.path) //
+                            .stream() //
+                            .filter(f -> timestampOk(f, lg.maxFileLastModifiedAgeDays)) //
+                            .collect(Collectors.toList())) {
                         LogParserOptions options = LogParserOptions.load(configuration.parser,
                                 group);
                         String source;
@@ -168,6 +172,11 @@ public class Watcher {
             fileTailer.tail(info.logFile, data, follow);
         }
         log.info("started watcher");
+    }
+
+    private static boolean timestampOk(File f, double maxFileTimestampAgeDays) {
+        long now = System.currentTimeMillis();
+        return f.lastModified() >= now - TimeUnit.DAYS.toMillis(Math.round(maxFileTimestampAgeDays));
     }
 
     private String extractSource(String sourcePattern, String filename) {
