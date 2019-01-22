@@ -185,7 +185,7 @@ The configuration file ([here](https://raw.github.com/davidmoten/logan/master/sr
 * line pattern (and its pattern groups)
 * message pone)attern
 
-###Line pattern
+### Line pattern
     <pattern>^(\d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d\.\d\d\d) +(\S+) +(\S+)+(\S+)? ?- (.*)$</pattern>
     <patternGroups>logTimestamp,logLevel,logLogger,threadName,logMsg</patternGroups>
     
