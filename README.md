@@ -6,7 +6,7 @@ Web application project for analysing logs using time-series analysis. Loaded da
 
 This tool enables *guerilla style* log analysis. Namely that the tool can be started and load all relevant locally available logs ready for analysis in a minute say for one million records. In the author's work environment we leave the tool running but you could stop it after your analysis is complete if concerned about possible impact on your production instance.
 
-Status: *beta*
+Status: *production*
 
 Configure to load and tail local files then start a local jetty web server to serve interactive graphs (charts in US speak).
 
@@ -66,7 +66,7 @@ Comprises the following internal components:
 Getting started
 ---------------
 
-##From binaries
+## From binaries
 Distribution tar.gz is [here](http://repo1.maven.org/maven2/com/github/davidmoten/logan/0.3/logan-0.3.tar.gz) on Maven Central.
 
 ```bash
@@ -94,7 +94,7 @@ To update the distribution you can replace all but your customized `start.sh` an
 
 Logs are written to daily rolled-over files of the format *logan-yyyy-mm-dd.log* in the same directory as the start and stop scripts.
 
-##From source
+## From source
 On host where logs are:
 
     cd <YOUR_WORKSPACE>
@@ -185,7 +185,7 @@ The configuration file ([here](https://raw.github.com/davidmoten/logan/master/sr
 * line pattern (and its pattern groups)
 * message pone)attern
 
-###Line pattern
+### Line pattern
     <pattern>^(\d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d\.\d\d\d) +(\S+) +(\S+)+(\S+)? ?- (.*)$</pattern>
     <patternGroups>logTimestamp,logLevel,logLogger,threadName,logMsg</patternGroups>
     
@@ -202,7 +202,7 @@ Looking at the patternGroups the first matching group will be identified as the 
 
 The key-value parts of the logMsg are parsed by the *message pattern* described below.
 
-###Multiline
+### Multiline
 Logan supports one or two line patterns.
 
 The default java.util.logging pattern is a multiline (two line) pattern. Here's an example of a two line log:
@@ -219,7 +219,7 @@ Two line patterns are configured as below:
 
 Take special note of the *ZZZ* which delimits line 1 from line 2 in the pattern. The two lines are concatenated using ZZZ between them and then matched against the pattern. In the same way the pattern groups refer to the groups found in the concatenation of the two lines.
 
-###Message pattern
+### Message pattern
     <messagePattern>(\b[a-zA-Z](?:\w| )*)=([^;|,]*)(;|\||,|$)</messagePattern>
 
 Above is the default message pattern used by log-persister. A matching key-value pair in a log message satisfies these properties:
@@ -228,7 +228,7 @@ Above is the default message pattern used by log-persister. A matching key-value
 * key is separated from value by =
 * value part is delimited at its termination by semicolon (;), comma (,), vertical bar(|) or end of line
 
-###Timestamp format
+### Timestamp format
     <timestampFormat>dd/MM/yyyy hh:mm:ss a</timestampFormat>
 
 The format is as defined for the [SimpleDateFormat](http://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html) class. 
