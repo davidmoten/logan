@@ -34,7 +34,7 @@ import org.apache.commons.io.IOUtils;
  * <h2>1. Create a TailerListener2 implementation</h2>
  * <p>
  * First you need to create a {@link TailerListener2} implementation
- * ({@link TailerListener2Adapter} is provided for convenience so that you don't have to
+ * ({@link TailerListenerAdapter2} is provided for convenience so that you don't have to
  * implement every method).
  * </p>
  *
@@ -54,9 +54,9 @@ import org.apache.commons.io.IOUtils;
  * <ul>
  *   <li>Using one of the static helper methods:
  *     <ul>
- *       <li>{@link Tailer#create(File, TailerListener2)}</li>
- *       <li>{@link Tailer#create(File, TailerListener2, long)}</li>
- *       <li>{@link Tailer#create(File, TailerListener2, long, boolean)}</li>
+ *       <li>{@link Tailer2#create(File, TailerListener2)}</li>
+ *       <li>{@link Tailer2#create(File, TailerListener2, long)}</li>
+ *       <li>{@link Tailer2#create(File, TailerListener2, long, boolean)}</li>
  *     </ul>
  *   </li>
  *   <li>Using an {@link java.util.concurrent.Executor}</li>
@@ -71,13 +71,13 @@ import org.apache.commons.io.IOUtils;
  *
  * <pre>
  *      TailerListener2 listener = new MyTailerListener2();
- *      Tailer tailer = Tailer.create(file, listener, delay);</pre>
+ *      Tailer2 tailer = Tailer2.create(file, listener, delay);</pre>
  *
  * <h3>2.2 Using an Executor</h3>
  *
  * <pre>
  *      TailerListener2 listener = new MyTailerListener2();
- *      Tailer tailer = new Tailer(file, listener, delay);
+ *      Tailer2 tailer = new Tailer2(file, listener, delay);
  *
  *      // stupid executor impl. for demo purposes
  *      Executor executor = new Executor() {
@@ -93,7 +93,7 @@ import org.apache.commons.io.IOUtils;
  * <h3>2.3 Using a Thread</h3>
  * <pre>
  *      TailerListener2 listener = new MyTailerListener2();
- *      Tailer tailer = new Tailer(file, listener, delay);
+ *      Tailer2 tailer = new Tailer2(file, listener, delay);
  *      Thread thread = new Thread(tailer);
  *      thread.setDaemon(true); // optional
  *      thread.start();</pre>
@@ -113,8 +113,7 @@ import org.apache.commons.io.IOUtils;
  *
  * <p>The file is read using the default charset; this can be overriden if necessary</p>
  * @see TailerListener2
- * @see TailerListener2Adapter
- * @version $Id: Tailer.java 1714076 2015-11-12 16:06:41Z krosenvold $
+ * @see TailerListenerAdapter2
  * @since 2.0
  * @since 2.5 Updated behavior and documentation for {@link Thread#interrupt()}
  */

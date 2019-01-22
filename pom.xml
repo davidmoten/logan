@@ -25,7 +25,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <checkstyle.version>2.7</checkstyle.version>
         <findbugs.version>2.3.2</findbugs.version>
-        <javadoc.version>2.10.4</javadoc.version>
+        <javadoc.version>3.0.1</javadoc.version>
         <pmd.version>2.5</pmd.version>
         <jdepend.version>2.0-beta-2</jdepend.version>
         <javancss.version>2.0</javancss.version>
@@ -150,7 +150,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
-                <version>2.10</version>
+                <version>3.1.1</version>
                 <executions>
                     <execution>
                         <id>copy</id>
@@ -188,9 +188,11 @@
             </plugin>
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
-                <version>2.6</version>
+                <version>3.1.1</version>
                 <configuration>
-                    <descriptor>src/assembly/dist.xml</descriptor>
+                    <descriptors>
+                        <descriptor>src/assembly/dist.xml</descriptor>
+                    </descriptors>
                     <appendAssemblyId>false</appendAssemblyId>
                 </configuration>
                 <executions>
