@@ -101,7 +101,7 @@ public class DataMemory implements Data {
 	public Buckets execute(final BucketQuery query) {
 
 		synchronized (changeLock) {
-			return DataCore.Singleton.INSTANCE.instance().execute(this, query);
+			return DataCore.execute(this, query);
 		}
 	}
 
@@ -145,7 +145,7 @@ public class DataMemory implements Data {
 
 	@Override
 	public Iterable<String> getLogs(long startTime, long finishTime) {
-		return DataCore.Singleton.INSTANCE.instance().getLogs(this, startTime,
+		return DataCore.getLogs(this, startTime,
 				finishTime);
 	}
 

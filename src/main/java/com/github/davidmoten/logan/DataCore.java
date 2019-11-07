@@ -18,19 +18,9 @@ import com.google.common.collect.Maps;
 
 public class DataCore {
 
-	public enum Singleton {
+	
 
-		INSTANCE;
-
-		private final DataCore instance = new DataCore();
-
-		public DataCore instance() {
-			return instance;
-		}
-
-	}
-
-	public Buckets execute(Data data, BucketQuery query) {
+	public static Buckets execute(Data data, BucketQuery query) {
 		// get the time range of entries
 		Iterable<LogEntry> entries = data.find(query.getStartTime(),
 				query.getFinishTime());
@@ -44,7 +34,7 @@ public class DataCore {
 		return buckets;
 	}
 
-	private Iterable<LogEntry> filter(Iterable<LogEntry> entries,
+	private static Iterable<LogEntry> filter(Iterable<LogEntry> entries,
 			BucketQuery query) {
 
 		Iterable<LogEntry> filtered = entries;
@@ -66,7 +56,7 @@ public class DataCore {
 		return filtered;
 	}
 
-	private Iterable<LogEntry> filterByField(Iterable<LogEntry> filtered,
+	private static Iterable<LogEntry> filterByField(Iterable<LogEntry> filtered,
 			final String field) {
 		return Iterables.filter(filtered, new Predicate<LogEntry>() {
 			@Override
@@ -77,7 +67,7 @@ public class DataCore {
 		});
 	}
 
-	private Iterable<LogEntry> filterBySource(Iterable<LogEntry> filtered,
+	private static Iterable<LogEntry> filterBySource(Iterable<LogEntry> filtered,
 			final String source) {
 		return Iterables.filter(filtered, new Predicate<LogEntry>() {
 			@Override
@@ -88,7 +78,7 @@ public class DataCore {
 		});
 	}
 
-	private Iterable<LogEntry> filterByText(Iterable<LogEntry> filtered,
+	private static Iterable<LogEntry> filterByText(Iterable<LogEntry> filtered,
 			final Pattern searchFor) {
 		return Iterables.filter(filtered, new Predicate<LogEntry>() {
 			@Override
@@ -102,7 +92,7 @@ public class DataCore {
 		});
 	}
 
-	private Buckets getBuckets(Iterable<LogEntry> filtered,
+	private static Buckets getBuckets(Iterable<LogEntry> filtered,
 			final BucketQuery query) {
 		final Optional<Pattern> delimiterPattern;
 		if (query.getDelimiterPattern().isPresent())
@@ -171,7 +161,7 @@ public class DataCore {
 			return searchFor.matcher(s).find();
 	}
 
-	public Iterable<String> getLogs(Data data, long startTime, long finishTime) {
+	public static Iterable<String> getLogs(Data data, long startTime, long finishTime) {
 		return Iterables.transform(data.find(startTime, finishTime),
 				new Function<LogEntry, String>() {
 					@Override
@@ -198,7 +188,7 @@ public class DataCore {
 				});
 	}
 
-	public void addRandomLogEntry(Data data, int range, int n) {
+	public static void addRandomLogEntry(Data data, int range, int n) {
 		for (int i = 1; i <= n; i++)
 			data.add(createRandomLogEntry(i, range));
 	}

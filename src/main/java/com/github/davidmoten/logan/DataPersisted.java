@@ -273,7 +273,7 @@ public class DataPersisted implements Data {
 
 	@Override
 	public Buckets execute(BucketQuery query) {
-		return DataCore.Singleton.INSTANCE.instance().execute(this, query);
+		return DataCore.execute(this, query);
 	}
 
 	@Override
@@ -291,7 +291,7 @@ public class DataPersisted implements Data {
 
 	@Override
 	public Iterable<String> getLogs(long startTime, long finishTime) {
-		return DataCore.Singleton.INSTANCE.instance().getLogs(this, startTime,
+		return DataCore.getLogs(this, startTime,
 				finishTime);
 	}
 

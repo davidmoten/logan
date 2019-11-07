@@ -99,7 +99,7 @@ public class Util {
         else
             n = 1000;
         long t = System.currentTimeMillis();
-        DataCore.Singleton.INSTANCE.instance().addRandomLogEntry(data, 100, n);
+        DataCore.addRandomLogEntry(data, 100, n);
         double ratePerSecond = n * 1000.0 / (System.currentTimeMillis() - t);
         log.info("added " + n + " records " + ", insertsPerSecond=" + ratePerSecond + "");
     }
