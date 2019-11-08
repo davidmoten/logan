@@ -3,18 +3,17 @@ package com.github.davidmoten.logan;
 import java.util.NavigableSet;
 
 import com.github.davidmoten.bplustree.BPlusTree;
-import com.github.davidmoten.bplustree.Serializer;
 
 public class DataPersistedBPlusTree implements Data {
 
-    private final BPlusTree<StringWithTimestamp, String> properties;
+    private final BPlusTree<IntWithTimestamp, PropertyWithTimestamp> properties;
 
     public DataPersistedBPlusTree() {
         this.properties = BPlusTree //
                 .file() //
                 .directory(System.getProperty("java.io.tmp")) //
-                .keySerializer(StringWithTimestamp.SERIALIZER) //
-                .valueSerializer(Serializer.utf8(0)) //
+                .keySerializer(IntWithTimestamp.SERIALIZER) //
+                .valueSerializer(PropertyWithTimestamp.SERIALIZER) //
                 .naturalOrder();
     }
 
