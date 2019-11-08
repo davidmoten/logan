@@ -29,12 +29,14 @@ public class TailerListenerAdapter2 implements TailerListener2 {
      * giving the listener a method of stopping the tailer.
      * @param tailer the tailer.
      */
+    @Override
     public void init(final Tailer2 tailer) {
     }
 
     /**
      * This method is called if the tailed file is not found.
      */
+    @Override
     public void fileNotFound() {
     }
 
@@ -44,6 +46,7 @@ public class TailerListenerAdapter2 implements TailerListener2 {
      * This method is called before the file is reopened, and fileNotFound may
      * be called if the new file has not yet been created.
      */
+    @Override
     public void fileRotated() {
     }
 
@@ -51,6 +54,7 @@ public class TailerListenerAdapter2 implements TailerListener2 {
      * Handles a line from a Tailer.
      * @param line the line.
      */
+    @Override
     public void handle(final String line) {
     }
 
@@ -58,6 +62,7 @@ public class TailerListenerAdapter2 implements TailerListener2 {
      * Handles an Exception .
      * @param ex the exception.
      */
+    @Override
     public void handle(final Exception ex) {
     }
 

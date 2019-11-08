@@ -1,7 +1,6 @@
 package com.github.davidmoten.logan;
 
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.NavigableSet;

@@ -402,6 +402,7 @@ public class Tailer2 implements Runnable {
     /**
      * Follows changes in the file, calling the TailerListener2's handle method for each new line.
      */
+    @Override
     public void run() {
         RandomAccessFile reader = null;
         try {
