@@ -25,7 +25,7 @@ import com.google.common.collect.AbstractIterator;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
-public class DataPersisted implements Data {
+public class DataPersistedH2 implements Data {
 
 	private static final int MAX_VALUE_LENGTH = 1000;
 	private final Connection connection;
@@ -42,9 +42,9 @@ public class DataPersisted implements Data {
 	private PreparedStatement stmtAddSourceName;
 	private final int batchSize;
 
-	private static Logger log = Logger.getLogger(DataPersisted.class.getName());
+	private static Logger log = Logger.getLogger(DataPersistedH2.class.getName());
 
-	public DataPersisted(String url, String username, String password,
+	public DataPersistedH2(String url, String username, String password,
 			int batchSize) {
 		this.batchSize = batchSize;
 		try {
@@ -80,11 +80,11 @@ public class DataPersisted implements Data {
 		}
 	}
 
-	public DataPersisted(File file) {
+	public DataPersistedH2(File file) {
 		this(file, 1);
 	}
 
-	public DataPersisted(File file, int batchSize) {
+	public DataPersistedH2(File file, int batchSize) {
 		this("jdbc:h2:" + file.getAbsolutePath(), "", "", batchSize);
 	}
 

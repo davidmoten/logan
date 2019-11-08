@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.github.davidmoten.logan.Data;
 import com.github.davidmoten.logan.DataMemory;
-import com.github.davidmoten.logan.DataPersisted;
+import com.github.davidmoten.logan.DataPersistedH2;
 import com.github.davidmoten.logan.Util;
 import com.github.davidmoten.logan.config.Configuration;
 
@@ -29,7 +29,7 @@ public class ServletUtil {
 	public static Data getData(Configuration configuration) {
 		Data data;
 		if ("true".equalsIgnoreCase(System.getProperty("persist")))
-			data = new DataPersisted(new File("target/maindb"), JDBC_BATCH_SIZE);
+			data = new DataPersistedH2(new File("target/maindb"), JDBC_BATCH_SIZE);
 		else
 			data = new DataMemory(configuration.maxSize);
 		Util.addDummyData(data);

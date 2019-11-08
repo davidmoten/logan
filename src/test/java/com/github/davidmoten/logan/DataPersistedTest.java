@@ -22,7 +22,7 @@ public class DataPersistedTest {
 
 	@Test
 	public void testCreateDatabase() {
-		DataPersisted d = createData();
+		DataPersistedH2 d = createData();
 		Map<String, String> map = Maps.newHashMap();
 		map.put("n", "123");
 		map.put(Field.MSG, "n=123, not finished yet");
@@ -33,7 +33,7 @@ public class DataPersistedTest {
 
 	@Test
 	public void testInsertMany() {
-		DataPersisted d = createData();
+		DataPersistedH2 d = createData();
 		Map<String, String> map = Maps.newHashMap();
 		map.put("n", "123");
 		map.put(Field.MSG, "n=123, not finished yet");
@@ -44,7 +44,7 @@ public class DataPersistedTest {
 
 	@Test
 	public void testFindWithOneEntryBetweenRangeAndNoOtherEntries() {
-		DataPersisted d = createData();
+		DataPersistedH2 d = createData();
 		Map<String, String> map = Maps.newHashMap();
 		map.put("n", "123");
 		map.put(Field.MSG, "n=123, not finished yet");
@@ -74,7 +74,7 @@ public class DataPersistedTest {
 
 	@Test
 	public void testGetKeys() {
-		DataPersisted d = createData();
+		DataPersistedH2 d = createData();
 		Map<String, String> map = Maps.newHashMap();
 		map.put("n", "123");
 		map.put(Field.MSG, "n=123, not finished yet");
@@ -84,7 +84,7 @@ public class DataPersistedTest {
 
 	@Test
 	public void testGetSources() {
-		DataPersisted d = createData();
+		DataPersistedH2 d = createData();
 		Map<String, String> map = Maps.newHashMap();
 		map.put("n", "123");
 		map.put(Field.MSG, "n=123, not finished yet");
@@ -95,7 +95,7 @@ public class DataPersistedTest {
 
 	@Test
 	public void testOldestTime() {
-		DataPersisted d = createData();
+		DataPersistedH2 d = createData();
 		Map<String, String> map = Maps.newHashMap();
 		map.put("n", "123");
 		map.put(Field.MSG, "n=123, not finished yet");
@@ -104,7 +104,7 @@ public class DataPersistedTest {
 		assertEquals(new Date(100L), d.oldestTime());
 	}
 
-	private static DataPersisted createData() {
+	private static DataPersistedH2 createData() {
 		int id = counter++;
 		File file = new File("target/" + id + "/db");
 		try {
@@ -113,7 +113,7 @@ public class DataPersistedTest {
 			throw new RuntimeException(e);
 		}
 
-		DataPersisted d = new DataPersisted(file);
+		DataPersistedH2 d = new DataPersistedH2(file);
 		return d;
 	}
 
