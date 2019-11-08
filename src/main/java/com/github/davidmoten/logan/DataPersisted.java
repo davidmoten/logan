@@ -330,8 +330,7 @@ public class DataPersisted implements Data {
 		}
 	}
 
-	@Override
-	public Date oldestTime() {
+    public Date oldestTime() {
 		try {
 			ResultSet rs = stmtOldestTime.executeQuery();
 			rs.next();
