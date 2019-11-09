@@ -125,14 +125,6 @@ public class DataMemory implements Data {
 		// do nothing
 	}
 
-//	@Override
-//	public Date oldestTime() {
-//		if (asSortedMap().isEmpty())
-//			return null;
-//		else
-//			return new Date(asSortedMap().firstKey());
-//	}
-
 	@Override
 	public Iterable<String> getLogs(long startTime, long finishTime) {
 		return DataCore.getLogs(this, startTime,

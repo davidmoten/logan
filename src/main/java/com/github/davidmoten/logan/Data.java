@@ -20,6 +20,12 @@ public interface Data {
 
     long getNumEntries();
 
+    /**
+     * Returns total number of entries added so far (older entries may have been
+     * discarded so this is not the same as the current number of entries).
+     * 
+     * @return total number of entries added so far
+     */
     long getNumEntriesAdded();
 
     NavigableSet<String> getKeys();

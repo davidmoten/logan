@@ -29,9 +29,7 @@ public class DataCore {
 		Iterable<LogEntry> filtered = filter(entries, query);
 
 		// get numeric values or count
-		Buckets buckets = getBuckets(filtered, query);
-
-		return buckets;
+		return getBuckets(filtered, query);
 	}
 
 	private static Iterable<LogEntry> filter(Iterable<LogEntry> entries,
