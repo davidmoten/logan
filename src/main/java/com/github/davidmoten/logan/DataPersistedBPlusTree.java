@@ -2,13 +2,12 @@ package com.github.davidmoten.logan;
 
 import java.util.Map.Entry;
 import java.util.NavigableSet;
-import java.util.Set;
 import java.util.TreeSet;
 import java.util.logging.Logger;
 
 import com.github.davidmoten.bplustree.BPlusTree;
 
-public class DataPersistedBPlusTree implements Data {
+public final class DataPersistedBPlusTree implements Data {
 
     private static final Logger log = Logger.getLogger(DataPersistedBPlusTree.class.getName());
 
@@ -33,8 +32,21 @@ public class DataPersistedBPlusTree implements Data {
 
     @Override
     public Buckets execute(BucketQuery query) {
-        // TODO Auto-generated method stub
-        return null;
+        Buckets buckets = new Buckets(query);
+        if (query.getField().isPresent()) {
+            IntWithTimestamp start = new IntWithTimestamp(query.getField().get().hashCode(),
+                    query.getStartTime());
+            IntWithTimestamp finish = new IntWithTimestamp(query.getField().get().hashCode(),
+                    query.getFinishTime());
+            properties.find(start, finish) //
+                    .forEach(x -> {
+                        if (x.key.equals(query.getField().get())) {
+                            // TODO check source, scan, etc
+                            buckets.add(x.time, x.value);
+                        }
+                    });
+        }
+        return buckets;
     }
 
     @Override
