@@ -21,10 +21,10 @@ public final class DataPersistedBPlusTree implements Data {
 
     private final TreeSet<String> sources = new TreeSet<>();
 
-    public DataPersistedBPlusTree() {
+    public DataPersistedBPlusTree(String directory) {
         this.properties = BPlusTree //
                 .file() //
-                .directory(System.getProperty("java.io.tmp")) //
+                .directory(directory) //
                 .keySerializer(IntWithTimestamp.SERIALIZER) //
                 .valueSerializer(PropertyWithTimestamp.SERIALIZER) //
                 .naturalOrder();
