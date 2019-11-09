@@ -16,10 +16,12 @@ import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Maps;
 
-public class DataCore {
+public final class DataCore {
 
-	
-
+    private DataCore() {
+        // prevent instantiation
+    }
+    
 	public static Buckets execute(Data data, BucketQuery query) {
 		// get the time range of entries
 		Iterable<LogEntry> entries = data.find(query.getStartTime(),
