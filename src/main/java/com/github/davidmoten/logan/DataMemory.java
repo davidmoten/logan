@@ -53,7 +53,7 @@ public class DataMemory implements Data {
 		synchronized (changeLock) {
 			facade.put(entry.getTime(), entry);
 			for (Entry<String, String> pair : entry.getProperties().entrySet())
-				if (isNumeric(pair.getValue()))
+				if (Util.isNumeric(pair.getValue()))
 					keys.add(pair.getKey());
 			if (numEntries % 10000 == 0 && numEntries < maxSize)
 				log.info("numEntries=" + numEntries);
@@ -78,14 +78,6 @@ public class DataMemory implements Data {
 		return (SortedMap<Long, Collection<LogEntry>>) facade.asMap();
 	}
 
-	private boolean isNumeric(String s) {
-		try {
-			Double.parseDouble(s);
-			return true;
-		} catch (NumberFormatException e) {
-			return false;
-		}
-	}
 
 	@Override
 	public Iterable<LogEntry> find(final long startTime, final long finishTime) {

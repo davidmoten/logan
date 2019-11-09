@@ -103,4 +103,21 @@ public class Util {
         double ratePerSecond = n * 1000.0 / (System.currentTimeMillis() - t);
         log.info("added " + n + " records " + ", insertsPerSecond=" + ratePerSecond + "");
     }
+
+    public static boolean isNumeric(String s) {
+        try {
+            Double.parseDouble(s);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
+    public static Double parseDouble(String s) {
+        try {
+            return Double.parseDouble(s);
+        } catch (NumberFormatException e) {
+            return null;
+        }
+    }
 }

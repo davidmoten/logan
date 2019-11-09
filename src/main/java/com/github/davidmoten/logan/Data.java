@@ -13,8 +13,7 @@ public interface Data {
     /**
      * Adds a {@link LogEntry} to the data.
      * 
-     * @param entry
-     *            entry
+     * @param entry entry
      * @return this this
      */
     Data add(LogEntry entry);
@@ -27,6 +26,6 @@ public interface Data {
 
     NavigableSet<String> getSources();
 
-    void close();
+    void close() throws Exception;
 
 }

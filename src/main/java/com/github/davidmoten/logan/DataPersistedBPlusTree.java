@@ -1,12 +1,26 @@
 package com.github.davidmoten.logan;
 
+import java.util.Map.Entry;
 import java.util.NavigableSet;
+import java.util.Set;
+import java.util.TreeSet;
+import java.util.logging.Logger;
 
 import com.github.davidmoten.bplustree.BPlusTree;
 
 public class DataPersistedBPlusTree implements Data {
 
+    private static final Logger log = Logger.getLogger(DataPersistedBPlusTree.class.getName());
+
     private final BPlusTree<IntWithTimestamp, PropertyWithTimestamp> properties;
+
+    private final Object changeLock = new Object();
+
+    private long numEntries;
+
+    private final TreeSet<String> keys = new TreeSet<>();
+
+    private final TreeSet<String> sources = new TreeSet<>();
 
     public DataPersistedBPlusTree() {
         this.properties = BPlusTree //
@@ -35,38 +49,56 @@ public class DataPersistedBPlusTree implements Data {
 
     @Override
     public Data add(LogEntry entry) {
-        // TODO Auto-generated method stub
-        return null;
+        synchronized (changeLock) {
+            numEntries++;
+            for (Entry<String, String> pair : entry.getProperties().entrySet()) {
+                Double value = Util.parseDouble(pair.getValue());
+                if (value != null) {
+                    keys.add(pair.getKey());
+                    IntWithTimestamp k = new IntWithTimestamp(pair.getKey().hashCode(),
+                            entry.getTime());
+                    PropertyWithTimestamp v = new PropertyWithTimestamp(pair.getKey(), value,
+                            entry.getTime());
+                    properties.insert(k, v);
+                }
+            }
+
+            String source = entry.getSource();
+            if (source != null) {
+                sources.add(source);
+            }
+
+            if (numEntries % 10000 == 0) {
+                log.info("numEntries=" + numEntries);
+            }
+            return this;
+        }
+
     }
 
     @Override
     public long getNumEntries() {
-        // TODO Auto-generated method stub
-        return 0;
+        return numEntries;
     }
 
     @Override
     public long getNumEntriesAdded() {
-        // TODO Auto-generated method stub
-        return 0;
+        return numEntries;
     }
 
     @Override
     public NavigableSet<String> getKeys() {
-        // TODO Auto-generated method stub
-        return null;
+        return keys;
     }
 
     @Override
     public NavigableSet<String> getSources() {
-        // TODO Auto-generated method stub
-        return null;
+        return sources;
     }
 
     @Override
-    public void close() {
-        // TODO Auto-generated method stub
-
+    public void close() throws Exception {
+        properties.close();
     }
 
 }
