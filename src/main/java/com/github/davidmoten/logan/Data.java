@@ -1,5 +1,6 @@
 package com.github.davidmoten.logan;
 
+import java.util.Date;
 import java.util.NavigableSet;
 
 public interface Data {
@@ -33,5 +34,5 @@ public interface Data {
     NavigableSet<String> getSources();
 
     void close() throws Exception;
-
+    
 }

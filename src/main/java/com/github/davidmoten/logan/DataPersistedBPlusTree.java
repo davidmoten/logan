@@ -28,6 +28,7 @@ public final class DataPersistedBPlusTree implements Data {
                 .keySerializer(IntWithTimestamp.SERIALIZER) //
                 .valueSerializer(PropertyWithTimestamp.SERIALIZER) //
                 .naturalOrder();
+        log.info("constructed");
     }
 
     @Override
