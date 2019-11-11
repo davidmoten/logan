@@ -1,5 +1,6 @@
 package com.github.davidmoten.logan;
 
+import java.io.File;
 import java.util.Map.Entry;
 import java.util.NavigableSet;
 import java.util.TreeSet;
@@ -22,12 +23,20 @@ public final class DataPersistedBPlusTree implements Data {
     private final TreeSet<String> sources = new TreeSet<>();
 
     public DataPersistedBPlusTree(String directory) {
+        new File(directory).mkdirs();
         this.properties = BPlusTree //
                 .file() //
                 .directory(directory) //
                 .keySerializer(IntWithTimestamp.SERIALIZER) //
                 .valueSerializer(PropertyWithTimestamp.SERIALIZER) //
-                .naturalOrder();
+                .comparator((a, b) -> {
+                    int c = Integer.compare(a.value, b.value);
+                    if (c == 0) {
+                        return Long.compare(a.time, b.time);
+                    } else {
+                        return c;
+                    }
+                });
         log.info("constructed");
     }
 
@@ -75,7 +84,6 @@ public final class DataPersistedBPlusTree implements Data {
                     properties.insert(k, v);
                 }
             }
-
             String source = entry.getSource();
             if (source != null) {
                 sources.add(source);

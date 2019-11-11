@@ -248,6 +248,10 @@
                             <name>log.base</name>
                             <value>${log.base}</value>
                         </systemProperty>
+                        <systemProperty>
+                            <name>persist</name>
+                            <value>bplustree</value>
+                        </systemProperty>
                     </systemProperties>
                 </configuration>
             </plugin>

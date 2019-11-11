@@ -36,6 +36,13 @@ public class ApplicationServletContextListener implements ServletContextListener
         Watcher w = new Watcher(data, configuration);
         w.start();
         State.setInstance(new State(data, configuration, w));
+        log.info("state set");
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
     private static void setupLogging() {

@@ -1,63 +1,101 @@
-<web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
-	version="2.5">
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+    version="2.5">
 
-	<display-name>${project.artifactId} ${project.version}</display-name>
-<!-- 
-	<filter>
-		<filter-name>cross-origin</filter-name>
-		<filter-class>org.eclipse.jetty.servlets.CrossOriginFilter</filter-class>
-		<init-param>
-			<param-name>allowedOrigins</param-name>
-			<param-value>*</param-value>
-		</init-param>
-		<init-param>
-			<param-name>allowedMethods</param-name>
-			<param-value>*</param-value>
-		</init-param>
-		<init-param>
-			<param-name>allowedHeaders</param-name>
-			<param-value>*</param-value>
-		</init-param>
-	</filter>
+    <display-name>${project.artifactId} ${project.version}</display-name>
+    <!-- <filter> <filter-name>cross-origin</filter-name> <filter-class>org.eclipse.jetty.servlets.CrossOriginFilter</filter-class> 
+        <init-param> <param-name>allowedOrigins</param-name> <param-value>*</param-value> 
+        </init-param> <init-param> <param-name>allowedMethods</param-name> <param-value>*</param-value> 
+        </init-param> <init-param> <param-name>allowedHeaders</param-name> <param-value>*</param-value> 
+        </init-param> </filter> <filter-mapping> <filter-name>cross-origin</filter-name> 
+        <url-pattern>/*</url-pattern> </filter-mapping> -->
+    <listener>
+        <listener-class>com.github.davidmoten.logan.servlet.ApplicationServletContextListener</listener-class>
+    </listener>
 
-	<filter-mapping>
-		<filter-name>cross-origin</filter-name>
-		<url-pattern>/*</url-pattern>
-	</filter-mapping>
--->
-	<servlet>
-		<servlet-name>Admin</servlet-name>
-		<jsp-file>/admin.jsp</jsp-file>
-	</servlet>
+    <servlet>
+        <servlet-name>Keys</servlet-name>
+        <servlet-class>com.github.davidmoten.logan.servlet.KeysServlet</servlet-class>
+    </servlet>
 
-	<servlet-mapping>
-		<servlet-name>Admin</servlet-name>
-		<url-pattern>/admin</url-pattern>
-	</servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Keys</servlet-name>
+        <url-pattern>/keys</url-pattern>
+    </servlet-mapping>
 
-	<servlet>
-		<servlet-name>Graph</servlet-name>
-		<jsp-file>/graph.jsp</jsp-file>
-	</servlet>
+    <servlet>
+        <servlet-name>Sources</servlet-name>
+        <servlet-class>com.github.davidmoten.logan.servlet.SourcesServlet</servlet-class>
+    </servlet>
 
-	<servlet-mapping>
-		<servlet-name>Graph</servlet-name>
-		<url-pattern>/graph</url-pattern>
-	</servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Sources</servlet-name>
+        <url-pattern>/sources</url-pattern>
+    </servlet-mapping>
 
-	<servlet>
-		<servlet-name>Create</servlet-name>
-		<jsp-file>/create.jsp</jsp-file>
-	</servlet>
+    <servlet>
+        <servlet-name>Log</servlet-name>
+        <servlet-class>com.github.davidmoten.logan.servlet.LogServlet</servlet-class>
+    </servlet>
 
-	<welcome-file-list>
-		<welcome-file>index.jsp</welcome-file>
-		<welcome-file>index.html</welcome-file>
-	</welcome-file-list>
+    <servlet-mapping>
+        <servlet-name>Log</servlet-name>
+        <url-pattern>/log</url-pattern>
+    </servlet-mapping>
 
-	<session-config>
-		<session-timeout>15</session-timeout>
-	</session-config>
+    <servlet>
+        <servlet-name>Configuration</servlet-name>
+        <servlet-class>com.github.davidmoten.logan.servlet.ConfigurationServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Configuration</servlet-name>
+        <url-pattern>/configurations</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Data</servlet-name>
+        <servlet-class>com.github.davidmoten.logan.servlet.DataServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Data</servlet-name>
+        <url-pattern>/data</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Admin</servlet-name>
+        <jsp-file>/admin.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Admin</servlet-name>
+        <url-pattern>/admin</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Graph</servlet-name>
+        <jsp-file>/graph.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Graph</servlet-name>
+        <url-pattern>/graph</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Create</servlet-name>
+        <jsp-file>/create.jsp</jsp-file>
+    </servlet>
+
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+        <welcome-file>index.html</welcome-file>
+    </welcome-file-list>
+
+    <session-config>
+        <session-timeout>15</session-timeout>
+    </session-config>
 
 </web-app>

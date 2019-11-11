@@ -33,4 +33,11 @@ public final class IntWithTimestamp {
             return Integer.BYTES + Long.BYTES;
         }
     };
+
+    @Override
+    public String toString() {
+        return "IntWithTimestamp [value=" + value + ", time=" + time + "]";
+    }
+    
+    
 }

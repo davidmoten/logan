@@ -48,4 +48,9 @@ public class PropertyWithTimestamp implements Comparable<PropertyWithTimestamp> 
         }
     }
 
+    @Override
+    public String toString() {
+        return "PropertyWithTimestamp [key=" + key + ", value=" + value + ", time=" + time + "]";
+    }
+
 }
