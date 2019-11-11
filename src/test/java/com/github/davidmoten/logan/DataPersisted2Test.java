@@ -1,6 +1,11 @@
 package com.github.davidmoten.logan;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+
 import java.io.File;
+import java.util.Iterator;
+import java.util.TreeSet;
 
 import org.junit.Test;
 
@@ -18,10 +23,23 @@ public class DataPersisted2Test {
         tree.insert(new IntWithTimestamp("hello2".hashCode(), 300L),
                 new PropertyWithTimestamp("hello2", 1.3, 300L));
         tree.print();
-        Iterable<PropertyWithTimestamp> it = tree.find(new IntWithTimestamp("hello".hashCode(), 0),
-                new IntWithTimestamp("hello".hashCode(), 1000));
-        it.forEach(System.out::println);
+        Iterator<PropertyWithTimestamp> it = tree.find( //
+                new IntWithTimestamp("hello".hashCode(), 0), //
+                new IntWithTimestamp("hello".hashCode(), 1000)) //
+                .iterator();
+        assertEquals(100L, it.next().time);
+        assertEquals(200L, it.next().time);
+        assertEquals(300L, it.next().time);
+        assertFalse(it.hasNext());
+    }
 
+    @Test
+    public void testTreeSet() {
+        TreeSet<IntWithTimestamp> set = new TreeSet<>();
+        set.add(new IntWithTimestamp("hello".hashCode(), 100L));
+        set.add(new IntWithTimestamp("there".hashCode(), 200L));
+        set.add(new IntWithTimestamp("hello2".hashCode(), 300L));
+        set.stream().forEach(System.out::println);
     }
 
     private BPlusTree<IntWithTimestamp, PropertyWithTimestamp> create() {
