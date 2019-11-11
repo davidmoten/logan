@@ -1,5 +1,7 @@
 package com.github.davidmoten.logan;
 
+import java.util.Date;
+
 import com.github.davidmoten.bplustree.LargeByteBuffer;
 import com.github.davidmoten.bplustree.Serializer;
 
@@ -50,7 +52,7 @@ public class PropertyWithTimestamp implements Comparable<PropertyWithTimestamp> 
 
     @Override
     public String toString() {
-        return "PropertyWithTimestamp [key=" + key + ", value=" + value + ", time=" + time + "]";
+        return "PropertyWithTimestamp [key=" + key + ", value=" + value + ", time=" + new Date(time) + "]";
     }
 
 }

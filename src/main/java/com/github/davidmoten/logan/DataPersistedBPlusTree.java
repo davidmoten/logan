@@ -29,27 +29,22 @@ public final class DataPersistedBPlusTree implements Data {
                 .directory(directory) //
                 .keySerializer(IntWithTimestamp.SERIALIZER) //
                 .valueSerializer(PropertyWithTimestamp.SERIALIZER) //
-                .comparator((a, b) -> {
-                    int c = Integer.compare(a.value, b.value);
-                    if (c == 0) {
-                        return Long.compare(a.time, b.time);
-                    } else {
-                        return c;
-                    }
-                });
+                .naturalOrder();
         log.info("constructed");
     }
 
     @Override
     public Buckets execute(BucketQuery query) {
+        log.info(query.toString());
         Buckets buckets = new Buckets(query);
         if (query.getField().isPresent()) {
             IntWithTimestamp start = new IntWithTimestamp(query.getField().get().hashCode(),
                     query.getStartTime());
             IntWithTimestamp finish = new IntWithTimestamp(query.getField().get().hashCode(),
                     query.getFinishTime());
-            properties.find(start, finish) //
+            properties.find(start, finish, true) //
                     .forEach(x -> {
+                        log.info("record=" + x);
                         if (x.key.equals(query.getField().get())) {
                             // TODO check source, scan, etc
                             buckets.add(x.time, x.value);
@@ -72,6 +67,7 @@ public final class DataPersistedBPlusTree implements Data {
     @Override
     public Data add(LogEntry entry) {
         synchronized (changeLock) {
+            log.info("add " + entry);
             numEntries++;
             for (Entry<String, String> pair : entry.getProperties().entrySet()) {
                 Double value = Util.parseDouble(pair.getValue());
