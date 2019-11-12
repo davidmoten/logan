@@ -164,7 +164,7 @@ public class BucketQuery {
 
     @Override
     public String toString() {
-        return "BucketQuery [startTime=" + startTime + ", intervalSizeMs=" + intervalSizeMs
+        return "BucketQuery [startTime=" + new Date(startTime) + ", intervalSizeMs=" + intervalSizeMs
                 + ", numIntervals=" + numIntervals + ", field=" + field + ", source=" + source
                 + ", text=" + text + ", scan=" + scan + "]";
     }
