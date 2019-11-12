@@ -4,8 +4,11 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.Iterator;
+import java.util.List;
 import java.util.TreeSet;
+import java.util.stream.Collectors;
 
 import org.junit.Test;
 
@@ -16,12 +19,9 @@ public class DataPersisted2Test {
     @Test
     public void test() {
         BPlusTree<IntWithTimestamp, PropertyWithTimestamp> tree = create();
-        tree.insert(new IntWithTimestamp(123, 500L),
-                new PropertyWithTimestamp("hello", 1.1, 500L));
-        tree.insert(new IntWithTimestamp(234, 200L),
-                new PropertyWithTimestamp("there", 1.2, 200L));
-        tree.insert(new IntWithTimestamp(124, 300L),
-                new PropertyWithTimestamp("hello2", 1.3, 300L));
+        tree.insert(new IntWithTimestamp(123, 500L), new PropertyWithTimestamp("hello", 1.1, 500L));
+        tree.insert(new IntWithTimestamp(234, 200L), new PropertyWithTimestamp("there", 1.2, 200L));
+        tree.insert(new IntWithTimestamp(124, 300L), new PropertyWithTimestamp("hello2", 1.3, 300L));
         tree.print();
 
         Iterator<PropertyWithTimestamp> it = tree.find( //
@@ -35,10 +35,11 @@ public class DataPersisted2Test {
     @Test
     public void testTreeSet() {
         TreeSet<IntWithTimestamp> set = new TreeSet<>();
-        set.add(new IntWithTimestamp("hello".hashCode(), 100L));
-        set.add(new IntWithTimestamp("there".hashCode(), 200L));
-        set.add(new IntWithTimestamp("hello2".hashCode(), 300L));
-        set.stream().forEach(System.out::println);
+        set.add(new IntWithTimestamp(123, 100L));
+        set.add(new IntWithTimestamp(234, 200L));
+        set.add(new IntWithTimestamp(124, 300L));
+        List<Long> list = set.stream().map(x -> x.time).collect(Collectors.toList());
+        assertEquals(Arrays.asList(100L, 300L, 200L), list);
     }
 
     private BPlusTree<IntWithTimestamp, PropertyWithTimestamp> create() {
