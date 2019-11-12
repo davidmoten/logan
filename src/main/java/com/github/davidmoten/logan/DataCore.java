@@ -189,8 +189,9 @@ public final class DataCore {
 	}
 
 	public static void addRandomLogEntry(Data data, int range, int n) {
-		for (int i = 1; i <= n; i++)
+		for (int i = 1; i <= n; i++) {
 			data.add(createRandomLogEntry(i, range));
+		}
 	}
 
 	private static LogEntry createRandomLogEntry(int i, int range) {

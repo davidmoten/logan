@@ -6,9 +6,13 @@ import java.util.NavigableSet;
 import java.util.TreeSet;
 import java.util.logging.Logger;
 
+import org.davidmoten.kool.Stream;
+
 import com.github.davidmoten.bplustree.BPlusTree;
 
 public final class DataPersistedBPlusTree implements Data {
+
+    private static final int LOG_COUNT_EVERY = 10000;
 
     private static final Logger log = Logger.getLogger(DataPersistedBPlusTree.class.getName());
 
@@ -38,10 +42,11 @@ public final class DataPersistedBPlusTree implements Data {
         log.info(query.toString());
         Buckets buckets = new Buckets(query);
         if (query.getField().isPresent()) {
-            IntWithTimestamp start = new IntWithTimestamp(query.getField().get().hashCode(),
-                    query.getStartTime());
-            IntWithTimestamp finish = new IntWithTimestamp(query.getField().get().hashCode(),
-                    query.getFinishTime());
+            IntWithTimestamp start = new IntWithTimestamp(query.getField().get().hashCode(), query.getStartTime());
+            IntWithTimestamp finish = new IntWithTimestamp(query.getField().get().hashCode(), query.getFinishTime());
+            log.info("querying properties for range " + start + " to " + finish);
+            Stream.from(properties.find(new IntWithTimestamp(Integer.MIN_VALUE, Long.MIN_VALUE),
+                    new IntWithTimestamp(Integer.MAX_VALUE, Long.MAX_VALUE), true)).forEach(System.out::println);
             properties.find(start, finish, true) //
                     .forEach(x -> {
                         log.info("record=" + x);
@@ -72,11 +77,11 @@ public final class DataPersistedBPlusTree implements Data {
             for (Entry<String, String> pair : entry.getProperties().entrySet()) {
                 Double value = Util.parseDouble(pair.getValue());
                 if (value != null) {
+                    log.info("pair=" + pair);
                     keys.add(pair.getKey());
-                    IntWithTimestamp k = new IntWithTimestamp(pair.getKey().hashCode(),
-                            entry.getTime());
-                    PropertyWithTimestamp v = new PropertyWithTimestamp(pair.getKey(), value,
-                            entry.getTime());
+                    IntWithTimestamp k = new IntWithTimestamp(pair.getKey().hashCode(), entry.getTime());
+                    PropertyWithTimestamp v = new PropertyWithTimestamp(pair.getKey(), value, entry.getTime());
+                    System.out.println("inserting\n  " + k + "\n->" + v);
                     properties.insert(k, v);
                 }
             }
@@ -85,7 +90,7 @@ public final class DataPersistedBPlusTree implements Data {
                 sources.add(source);
             }
 
-            if (numEntries % 10000 == 0) {
+            if (numEntries % LOG_COUNT_EVERY == 0) {
                 log.info("numEntries=" + numEntries);
             }
             return this;
