@@ -144,7 +144,6 @@
             <groupId>com.github.davidmoten</groupId>
             <artifactId>kool</artifactId>
             <version>0.1.2</version>
-            <scope>test</scope>
         </dependency>
 
     </dependencies>
