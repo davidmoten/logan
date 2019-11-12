@@ -16,21 +16,19 @@ public class DataPersisted2Test {
     @Test
     public void test() {
         BPlusTree<IntWithTimestamp, PropertyWithTimestamp> tree = create();
-        tree.insert(new IntWithTimestamp("hello".hashCode(), 500L),
+        tree.insert(new IntWithTimestamp(123, 500L),
                 new PropertyWithTimestamp("hello", 1.1, 500L));
-        tree.insert(new IntWithTimestamp("there".hashCode(), 200L),
+        tree.insert(new IntWithTimestamp(234, 200L),
                 new PropertyWithTimestamp("there", 1.2, 200L));
-        tree.insert(new IntWithTimestamp("hello2".hashCode(), 300L),
+        tree.insert(new IntWithTimestamp(124, 300L),
                 new PropertyWithTimestamp("hello2", 1.3, 300L));
         tree.print();
 
         Iterator<PropertyWithTimestamp> it = tree.find( //
-                new IntWithTimestamp("hello".hashCode(), 0), //
-                new IntWithTimestamp("hello".hashCode(), 1000)) //
+                new IntWithTimestamp(123, 0), //
+                new IntWithTimestamp(123, 1000)) //
                 .iterator();
         assertEquals(500L, it.next().time);
-        assertEquals(200L, it.next().time);
-        assertEquals(300L, it.next().time);
         assertFalse(it.hasNext());
     }
 
