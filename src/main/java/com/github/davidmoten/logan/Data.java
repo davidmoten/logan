@@ -1,6 +1,5 @@
 package com.github.davidmoten.logan;
 
-import java.util.Date;
 import java.util.NavigableSet;
 
 public interface Data {
