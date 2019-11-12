@@ -24,12 +24,24 @@ public class DataPersisted2Test {
         tree.insert(new IntWithTimestamp(124, 300L), new PropertyWithTimestamp("hello2", 1.3, 300L));
         tree.print();
 
-        Iterator<PropertyWithTimestamp> it = tree.find( //
-                new IntWithTimestamp(123, 0), //
-                new IntWithTimestamp(123, 1000)) //
-                .iterator();
-        assertEquals(500L, it.next().time);
-        assertFalse(it.hasNext());
+        {
+            Iterator<PropertyWithTimestamp> it = tree.find( //
+                    new IntWithTimestamp(123, 0), //
+                    new IntWithTimestamp(123, 1000)) //
+                    .iterator();
+            assertEquals(500L, it.next().time);
+            assertFalse(it.hasNext());
+        }
+        {
+            Iterator<PropertyWithTimestamp> it = tree.find( //
+                    new IntWithTimestamp(0, 0), //
+                    new IntWithTimestamp(1000, 1000)) //
+                    .iterator();
+            assertEquals(500L, it.next().time);
+            assertEquals(300L, it.next().time);
+            assertEquals(200L, it.next().time);
+            assertFalse(it.hasNext());
+        }
     }
 
     @Test
