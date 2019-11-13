@@ -40,7 +40,7 @@ public final class IntWithTimestamp implements Comparable<IntWithTimestamp> {
     public String toString() {
         return "IntWithTimestamp [value=" + value + ", time=" + new Date(time) + "]";
     }
-
+    
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -65,6 +65,8 @@ public final class IntWithTimestamp implements Comparable<IntWithTimestamp> {
             return false;
         return true;
     }
+
+
 
     @Override
     public int compareTo(IntWithTimestamp o) {

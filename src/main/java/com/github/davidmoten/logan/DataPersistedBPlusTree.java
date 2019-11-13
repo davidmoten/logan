@@ -6,8 +6,6 @@ import java.util.NavigableSet;
 import java.util.TreeSet;
 import java.util.logging.Logger;
 
-import org.davidmoten.kool.Stream;
-
 import com.github.davidmoten.bplustree.BPlusTree;
 
 public final class DataPersistedBPlusTree implements Data {
@@ -31,6 +29,7 @@ public final class DataPersistedBPlusTree implements Data {
         this.properties = BPlusTree //
                 .file() //
                 .directory(directory) //
+                .clearDirectory() //
                 .keySerializer(IntWithTimestamp.SERIALIZER) //
                 .valueSerializer(PropertyWithTimestamp.SERIALIZER) //
                 .naturalOrder();
@@ -45,8 +44,6 @@ public final class DataPersistedBPlusTree implements Data {
             IntWithTimestamp start = new IntWithTimestamp(query.getField().get().hashCode(), query.getStartTime());
             IntWithTimestamp finish = new IntWithTimestamp(query.getField().get().hashCode(), query.getFinishTime());
             log.info("querying properties for range " + start + " to " + finish);
-            Stream.from(properties.find(new IntWithTimestamp(Integer.MIN_VALUE, Long.MIN_VALUE),
-                    new IntWithTimestamp(Integer.MAX_VALUE, Long.MAX_VALUE), true)).forEach(System.out::println);
             properties.find(start, finish, true) //
                     .forEach(x -> {
                         log.info("record=" + x);
@@ -121,6 +118,10 @@ public final class DataPersistedBPlusTree implements Data {
     @Override
     public void close() throws Exception {
         properties.close();
+    }
+
+    public void print() {
+        properties.findAll((k, v) -> k + " -> " + v).forEach(System.out::println);
     }
 
 }
