@@ -38,15 +38,19 @@ public class PropertyWithTimestamp {
         public PropertyWithTimestamp read(LargeByteBuffer bb) {
             String key = bb.getString();
             byte isString = bb.get();
+            
+            final double value;
+            final String stringValue;
+            
             if (isString == 0) {
-                double value = bb.getDouble();
-                long time = bb.getLong();
-                return new PropertyWithTimestamp(key, value, null, time);
+                value = bb.getDouble();
+                stringValue = null;
             } else {
-                String stringValue = bb.getString();
-                long time = bb.getLong();
-                return new PropertyWithTimestamp(key, 0, stringValue, time);
+                value = 0;
+                stringValue = bb.getString();
             }
+            long time = bb.getLong();
+            return new PropertyWithTimestamp(key, value, stringValue, time);
         }
 
         @Override
@@ -71,7 +75,8 @@ public class PropertyWithTimestamp {
 
     @Override
     public String toString() {
-        return "PropertyWithTimestamp [key=" + key + ", value=" + (stringValue == null? value:"\"" + stringValue + "\"") + ", time=" + new Date(time) + "]";
+        return "PropertyWithTimestamp [key=" + key + ", value="
+                + (stringValue == null ? value : "\"" + stringValue + "\"") + ", time=" + new Date(time) + "]";
     }
 
 }
