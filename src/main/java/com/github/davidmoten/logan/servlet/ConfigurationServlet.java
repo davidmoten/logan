@@ -5,12 +5,11 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.Set;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,7 +26,7 @@ import com.github.davidmoten.logan.util.PropertyReplacer;
 import com.github.davidmoten.logan.watcher.FileTailerSampling;
 import com.github.davidmoten.logan.watcher.Watcher;
 
-@WebServlet(urlPatterns = { "/configuration" })
+//@WebServlet(urlPatterns = { "/configuration" })
 public class ConfigurationServlet extends HttpServlet {
 
     private static final long serialVersionUID = -1409220672745244218L;

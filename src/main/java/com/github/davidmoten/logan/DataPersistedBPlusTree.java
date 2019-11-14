@@ -78,7 +78,6 @@ public final class DataPersistedBPlusTree implements Data {
     @Override
     public Data add(LogEntry entry) {
         synchronized (changeLock) {
-            log.info("add " + entry);
             numEntries++;
             for (Entry<String, String> pair : entry.getProperties().entrySet()) {
                 if ("logMsg".equals(pair.getKey())) {
@@ -86,13 +85,11 @@ public final class DataPersistedBPlusTree implements Data {
                     IntWithTimestamp k = new IntWithTimestamp(pair.getKey().hashCode(), entry.getTime());
                     PropertyWithTimestamp v = new PropertyWithTimestamp(pair.getKey(), 0, pair.getValue(),
                             entry.getTime());
-                    System.out.println("inserting\n  " + k + "\n->" + v);
                     properties.insert(k, v);
                 } else {
                     Double value = Util.parseDouble(pair.getValue());
                     if (value != null) {
                         // insert a numeric value
-                        log.info("pair=" + pair);
                         keys.add(pair.getKey());
                         IntWithTimestamp k = new IntWithTimestamp(pair.getKey().hashCode(), entry.getTime());
                         PropertyWithTimestamp v = new PropertyWithTimestamp(pair.getKey(), value, null,
