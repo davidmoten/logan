@@ -202,11 +202,14 @@ public final class DataCore {
 		map.put("specialNumber2", sp2);
 		boolean processing = Math.random() > 0.5;
 		map.put("processing", processing + "");
-		map.put(Field.MSG, "processing=" + processing + ",specialNumber=" + sp1
-				+ ",specialNumber2=" + sp2);
-
-		return new LogEntry(System.currentTimeMillis()
-				- TimeUnit.MINUTES.toMillis(i), map);
+		long time = System.currentTimeMillis()
+				- TimeUnit.MINUTES.toMillis(i);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-dd-MM HH:mm:ss.SSS");
+		sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
+		
+		map.put(Field.MSG,sdf.format(new Date(time)) +  " INFO processing=" + processing + ",specialNumber=" + sp1
+                + ",specialNumber2=" + sp2);
+        return new LogEntry(time, map);
 	}
 
 }

@@ -28,7 +28,7 @@ public class LogParserTest {
 		assertEquals("INFO", entry.getProperties().get(Field.LEVEL));
 		assertEquals("au.gov.amsa.er.craft.tracking.actor.FixesPersisterActor",
 				entry.getProperties().get(Field.LOGGER));
-		assertEquals("fixes queue size = 0",
+		assertEquals(line,
 				entry.getProperties().get(Field.MSG));
 	}
 
@@ -69,7 +69,7 @@ public class LogParserTest {
 			assertEquals("persistDummyRecords",
 					entry.getProperties().get(Field.METHOD));
 			assertEquals(
-					"persisted random values=1000 from the last hour to table Dummy",
+					line2,
 					entry.getProperties().get(Field.MSG));
 		}
 		assertNull(p.parse("test", line3));
@@ -83,7 +83,7 @@ public class LogParserTest {
 					.getProperties().get(Field.LOGGER));
 			assertEquals("persistDummyRecordsAgain",
 					entry.getProperties().get(Field.METHOD));
-			assertEquals("something=123", entry.getProperties().get(Field.MSG));
+			assertEquals(line5, entry.getProperties().get(Field.MSG));
 
 		}
 	}
@@ -97,7 +97,7 @@ public class LogParserTest {
 		assertEquals("INFO", entry.getProperties().get(Field.LEVEL));
 		assertEquals("au.gov.amsa.er.craft.tracking.actor.FixesPersisterActor",
 				entry.getProperties().get(Field.LOGGER));
-		assertEquals("fixes queue size = 0",
+		assertEquals(line,
 				entry.getProperties().get(Field.MSG));
 		assertEquals("thread_name-1",
 				entry.getProperties().get(Field.THREAD_NAME));
