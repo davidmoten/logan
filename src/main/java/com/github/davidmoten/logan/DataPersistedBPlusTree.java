@@ -69,12 +69,12 @@ public final class DataPersistedBPlusTree implements Data {
     @Override
     public Stream<String> getLogs(long startTime, long finishTime) {
         log.info("querying logs for range " + new Date(startTime) + " to " + new Date(finishTime));
-        int hashCode = "logMsg".hashCode();
+        int hashCode = Field.MSG.hashCode();
         IntWithTimestamp start = new IntWithTimestamp(hashCode, startTime);
         IntWithTimestamp finish = new IntWithTimestamp(hashCode, finishTime);
         return Stream.defer(() -> Stream //
                 .from(properties.find(start, finish, true)) //
-                .filter(x -> "logMsg".equals(x.key)) //
+                .filter(x -> Field.MSG.equals(x.key)) //
                 .map(x -> x.stringValue)) //
                 .doOnStart(() -> lock.lock()) //
                 .doBeforeDispose(() -> lock.unlock());
@@ -91,7 +91,7 @@ public final class DataPersistedBPlusTree implements Data {
         try {
             numEntries++;
             for (Entry<String, String> pair : entry.getProperties().entrySet()) {
-                if ("logMsg".equals(pair.getKey())) {
+                if (Field.MSG.equals(pair.getKey())) {
                     // insert a string value
                     IntWithTimestamp k = new IntWithTimestamp(pair.getKey().hashCode(), entry.getTime());
                     PropertyWithTimestamp v = new PropertyWithTimestamp(pair.getKey(), 0, pair.getValue(),
