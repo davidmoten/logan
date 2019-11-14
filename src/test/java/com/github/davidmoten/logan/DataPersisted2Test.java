@@ -19,9 +19,9 @@ public class DataPersisted2Test {
     @Test
     public void test() {
         BPlusTree<IntWithTimestamp, PropertyWithTimestamp> tree = create();
-        tree.insert(new IntWithTimestamp(123, 500L), new PropertyWithTimestamp("hello", 1.1, 500L));
-        tree.insert(new IntWithTimestamp(234, 200L), new PropertyWithTimestamp("there", 1.2, 200L));
-        tree.insert(new IntWithTimestamp(124, 300L), new PropertyWithTimestamp("hello2", 1.3, 300L));
+        tree.insert(new IntWithTimestamp(123, 500L), new PropertyWithTimestamp("hello", 1.1, null, 500L));
+        tree.insert(new IntWithTimestamp(234, 200L), new PropertyWithTimestamp("there", 1.2, null, 200L));
+        tree.insert(new IntWithTimestamp(124, 300L), new PropertyWithTimestamp("hello2", 1.3, null, 300L));
         tree.print();
 
         {

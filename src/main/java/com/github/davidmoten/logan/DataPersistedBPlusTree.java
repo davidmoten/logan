@@ -1,10 +1,13 @@
 package com.github.davidmoten.logan;
 
 import java.io.File;
+import java.util.Date;
 import java.util.Map.Entry;
 import java.util.NavigableSet;
 import java.util.TreeSet;
 import java.util.logging.Logger;
+
+import org.davidmoten.kool.Stream;
 
 import com.github.davidmoten.bplustree.BPlusTree;
 
@@ -46,7 +49,6 @@ public final class DataPersistedBPlusTree implements Data {
             log.info("querying properties for range " + start + " to " + finish);
             properties.find(start, finish, true) //
                     .forEach(x -> {
-                        log.info("record=" + x);
                         if (x.key.equals(query.getField().get())) {
                             // TODO check source, scan, etc
                             buckets.add(x.time, x.value);
@@ -58,7 +60,14 @@ public final class DataPersistedBPlusTree implements Data {
 
     @Override
     public Iterable<String> getLogs(long startTime, long finishTime) {
-        throw new UnsupportedOperationException();
+        log.info("querying logs for range " + new Date(startTime) + " to " + new Date(finishTime));
+        int hashCode = "logMsg".hashCode();
+        IntWithTimestamp start = new IntWithTimestamp(hashCode, startTime);
+        IntWithTimestamp finish = new IntWithTimestamp(hashCode, finishTime);
+        return Stream.defer(() -> Stream //
+                .from(properties.find(start, finish, true)) //
+                .filter(x -> "logMsg".equals(x.key)) //
+                .map(x -> x.stringValue));
     }
 
     @Override
@@ -72,14 +81,25 @@ public final class DataPersistedBPlusTree implements Data {
             log.info("add " + entry);
             numEntries++;
             for (Entry<String, String> pair : entry.getProperties().entrySet()) {
-                Double value = Util.parseDouble(pair.getValue());
-                if (value != null) {
-                    log.info("pair=" + pair);
-                    keys.add(pair.getKey());
+                if ("logMsg".equals(pair.getKey())) {
+                    // insert a string value
                     IntWithTimestamp k = new IntWithTimestamp(pair.getKey().hashCode(), entry.getTime());
-                    PropertyWithTimestamp v = new PropertyWithTimestamp(pair.getKey(), value, entry.getTime());
+                    PropertyWithTimestamp v = new PropertyWithTimestamp(pair.getKey(), 0, pair.getValue(),
+                            entry.getTime());
                     System.out.println("inserting\n  " + k + "\n->" + v);
                     properties.insert(k, v);
+                } else {
+                    Double value = Util.parseDouble(pair.getValue());
+                    if (value != null) {
+                        // insert a numeric value
+                        log.info("pair=" + pair);
+                        keys.add(pair.getKey());
+                        IntWithTimestamp k = new IntWithTimestamp(pair.getKey().hashCode(), entry.getTime());
+                        PropertyWithTimestamp v = new PropertyWithTimestamp(pair.getKey(), value, null,
+                                entry.getTime());
+                        // System.out.println("inserting\n " + k + "\n->" + v);
+                        properties.insert(k, v);
+                    }
                 }
             }
             String source = entry.getSource();
