@@ -18,6 +18,7 @@ import java.util.concurrent.atomic.AtomicLong;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.davidmoten.kool.Stream;
 import org.h2.Driver;
 
 import com.google.common.base.Optional;
@@ -186,9 +187,9 @@ public class DataPersistedH2 implements Data {
 	}
 
 	@Override
-	public Iterable<LogEntry> find(final long startTime, final long finishTime) {
+	public Stream<LogEntry> find(final long startTime, final long finishTime) {
 
-		return new Iterable<LogEntry>() {
+		return Stream.from(new Iterable<LogEntry>() {
 
 			@Override
 			public Iterator<LogEntry> iterator() {
@@ -267,8 +268,7 @@ public class DataPersistedH2 implements Data {
 				};
 			}
 
-		};
-
+		});
 	}
 
 	@Override
@@ -290,9 +290,9 @@ public class DataPersistedH2 implements Data {
 	}
 
 	@Override
-	public Iterable<String> getLogs(long startTime, long finishTime) {
-		return DataCore.getLogs(this, startTime,
-				finishTime);
+	public Stream<String> getLogs(long startTime, long finishTime) {
+		return Stream.from(DataCore.getLogs(this, startTime,
+				finishTime));
 	}
 
 	@Override

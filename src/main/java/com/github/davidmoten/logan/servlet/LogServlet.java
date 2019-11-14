@@ -13,20 +13,19 @@ import javax.servlet.http.HttpServletResponse;
 //@WebServlet(urlPatterns = { "/log" })
 public class LogServlet extends HttpServlet {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
-			throws ServletException, IOException {
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		long startTime = getMandatoryLong(req, "start");
-		long finishTime = getMandatoryLong(req, "finish");
-		resp.setContentType("text/plain");
-		PrintWriter out = resp.getWriter();
-		for (String line : State.instance().getData()
-				.getLogs(startTime, finishTime)) {
-			if (line != null)
-				out.println(line);
-		}
-	}
+        long startTime = getMandatoryLong(req, "start");
+        long finishTime = getMandatoryLong(req, "finish");
+        resp.setContentType("text/plain");
+        PrintWriter out = resp.getWriter();
+        State.instance().getData() //
+                .getLogs(startTime, finishTime) //
+                .filter(line -> line != null) //
+                .doOnNext(line -> out.println(line))
+                .start();
+    }
 }

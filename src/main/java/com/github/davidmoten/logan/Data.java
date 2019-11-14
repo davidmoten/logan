@@ -2,13 +2,15 @@ package com.github.davidmoten.logan;
 
 import java.util.NavigableSet;
 
+import org.davidmoten.kool.Stream;
+
 public interface Data {
 
     Buckets execute(BucketQuery query);
 
-    Iterable<String> getLogs(long startTime, long finishTime);
+    Stream<String> getLogs(long startTime, long finishTime);
 
-    Iterable<LogEntry> find(long startTime, long finishTime);
+    Stream<LogEntry> find(long startTime, long finishTime);
 
     /**
      * Adds a {@link LogEntry} to the data.
