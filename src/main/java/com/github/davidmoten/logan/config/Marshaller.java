@@ -2,6 +2,7 @@ package com.github.davidmoten.logan.config;
 
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.charset.StandardCharsets;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
@@ -62,7 +63,7 @@ public class Marshaller {
     public synchronized String marshal(Configuration configuration) {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         marshal(configuration, bytes);
-        return bytes.toString();
+        return bytes.toString(StandardCharsets.UTF_8);
     }
 
     /**

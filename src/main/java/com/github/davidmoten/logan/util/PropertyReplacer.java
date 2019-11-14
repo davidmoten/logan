@@ -5,6 +5,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -19,7 +20,7 @@ public class PropertyReplacer {
 
 	public static InputStream replaceSystemProperties(InputStream is) {
 		try {
-			List<String> lines = IOUtils.readLines(is);
+			List<String> lines = IOUtils.readLines(is, StandardCharsets.UTF_8);
 			ByteArrayOutputStream bytes = new ByteArrayOutputStream();
 			PrintWriter out = new PrintWriter(bytes);
 			Pattern p = Pattern.compile("\\$\\{[^\\$]*\\}");
