@@ -4,6 +4,7 @@ import java.util.Date;
 
 import com.github.davidmoten.bplustree.LargeByteBuffer;
 import com.github.davidmoten.bplustree.Serializer;
+import com.github.davidmoten.jsmaz.Smaz;
 
 public class PropertyWithTimestamp {
 
@@ -47,7 +48,7 @@ public class PropertyWithTimestamp {
                 stringValue = null;
             } else {
                 value = 0;
-                stringValue = bb.getString();
+                stringValue = getString(bb);
             }
             long time = bb.getLong();
             return new PropertyWithTimestamp(key, value, stringValue, time);
@@ -62,9 +63,22 @@ public class PropertyWithTimestamp {
                 bb.putLong(t.time);
             } else {
                 bb.put((byte) 1);
-                bb.putString(t.stringValue);
+                putString(bb, t.stringValue);
                 bb.putLong(t.time);
             }
+        }
+        
+        private String getString(LargeByteBuffer bb) {
+            int length = bb.getInt();
+            byte[] bytes = new byte[length];
+            bb.get(bytes);
+            return Smaz.decompress(bytes);
+        }
+
+        private void putString(LargeByteBuffer bb, String s) {
+            byte[] bytes = Smaz.compress(s);
+            bb.putInt(bytes.length);
+            bb.put(bytes);
         }
 
         @Override
