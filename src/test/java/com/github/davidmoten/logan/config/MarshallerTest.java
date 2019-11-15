@@ -35,6 +35,7 @@ public class MarshallerTest {
 		Marshaller marshaller = new Marshaller();
 		Configuration c = marshaller.unmarshal(MarshallerTest.class
 				.getResourceAsStream(PERSISTER_CONFIGURATION_TEST_XML));
+		assertEquals(PersistenceType.BPLUSTREE, c.persistenceType);
 		assertEquals("UTC", c.group.get(0).parser.timezone);
 		// get coverage of toString methods
 		System.out.println(c);

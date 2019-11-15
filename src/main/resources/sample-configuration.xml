@@ -8,6 +8,9 @@
 	
 	<!--  token delimiters when using scan parameter to find the nth double in a log message  -->
 	<scanDelimiterPattern>(\s|,|:|\|;|=)+</scanDelimiterPattern>
+    
+    <!--  values are MEMORY, BPLUSTREE or H2. H2 is very slow so don't use. -->
+    <persistenceType>BPLUSTREE</persistenceType>
 	
 	<!--  the default parser for all groups -->
 	<parser>

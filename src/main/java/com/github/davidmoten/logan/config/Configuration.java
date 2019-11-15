@@ -32,6 +32,9 @@ public class Configuration {
 
     @XmlElement(required = false)
     public String scanDelimiterPattern;
+    
+    @XmlElement(required = false)
+    public PersistenceType persistenceType; 
     /**
      * Default parser for log lines for all log files where the parser is not
      * specified.

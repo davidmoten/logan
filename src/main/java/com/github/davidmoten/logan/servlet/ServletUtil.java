@@ -10,6 +10,7 @@ import com.github.davidmoten.logan.DataPersistedBPlusTree;
 import com.github.davidmoten.logan.DataPersistedH2;
 import com.github.davidmoten.logan.Util;
 import com.github.davidmoten.logan.config.Configuration;
+import com.github.davidmoten.logan.config.PersistenceType;
 
 public class ServletUtil {
 
@@ -28,12 +29,13 @@ public class ServletUtil {
 
     public static Data getData(Configuration configuration) {
         Data data;
-        if ("h2".equalsIgnoreCase(System.getProperty("persist"))) {
-            data = new DataPersistedH2(new File("target/maindb"), JDBC_BATCH_SIZE);
-        } else if ("bplustree".equalsIgnoreCase(System.getProperty("persist"))) {
+        if (configuration.persistenceType == null || configuration.persistenceType == PersistenceType.MEMORY) {
+            data = new DataMemory(configuration.maxSize);
+        } else if (configuration.persistenceType == PersistenceType.BPLUSTREE) {
             data = new DataPersistedBPlusTree("target/bplustree");
         } else {
-            data = new DataMemory(configuration.maxSize);
+            // H2
+            data = new DataPersistedH2(new File("target/maindb"), JDBC_BATCH_SIZE);
         }
         Util.addDummyData(data);
         return data;
@@ -46,8 +48,8 @@ public class ServletUtil {
             try {
                 return Long.parseLong(req.getParameter(name));
             } catch (NumberFormatException e) {
-                throw new RuntimeException("parameter '" + name
-                        + "' could not be parsed as a Long: " + req.getParameter(name), e);
+                throw new RuntimeException(
+                        "parameter '" + name + "' could not be parsed as a Long: " + req.getParameter(name), e);
             }
     }
 
