@@ -42,6 +42,7 @@ public final class DataPersistedBPlusTree implements Data {
 
     @Override
     public Buckets execute(BucketQuery query) {
+        long t = System.currentTimeMillis();
         lock.lock();
         try {
             log.info(query.toString());
@@ -59,7 +60,9 @@ public final class DataPersistedBPlusTree implements Data {
                             }
                         });
             }
-            log.info("scanned " + buckets.getBucketForAll().count() + " records for query");
+            long elapsed = System.currentTimeMillis() - t;
+            long count = buckets.getBucketForAll().count();
+            log.info("scannedRecords=" + count + ", queryElapsedTimeMs="+ elapsed + ", recordsPerSecond=" + (count*1000/elapsed));
             return buckets;
         } finally {
             lock.unlock();
