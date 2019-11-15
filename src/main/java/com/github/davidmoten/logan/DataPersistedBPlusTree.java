@@ -59,6 +59,7 @@ public final class DataPersistedBPlusTree implements Data {
                             }
                         });
             }
+            log.info("scanned " + buckets.getBucketForAll().count() + " records for query");
             return buckets;
         } finally {
             lock.unlock();
