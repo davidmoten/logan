@@ -34,7 +34,7 @@ public final class DataPersistedBPlusTree implements Data {
                 .file() //
                 .directory(directory) //
                 .clearDirectory() //
-                .maxKeys(16) //
+                .maxKeys(32) //
                 .keySerializer(IntWithTimestamp.SERIALIZER) //
                 .valueSerializer(PropertyWithTimestamp.SERIALIZER) //
                 .naturalOrder();
