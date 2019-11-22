@@ -35,8 +35,7 @@ public class LogFile {
     private final ExecutorService executor;
     private final String source;
 
-    public LogFile(File file, String source, long checkIntervalMs, LogParser parser,
-            ExecutorService executor) {
+    public LogFile(File file, String source, long checkIntervalMs, LogParser parser, ExecutorService executor) {
         this.file = file;
         this.source = source;
         this.checkIntervalMs = checkIntervalMs;
@@ -59,8 +58,8 @@ public class LogFile {
     private static int BUFFER_SIZE = 2 * 4096;
 
     /**
-     * Starts a thread that tails a file from the start and reports extracted
-     * info from the lines to the database.
+     * Starts a thread that tails a file from the start and reports extracted info
+     * from the lines to the database.
      * 
      * @param data
      *            data
@@ -88,8 +87,7 @@ public class LogFile {
         private final LinkedHashMap<LogEntry, List<String>> entries;
         private final List<String> unparsedLines;
 
-        public SampleResult(LinkedHashMap<LogEntry, List<String>> entries,
-                List<String> unparsedLines) {
+        public SampleResult(LinkedHashMap<LogEntry, List<String>> entries, List<String> unparsedLines) {
             this.entries = entries;
             this.unparsedLines = unparsedLines;
         }
@@ -157,7 +155,6 @@ public class LogFile {
 
             @Override
             public synchronized void handle(String line) {
-                log.fine(new StringBuilder().append(source).append(":").append(line).toString());
                 try {
                     LogEntry entry = parser.parse(source, line);
                     if (entry != null) {

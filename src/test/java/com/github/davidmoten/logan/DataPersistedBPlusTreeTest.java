@@ -14,7 +14,7 @@ import org.junit.Test;
 
 import com.github.davidmoten.bplustree.BPlusTree;
 
-public class DataPersisted2Test {
+public class DataPersistedBPlusTreeTest {
 
     @Test
     public void test() {
