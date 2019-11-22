@@ -273,7 +273,7 @@ public class DataPersistedH2 implements Data {
 
 	@Override
 	public Buckets execute(BucketQuery query) {
-		return DataCore.execute(this, query);
+		return DataHelper.execute(this, query);
 	}
 
 	@Override
@@ -291,7 +291,7 @@ public class DataPersistedH2 implements Data {
 
 	@Override
 	public Stream<String> getLogs(long startTime, long finishTime) {
-		return Stream.from(DataCore.getLogs(this, startTime,
+		return Stream.from(DataHelper.getLogs(this, startTime,
 				finishTime));
 	}
 

@@ -91,7 +91,7 @@ public class DataMemory implements Data {
     public Buckets execute(final BucketQuery query) {
 
         synchronized (changeLock) {
-            return DataCore.execute(this, query);
+            return DataHelper.execute(this, query);
         }
     }
 
@@ -126,7 +126,7 @@ public class DataMemory implements Data {
 
     @Override
     public Stream<String> getLogs(long startTime, long finishTime) {
-        return Stream.from(DataCore.getLogs(this, startTime, finishTime));
+        return Stream.from(DataHelper.getLogs(this, startTime, finishTime));
     }
 
     private synchronized void incrementCounter() {

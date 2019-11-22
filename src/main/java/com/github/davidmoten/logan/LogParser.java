@@ -11,6 +11,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
@@ -53,8 +54,8 @@ public class LogParser {
     /**
      * Returns the parsed line as a {@link LogEntry}. Note that this method is
      * synchronized because the {@link DateFormat} object used by it is not
-     * thread-safe. However, you can safely instantiate multiple
-     * {@link LogParser} objects and use them concurrently.
+     * thread-safe. However, you can safely instantiate multiple {@link LogParser}
+     * objects and use them concurrently.
      * 
      * @param source
      *            source
@@ -101,8 +102,10 @@ public class LogParser {
 
         Map<String, String> values = getValues(level, logger, threadName, line, method);
         // persist the split fields from the full message
-        Map<String, String> m = splitter.split(msg);
-        values.putAll(m);
+        List<String> pairs = splitter.split(msg);
+        for (int i = 0; i < pairs.size(); i += 2) {
+            values.put(pairs.get(i), pairs.get(i + 1));
+        }
         values.put(Field.SOURCE, source);
         return new LogEntry(time, values);
     }
@@ -118,14 +121,12 @@ public class LogParser {
 
                 if (!df.toPattern().contains("yy")) {
                     // set year to most recent possible
-                    Calendar cal = Calendar
-                            .getInstance(TimeZone.getTimeZone(options.getTimezone()));
+                    Calendar cal = Calendar.getInstance(TimeZone.getTimeZone(options.getTimezone()));
                     int year = cal.get(Calendar.YEAR);
                     cal.setTimeInMillis(time);
                     cal.set(Calendar.YEAR, year);
                     // if in future then make it last year
-                    if (cal.getTimeInMillis() > System.currentTimeMillis()
-                            + TimeUnit.DAYS.toMillis(1)) {
+                    if (cal.getTimeInMillis() > System.currentTimeMillis() + TimeUnit.DAYS.toMillis(1)) {
                         cal.set(Calendar.YEAR, year - 1);
                     }
                     time = cal.getTimeInMillis();
@@ -136,8 +137,7 @@ public class LogParser {
         return null;
     }
 
-    private Map<String, String> getValues(String level, String logger, String threadName,
-            String msg, String method) {
+    private Map<String, String> getValues(String level, String logger, String threadName, String msg, String method) {
         Map<String, String> values = Maps.newHashMap();
         if (level != null)
             values.put(LEVEL, level);

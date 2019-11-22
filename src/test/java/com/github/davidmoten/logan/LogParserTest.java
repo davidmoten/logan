@@ -121,7 +121,7 @@ public class LogParserTest {
 			System.out.println(line);
 			LogEntry entry = p.parse("test", line);
 			if (entry != null) {
-				Map<String, String> map = splitter.split(entry.getProperties()
+				Map<String, String> map = splitter.splitAsMap(entry.getProperties()
 						.get(Field.MSG));
 				if (map.size() > 0)
 					System.out.println(map);

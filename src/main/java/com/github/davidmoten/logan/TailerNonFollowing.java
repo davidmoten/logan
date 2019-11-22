@@ -30,7 +30,17 @@ public class TailerNonFollowing implements Runnable {
                                     new FileInputStream(file)),
                             bufferSize)) {
                 String line;
-                while (keepGoing && (line = br.readLine()) != null) {
+                int i = 10000;
+                while ((line = br.readLine()) != null) {
+                    // don't do the volatile read every line
+                    // to give better perf (probably unnoticeable)
+                    // as we are doing IO
+                    if (--i==0) {
+                        i = 10000;
+                        if (!keepGoing) {
+                            break;
+                        }
+                    }
                     listener.handle(line);
                 }
             }
